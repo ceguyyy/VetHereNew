@@ -107,5 +107,12 @@ struct RegisterView: View {
 }
 
 #Preview {
-    RegisterView(AppCoordinator())
+    @Previewable
+    @StateObject var appCoordinator = AppCoordinator()
+    NavigationStack(path: $appCoordinator.path){
+        RegisterView(appCoordinator)
+            .navigationDestination(for: Screen.self) { screen in
+                appCoordinator.build(screen)
+            }
+    }
 }

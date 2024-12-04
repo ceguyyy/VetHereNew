@@ -82,5 +82,12 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView(AppCoordinator())
+    @Previewable
+    @StateObject var appCoordinator = AppCoordinator()
+    NavigationStack(path: $appCoordinator.path){
+        LoginView(appCoordinator)
+            .navigationDestination(for: Screen.self) { screen in
+                appCoordinator.build(screen)
+            }
+    }
 }
