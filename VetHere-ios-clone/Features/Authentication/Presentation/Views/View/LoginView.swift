@@ -78,10 +78,6 @@ struct LoginView: View {
         }
         .padding()
         .navigationBarBackButtonHidden()
-        .ignoresSafeArea(
-            edges: [.top, .bottom]
-        )
-
     }
 }
 
