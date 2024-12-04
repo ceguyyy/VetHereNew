@@ -10,6 +10,7 @@ import SwiftUI
 enum ApplicationTab: Identifiable, CaseIterable {
     case Clinic
     case History
+    case myPet
     
     var id: Self { return self }
 }

@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct MyPet: View {
+struct MyPetView: View {
     var body: some View {
         Text("My Pet")
     }
 }
 
 #Preview {
-    MyPet()
+    MyPetView()
 }

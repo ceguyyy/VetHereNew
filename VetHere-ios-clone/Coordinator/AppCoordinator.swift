@@ -52,6 +52,15 @@ class AppCoordinator: AppCoordinatorProtocol {
             RegisterView(self)
         case .nearestVet:
             NearestVetView()
+        case .details:
+            DetailsView()
+        case .history:
+            HistoryView()
+        case .contentView:
+            ContentView()
+        case .myPet:
+            MyPetView()
         }
+        
     }
 }

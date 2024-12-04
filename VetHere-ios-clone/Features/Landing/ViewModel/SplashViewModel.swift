@@ -16,13 +16,15 @@ class SplashViewModel : ObservableObject{
     enum Input {
         case DidAnimationFinished
     }
+    
+    
     func onInput(_ input: Input) {
         switch input {
         case .DidAnimationFinished:
             print("animation finished")
             let isVerified = authenticationDefault.loadIsVerified()
             if isVerified {
-                coordinator.push(.nearestVet)
+                coordinator.push(.contentView)
                 return
             }
             coordinator.push(.login)

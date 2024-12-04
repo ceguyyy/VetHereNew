@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SplashView: View {
     @StateObject private var viewModel: SplashViewModel
-    var user: User?
 
     init(_ coordinator: any AppCoordinatorProtocol) {
         self._viewModel = StateObject(

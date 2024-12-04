@@ -12,6 +12,10 @@ enum Screen: Identifiable, Hashable{
     case login
     case nearestVet
     case register
+    case details
+    case history
+    case contentView
+    case myPet
 //    case contentView
     var id: Self { return self }
 }
