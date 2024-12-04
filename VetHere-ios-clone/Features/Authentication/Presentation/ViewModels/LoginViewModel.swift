@@ -46,10 +46,12 @@ class LoginViewModel:ObservableObject {
         switch switchLoginRegister {
         case .DidTapRegisterView:
             print("did tap login view")
+            coordinator.pop()
             coordinator.push(.register)
         case .DidTapLoginView:
             print("did tap register view")
             coordinator.pop()
+            coordinator.push(.login)
         }
     }
     
@@ -101,21 +103,21 @@ class LoginViewModel:ObservableObject {
                     }
                     
                     credentialManager.setCredential(withToken: data.access_token, withRefreshToken: data.refresh_token)
-                   
                     
                     return .success(())
                 }
-                
+
                 switch response {
                 case .success(_):
                     print("saved access token : ", credentialManager.fetchCredential()?.accessToken as Any)
                     print("saved refresh token : ", credentialManager.fetchCredential()?.refreshToken as Any)
                     coordinator.popToRoot()
                     coordinator.push(.login)
-                case .failure(_):
-                    print("failed registering")
+                case .failure(let error):
+                    debugPrint("Failed registering: \(error.localizedDescription)")
                     self.input.passwordValidation = ValidationResult(
-                        isValid: false, message: "Failed registering, please check your Credentials, please try again"
+                        isValid: false,
+                        message: "Registration failed, please check your credentials again"
                     )
                 }
                 }
