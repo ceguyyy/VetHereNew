@@ -12,6 +12,8 @@ class AppCoordinator: AppCoordinatorProtocol {
     @Published var path: NavigationPath = NavigationPath()
     @Published var currentTab: ApplicationTab = .Clinic
     
+
+    
     func push(_ screen: Screen) {
         path.append(screen)
     }
@@ -36,6 +38,8 @@ class AppCoordinator: AppCoordinatorProtocol {
     
     func dismissFullScreenOver() {
     }
+    
+
     
     @ViewBuilder
     func build(_ screen: Screen) -> some View {
