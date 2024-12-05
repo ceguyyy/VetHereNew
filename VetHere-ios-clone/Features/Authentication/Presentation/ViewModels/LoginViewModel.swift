@@ -80,7 +80,7 @@ class LoginViewModel:ObservableObject {
                     coordinator.pop()
                     print("saved access token : ", credentialManager.fetchCredential()?.accessToken as Any)
                     print("saved refresh token : ", credentialManager.fetchCredential()?.refreshToken as Any)
-                    coordinator.push(.nearestVet)
+                    coordinator.push(.contentView)
                 case .failure(_):
                     self.input.passwordValidation = ValidationResult(
                         isValid: false, message: "Incorrect Credentials, please try again"
