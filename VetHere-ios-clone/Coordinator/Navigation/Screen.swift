@@ -17,8 +17,7 @@ enum Screen: Identifiable, Hashable{
     case myPet
     case details(vetId: UUID, vetDistance: Double)
     case bookChoosePet(vetId: UUID, vetName: String, doctorId: UUID, DoctorName: String)
-    
-    
+  
 //    case contentView
     var id: Self { return self }
 }

@@ -24,20 +24,27 @@ struct ContentView: View {
                     Label("Klinik", systemImage: "house")
                 }
                 .tag(ApplicationTab.Clinic) // Match tag to active tab
-            
             MyPetView()
                 .tabItem {
                     Label("Peliharaan", systemImage: "pawprint.fill")
                 }
                 .tag(ApplicationTab.MyPets)
-
             HistoryView()
                 .tabItem {
                     Label("Riwayat", systemImage: "clock")
                 }
+                .tag(Screen.history)
+        }
+    }
+}
+
+
+
+#Preview {
+    ContentView()
+}
                 .tag(ApplicationTab.History)
         }
         .navigationBarBackButtonHidden()
     }
 }
-

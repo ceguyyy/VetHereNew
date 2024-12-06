@@ -107,7 +107,7 @@ public class NetworkManager{
             return .success(response)
         }
         catch {
-            debugPrint("aselole network error \(error)")
+            debugPrint("network error \(error)")
             
             return .failure(
                 NetworkError.genericError(error: error)
