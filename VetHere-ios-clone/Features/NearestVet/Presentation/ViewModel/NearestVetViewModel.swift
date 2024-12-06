@@ -9,7 +9,6 @@ import CoreLocation
 import Foundation
 
 class NearestVetViewModel: ObservableObject {
-    static let shared = NearestVetViewModel(AppCoordinator())
     private let networkManager = NetworkManager.shared
     private let authenticationDefaults = AuthenticationUserDefaults.shared
     private let credentialManager = KeychainCredentialManager.shared

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct VetDetailsView: View {
     @StateObject private var viewmodel: VetDetailsViewModel
@@ -28,6 +29,7 @@ struct VetDetailsView: View {
             case .error(let message):
                 ErrorView(message: message)
             case .loaded:
+    
                 if let vetDetail = viewmodel.vetDetail {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 20) {
@@ -75,7 +77,12 @@ struct VetDetailsView: View {
         .navigationBarTitle(viewmodel.vetDetail?.name ?? "Unknown")
         .onAppear {
             viewmodel.onInput(.didFetchDetailVet(vetid: vetId), vetId: vetId)
+            
         }
+ 
+
+
+
         .refreshable {
             viewmodel.onInput(.didFetchDetailVet(vetid: vetId), vetId: vetId)
         }

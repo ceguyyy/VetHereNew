@@ -61,7 +61,7 @@ class AppCoordinator: AppCoordinatorProtocol {
         case .register:
             RegisterView(self)
         case .bookChoosePet(let vetId, let vetName, let doctorId, let doctorName):
-            BookChoosePet(self, vetId: vetId, vetName: vetName, doctorId: doctorId, doctorName: doctorName)
+            BookChoosePetView(self, vetId: vetId, vetName: vetName, doctorId: doctorId, doctorName: doctorName)
         }
         
     }
