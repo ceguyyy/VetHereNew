@@ -27,7 +27,8 @@ class SplashViewModel : ObservableObject{
                 coordinator.push(.contentView)
                 return
             }
-            coordinator.push(.login)
+            coordinator.push(.login) // Push Login if not verified
         }
     }
+
 }

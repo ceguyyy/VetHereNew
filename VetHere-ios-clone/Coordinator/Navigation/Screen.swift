@@ -12,10 +12,12 @@ enum Screen: Identifiable, Hashable{
     case login
     case nearestVet
     case register
-    case details
     case history
     case contentView
     case myPet
+    case details(vetId: UUID, vetDistance: Double)
+    case bookChoosePet(vetId: UUID, vetName: String, doctorId: UUID, DoctorName: String)
+  
 //    case contentView
     var id: Self { return self }
 }

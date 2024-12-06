@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct BaseResponse<T: Codable>: Codable {
+struct BaseResponse<T: Decodable>: Decodable {
     public let meta: Meta
     public let data: T?
 }
