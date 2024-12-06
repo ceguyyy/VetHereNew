@@ -41,6 +41,13 @@ public class KeychainCredentialManager {
         )
     }
     
+    func clearCredentials() {
+           keyChain.delete(Constant.credentialKey)
+           keyChain.delete(Constant.refreshKey)
+           print("Credentials cleared from Keychain")
+       }
+    
+    
     struct Constant {
         static let credentialKey = "Token"
         static let refreshKey = "Refresh"

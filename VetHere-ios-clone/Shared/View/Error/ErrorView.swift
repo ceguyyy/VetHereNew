@@ -16,3 +16,7 @@ struct ErrorView: View {
             .padding()
     }
 }
+
+#Preview {
+    ErrorView(message: "Error")
+}
