@@ -35,16 +35,20 @@ struct ContentView: View {
                 }
                 .tag(Screen.history)
         }
+        .navigationBarBackButtonHidden()
     }
 }
 
 
 
 #Preview {
-    ContentView()
-}
-                .tag(ApplicationTab.History)
-        }
-        .navigationBarBackButtonHidden()
+    @Previewable
+    @StateObject var appCoordinator = AppCoordinator()
+    NavigationStack(path: $appCoordinator.path){
+        ContentView(AppCoordinator())
+            .navigationDestination(for: Screen.self) { screen in
+                appCoordinator.build(screen)
+            }
     }
 }
+    
