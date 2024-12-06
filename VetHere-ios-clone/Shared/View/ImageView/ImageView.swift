@@ -34,11 +34,6 @@ struct ImageView: View {
     }
 }
 
-struct PlaceholderImageView: View {
-    var body: some View {
-        Image(systemName: "photo.fill")
-            .resizable()
-            .frame(width: 393, height: 216)
-            .foregroundColor(.gray)
-    }
+#Preview {
+    ImageView(imageURL: Constant.ErrorImage, width: 100, height: 100)
 }

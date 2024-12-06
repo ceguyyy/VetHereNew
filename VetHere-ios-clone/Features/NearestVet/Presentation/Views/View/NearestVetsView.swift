@@ -38,14 +38,13 @@ struct NearestVetsView: View {
                 }
             }
             .navigationTitle("Klinik Terdekat")
-            .searchable(text: $viewModel.searchText)
+        }  .searchable(text: $viewModel.searchText)
             .refreshable {
                 viewModel.onInput(.didFetchNearestVet)
             }
             .onAppear {
                 viewModel.onInput(.didFetchNearestVet)
             }
-        }
     }
 }
 #Preview {
