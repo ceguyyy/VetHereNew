@@ -40,14 +40,15 @@ class PetViewModel: ObservableObject {
                         Pet(
                             petId: pet.pet_id,
                             petName: pet.pet_name,
-                            petType: pet.pet_type,
-                            petImage: pet.pet_image
+                            petType: pet.pet_type ?? "unknown",
+                            petImage: pet.pet_image ?? ""
                         )
                     }
                     
                 } else {
                     print("Failed to fetch pets: \(response.meta.message)")
                 }
+                
             case .failure(let error):
                 print("Error fetching pets: \(error)")
             }

@@ -10,8 +10,8 @@ import Foundation
 class Pet : Identifiable{
     let petId : String
     let petName : String
-    let petType : String
-    let petImage : String
+    let petType : String?
+    let petImage : String?
     
     init(petId: String, petName: String, petType: String, petImage: String) {
         self.petId = petId
