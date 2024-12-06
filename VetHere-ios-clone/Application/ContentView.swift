@@ -24,7 +24,7 @@ struct ContentView: View {
                     Label("Klinik", systemImage: "house")
                 }
                 .tag(ApplicationTab.Clinic) // Match tag to active tab
-            MyPetView()
+            MyPetView(viewModel.coordinator)
                 .tabItem {
                     Label("Peliharaan", systemImage: "pawprint.fill")
                 }
