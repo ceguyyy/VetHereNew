@@ -19,10 +19,22 @@ struct MyPetView: View {
     var body: some View {
         VStack{
             PetHeaderComponent()
-//            List(pet, id:\.id){ pet in
-//                PetRow(imageUrl: pet., petName: <#T##String#>, petType: <#T##String#>)(pet)
-//                
-//            }
+            List(viewModel.pets, id: \.petId) { pet in // Using petId as the unique identifier
+                HStack {
+                    ImageView(imageURL: pet.petImage, width: 40, height: 40).clipShape(Circle())
+                    VStack(alignment: .leading) {
+                        Text(pet.petName)
+                            .font(.body)
+                        Text(pet.petType!)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.gray)
+                }
+                .padding(.vertical, 4)
+            }
         }
         .onAppear{
             viewModel.GetUserPets()
