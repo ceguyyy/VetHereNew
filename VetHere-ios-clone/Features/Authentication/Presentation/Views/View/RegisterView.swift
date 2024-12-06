@@ -102,9 +102,6 @@ struct RegisterView: View {
         }
         .padding()
         .navigationBarBackButtonHidden()
-        .ignoresSafeArea(
-            edges: [.top, .bottom]
-        )
 
     }
 }
