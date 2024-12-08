@@ -10,14 +10,20 @@ import Foundation
 enum Screen: Identifiable, Hashable{
     case splash
     case login
+    case profile
     case nearestVet
     case register
     case history
     case contentView
     case myPet
-    case myPetDetail(petId: String)
+    case myPetDetail(petId: UUID)
     case details(vetId: UUID, vetDistance: Double)
     case bookChoosePet(vetId: UUID, vetName: String, doctorId: UUID, DoctorName: String)
+    case bookChooseSchedule(vetId: UUID, vetName: String, doctorId: UUID, DoctorName: String, petId: UUID, PetName: String)
+    case bookNotes(vetId: UUID, vetName: String, doctorId: UUID, DoctorName: String, petId: UUID, PetName: String, Date: Date, Time: Date)
+    case summary(vetId: UUID, vetName: String, doctorId: UUID, DoctorName: String, petId: UUID, PetName: String, Date: Date, Time: Date, Notes: String)
+    case successToDatabase
+    case errorToDatabase
   
 //    case contentView
     var id: Self { return self }

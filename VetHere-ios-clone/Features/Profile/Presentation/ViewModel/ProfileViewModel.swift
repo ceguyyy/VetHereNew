@@ -18,6 +18,13 @@ class ProfileViewModel: ObservableObject{
         self.coordinator = coordinator
     }
     
+    
+    func logout() {
+            credentialManager.clearCredentials()
+            coordinator.popToRoot()
+            coordinator.push(.login)
+        }
+    
 
     
     

@@ -27,6 +27,10 @@ class ChooseScheduleViewModel: ObservableObject{
         var message: String
     }
     
+    enum goAction {
+        case goToBookNotes(vetId: UUID, VetName: String, DoctorName : String,  DoctorId: UUID, PetId: UUID, PetName: String, appointmentDate: Date, appointmentTime: Date)
+    }
+    
     
     enum InputGesture {
         case didFetchEmptySchedule(vetId: UUID, doctorId: UUID, appointmentDate: Date)
@@ -38,6 +42,13 @@ class ChooseScheduleViewModel: ObservableObject{
         case .didFetchEmptySchedule:
             print("Success did fetch Detail Vet")
             FetchEmptySchedule(vetId: vetId, doctorId: doctorId, appointmentDate: appointmentDate)
+        }
+    }
+    
+    func goToDetails(_ goAction: goAction) {
+        switch goAction {
+        case .goToBookNotes(vetId: let vetId, VetName: let VetName, DoctorName: let DoctorName, DoctorId: let DoctorId, PetId: let PetId, PetName: let petname, appointmentDate: let appointmentDate, appointmentTime: let appointmentTime):
+            coordinator.push(.bookNotes(vetId: vetId, vetName: VetName, doctorId: DoctorId, DoctorName: DoctorName, petId: PetId, PetName: petname, Date: appointmentDate, Time: appointmentTime))
         }
     }
     

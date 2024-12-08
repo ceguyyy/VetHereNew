@@ -45,6 +45,7 @@ struct MyPetView: View {
                                     .fontWeight(.bold)
                                     .cornerRadius(8)
                                     .onTapGesture {
+                                        viewModel.goToSchedule(.goToPetDetails(petId: pet.id))
                                         print("Pet ID: \(pet.id)")
                                     }
                                 }
@@ -56,11 +57,25 @@ struct MyPetView: View {
                 }
             }
             .navigationTitle("Hewan Peliharaan")
-            .refreshable {
-                viewModel.onInput(.didFetchMyPet)
-            }
-            .onAppear {
-                viewModel.onInput(.didFetchMyPet)
+           
+               .refreshable {
+                   viewModel.onInput(.didFetchMyPet)
+               }
+               .onAppear {
+                   viewModel.onInput(.didFetchMyPet)
+               }
+           
+          
+        }
+        
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    viewModel.goToSchedule(.goToProfile)
+                }) {
+                    Image(systemName: "person.circle")
+                        .font(.title)
+                }
             }
         }
     }

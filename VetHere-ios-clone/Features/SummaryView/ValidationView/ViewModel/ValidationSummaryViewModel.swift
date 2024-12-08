@@ -7,7 +7,7 @@
 
 import Foundation
 
-class validationSummaryViewModel: ObservableObject {
+class ValidationSummaryViewModel: ObservableObject {
     private let networkManager = NetworkManager.shared
     private let authenticationDefaults = AuthenticationUserDefaults.shared
     private let credentialManager = KeychainCredentialManager.shared

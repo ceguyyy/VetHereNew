@@ -21,23 +21,42 @@ class PetViewModel: ObservableObject {
     @Published var pets: [GetUserPetsResponseDto] = []
     
     
+    
+    enum goAction {
+        case goToSchedule(vetid: UUID, vetName: String, doctorId: UUID, DoctorName: String, petId: UUID, petName: String)
+        case goToProfile
+        case goToPetDetails(petId: UUID)
+            }
+    
+    
     enum InputGesture{
         case didFetchMyPet
-        case didChoosePet
+
     }
 
     init(_ coordinator: any AppCoordinatorProtocol) {
         self.coordinator = coordinator
     }
     
+    func goToSchedule(_ goAction: goAction){
+        switch goAction{
+        case .goToSchedule(let vetId, let vetName, let doctorId, let doctorName, let petId, let petName):
+            coordinator.push(.bookChooseSchedule(vetId: vetId, vetName: vetName, doctorId: doctorId, DoctorName: doctorName, petId: petId, PetName: petName))
+            print("GoToDetails")
+        case .goToProfile:
+            coordinator.push(.profile)
+        case .goToPetDetails(let petId):
+            coordinator.push(.myPetDetail(petId: petId))
+        }
+    }
+    
     func onInput(_ inputGesture:InputGesture){
         switch inputGesture{
-        case .didChoosePet:
-//            coordinator.push(.myPetDetail(petId: selectedPet!.petId))
-            print("DidChoosePet")
         case .didFetchMyPet:
             getUserPets()
+       
         }
+        
     }
     
     func transformDTOtoPet() -> [Pet]{
