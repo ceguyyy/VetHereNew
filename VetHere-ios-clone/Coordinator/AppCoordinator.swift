@@ -58,6 +58,8 @@ class AppCoordinator: AppCoordinatorProtocol {
             ContentView(self)
         case .myPet:
             MyPetView(self)
+        case .myPetDetail(let petId):
+            MyPetDetailView(self, petId:petId)
         case .register:
             RegisterView(self)
         case .bookChoosePet(let vetId, let vetName, let doctorId, let doctorName):

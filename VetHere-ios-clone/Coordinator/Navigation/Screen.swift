@@ -15,6 +15,7 @@ enum Screen: Identifiable, Hashable{
     case history
     case contentView
     case myPet
+    case myPetDetail(petId: String)
     case details(vetId: UUID, vetDistance: Double)
     case bookChoosePet(vetId: UUID, vetName: String, doctorId: UUID, DoctorName: String)
   
