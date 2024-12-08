@@ -15,6 +15,12 @@ class LoginViewModel:ObservableObject {
     private let coordinator: any AppCoordinatorProtocol
     @Published var input: InputValue = InputValue()
     
+    let locationManager = LocationManager()
+       init(_ coordinator: any AppCoordinatorProtocol) {
+           self.coordinator = coordinator
+           self.locationManager.requestLocationPermission()
+       }
+    
     enum switchLoginRegister{
         case DidTapLoginView
         case DidTapRegisterView
@@ -23,6 +29,7 @@ class LoginViewModel:ObservableObject {
     enum InputGesture{
         case DidTapLogin
         case DidTapRegister
+        
     }
     
     struct ValidationResult{
@@ -38,9 +45,6 @@ class LoginViewModel:ObservableObject {
         var lastNameText: String = ""
     }
     
-    init(_ coordinator: any AppCoordinatorProtocol) {
-        self.coordinator = coordinator
-    }
     
     func swiftLoginRegister(_ switchLoginRegister: switchLoginRegister){
         switch switchLoginRegister {

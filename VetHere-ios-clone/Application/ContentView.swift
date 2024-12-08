@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var viewModel: ContentViewModel
-    @State private var selectedTab: ApplicationTab = .Clinic 
 
+    @State private var selectedTab: ApplicationTab = .Clinic
     init(_ coordinator: any AppCoordinatorProtocol) {
         self._viewModel = StateObject(
             wrappedValue: ContentViewModel(coordinator)
