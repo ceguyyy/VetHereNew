@@ -9,8 +9,11 @@ import SwiftUI
 
 struct NoFoundView: View {
     var body: some View {
-        Text("Empty")
-            .foregroundColor(.gray)
-            .padding()
+        VStack{
+            Text("Empty")
+                .foregroundColor(.gray)
+                .padding()
+        }
+       
     }
 }

@@ -7,8 +7,8 @@
 import SwiftUI
 
 struct BookChoosePetView: View {
-    @StateObject private var viewModel: BookChoosePetViewModel
-    @State private var selectedPet: MyPetMockUp? = nil
+    @StateObject private var viewModel: PetViewModel
+    @State private var selectedPet: Pet? = nil
     let vetId: UUID
     let vetName: String
     let doctorId: UUID
@@ -18,7 +18,7 @@ struct BookChoosePetView: View {
         _ coordinator: any AppCoordinatorProtocol, vetId: UUID, vetName: String, doctorId: UUID, doctorName: String
     ) {
         self._viewModel = StateObject(
-            wrappedValue: BookChoosePetViewModel(coordinator)
+            wrappedValue: PetViewModel(coordinator)
         )
         self.vetId = vetId
         self.vetName = vetName
@@ -28,22 +28,23 @@ struct BookChoosePetView: View {
     
     var body: some View {
         VStack {
-            if viewModel.myPets.isEmpty {
-                Text("Tidak ada peliharaan Anda. Silakan tambahkan peliharaan baru.")
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                    .padding()
+            if viewModel.isLoading {
+                LoadingView()
+            }
+             else if viewModel.transformDTOtoPet().isEmpty {
+                NoFoundView()
                 Spacer()
             } else {
                 List {
+                    let pets = viewModel.transformDTOtoPet()
                     Section(header: Text("PELIHARAAN SAYA").font(.subheadline).foregroundColor(.secondary)) {
-                        ForEach(viewModel.myPets) { pet in
+                        ForEach(pets, id: \.id) { pet in
                             HStack {
-                                ImageView(imageURL: pet.imageUrl, width: 40, height: 40).clipShape(Circle())
+                                ImageView(imageURL: pet.image, width: 40, height: 40).clipShape(Circle())
                                 VStack(alignment: .leading) {
                                     Text(pet.name)
                                         .font(.body)
-                                    Text(pet.breed)
+                                    Text(pet.type)
                                         .font(.caption)
                                         .foregroundColor(.secondary)
                                 }
@@ -81,7 +82,17 @@ struct BookChoosePetView: View {
                 CustomButtonComponent(
                     title: "Pilih Peliharaan",
                     action: {
-                        print("Confirm \(selectedPet?.name) selection tapped")
+                        if let selectedPet = selectedPet {
+                            viewModel.goToSchedule(.goToSchedule(
+                                vetid: vetId,
+                                vetName: vetName,
+                                doctorId: doctorId,
+                                DoctorName: doctorName,
+                                petId: selectedPet.id,
+                                petName: selectedPet.name
+                            ))
+                        }
+
                     },
                     isDisabled: selectedPet == nil,
                     backgroundColor: selectedPet == nil ? Color.gray.opacity(0.2) : Color.blue,
@@ -90,6 +101,12 @@ struct BookChoosePetView: View {
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 20)
+        }
+        .refreshable {
+            viewModel.onInput(.didFetchMyPet)
+        }
+        .onAppear {
+            viewModel.onInput(.didFetchMyPet)
         }
         .background(Color(.systemGray6))
         .navigationTitle("Pilih Peliharaan")

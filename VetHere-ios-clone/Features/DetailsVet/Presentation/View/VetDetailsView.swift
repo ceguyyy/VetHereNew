@@ -79,10 +79,6 @@ struct VetDetailsView: View {
             viewmodel.onInput(.didFetchDetailVet(vetid: vetId), vetId: vetId)
             
         }
- 
-
-
-
         .refreshable {
             viewmodel.onInput(.didFetchDetailVet(vetid: vetId), vetId: vetId)
         }

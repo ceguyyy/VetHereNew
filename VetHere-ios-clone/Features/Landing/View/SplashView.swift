@@ -23,6 +23,7 @@ struct SplashView: View {
                     viewModel.onInput(.DidAnimationFinished)
                 }
             }
+            .navigationBarBackButtonHidden()
     }
 }
 

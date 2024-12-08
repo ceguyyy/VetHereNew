@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUICore
 
-class PetViewModel: ObservableObject {
+class PetDetailViewModel: ObservableObject {
     private let networkManager = NetworkManager.shared
     private let authenticationDefaults = AuthenticationUserDefaults.shared
     private let credentialManager = KeychainCredentialManager.shared
@@ -18,77 +18,55 @@ class PetViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var loadingState: LoadingState = .loading
     
-    @Published var pets: [GetUserPetsResponseDto] = []
-    
-    
-    
-    enum goAction {
-        case goToSchedule(vetid: UUID, vetName: String, doctorId: UUID, DoctorName: String, petId: UUID, petName: String)
-        case goToProfile
-        case goToPetDetails(petId: UUID)
-            }
+    @Published var petsDetail: GetPetDetailResponseDto?
     
     
     enum InputGesture{
-        case didFetchMyPet
-
+        case didFetchMyPetDetail
     }
 
     init(_ coordinator: any AppCoordinatorProtocol) {
         self.coordinator = coordinator
     }
     
-    func goToSchedule(_ goAction: goAction){
-        switch goAction{
-        case .goToSchedule(let vetId, let vetName, let doctorId, let doctorName, let petId, let petName):
-            coordinator.push(.bookChooseSchedule(vetId: vetId, vetName: vetName, doctorId: doctorId, DoctorName: doctorName, petId: petId, PetName: petName))
-            print("GoToDetails")
-        case .goToProfile:
-            coordinator.push(.profile)
-        case .goToPetDetails(let petId):
-            coordinator.push(.myPetDetail(petId: petId))
-        }
+    enum goAction{
+        case goToMedicalRecord
+        case goToVaccineHistory
     }
+
     
-    func onInput(_ inputGesture:InputGesture){
+    func onInput(_ inputGesture:InputGesture, petId:UUID){
         switch inputGesture{
-        case .didFetchMyPet:
-            getUserPets()
-       
-        }
-        
-    }
-    
-    func transformDTOtoPet() -> [Pet]{
-        return pets.map {
-            dto in
-            Pet(id: UUID(uuidString: dto.pet_id) ?? UUID(),
-                name: dto.pet_name,
-                type: dto.pet_type ?? "Unknown",
-                image: dto.pet_image,
-                weight: 0, DOB: "",
-                breed: "",
-                color: "")
+        case .didFetchMyPetDetail:
+            print("fetching pet detail..")
+            getUserPetsDetail(petId: petId)
         }
     }
     
-    func getUserPets() {
+//    func transformDTOtoPet() -> PetDetail{
+//        return petsDetail.map {
+//            dto in
+//            PetDetail(id: <#T##UUID#>, pet_type: <#T##String#>, pet_breed: <#T##String#>, pet_image: <#T##String#>, pet_name: <#T##String#>, pet_color: <#T##String#>, pet_dob: <#T##String#>, medical_record: <#T##[MedicalRecord]#>, vaccine_histories: <#T##[VaccineHistory]#>)
+//        }
+//    }
+    
+    func getUserPetsDetail(petId: UUID) {
         Task { @MainActor [weak self] in
             guard let self = self else { return }
             
             self.isLoading = true
             self.errorMessage = nil
             
-            let dto = GetUserPetsRequestDto()
-            let service = PetService.getMyPet(params: dto)
+            let dto = GetPetDetailRequestDto(pet_id: petId.uuidString)
+            let service = PetDetailService.getMyPetDetail(params: dto)
             
-            let result = await networkManager.makeRequest(service, output: [GetUserPetsResponseDto].self)
+            let result = await networkManager.makeRequest(service, output: GetPetDetailResponseDto.self)
             
             switch result {
             case .success(let response):
-                if let petsData = response.data {
-                    self.pets = petsData
-                    print("Successfully fetched pets")
+                if let petsDetailData = response.data {
+                    self.petsDetail = petsDetailData
+                    print("Successfully fetched pets detail")
                 } else {
                     self.errorMessage = "No pets data found."
                     print("No data available for pets.")

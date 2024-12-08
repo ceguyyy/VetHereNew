@@ -8,21 +8,35 @@
 import SwiftUI
 
 struct SummaryView: View {
-    @StateObject private var viewModel: ChooseScheduleViewModel
+    @StateObject private var viewModel: SummaryViewModel
     
-    var vetid: UUID?
-    var vetName: String?
-    var doctorId: UUID?
-    var doctorName: String?
-    var petId: UUID?
-    var petName: String?
-    var selectedDate: Date?
-    var selectedTime: Date?
-    var notes: String?
+    var vetId: UUID
+    var vetName: String
+    var doctorId: UUID
+    var doctorName: String
+    var petId: UUID
+    var petName: String
+    var selectedDate: Date
+    var selectedTime: Date
+    var notes: String
     
-    init(_ coordinator: any AppCoordinatorProtocol) {
-        self._viewModel = StateObject(wrappedValue: ChooseScheduleViewModel(coordinator))
+    
+    init(_ coordinator: any AppCoordinatorProtocol, vetId: UUID, vetName: String, doctorId: UUID, doctorName: String, petId: UUID, petName: String, date: Date, time: Date, notes: String) {
+        self._viewModel = StateObject(wrappedValue: SummaryViewModel(coordinator))
+        
+        self.vetId = vetId
+        self.vetName = vetName
+        self.doctorId = doctorId
+        self.doctorName = doctorName
+        self.petId = petId
+        self.petName = petName
+        self.selectedDate = date
+        self.selectedTime = time
+        self.notes = notes
+        
     }
+    
+    
     var body: some View {
         VStack {
             List {
@@ -31,8 +45,8 @@ struct SummaryView: View {
                         Text("Ringkasan Pemesanan")
                             .font(.custom("SF Pro", size: 22).weight(.heavy))
                             .padding(12)
-                        InfoRowComponent(label: "Tanggal", value: selectedDate != nil ? formattedTimeDDMMYY(selectedDate!) : "-")
-                        InfoRowComponent(label: "Waktu", value: selectedTime != nil ? formattedTimeHHMM(selectedTime!) : "-")
+                        InfoRowComponent(label: "Tanggal", value: selectedDate != nil ? formattedTimeDDMMYY(selectedDate) : "-")
+                        InfoRowComponent(label: "Waktu", value: selectedTime != nil ? formattedTimeHHMM(selectedTime) : "-")
                         
                         Divider()
                         
@@ -60,8 +74,12 @@ struct SummaryView: View {
                 }
             }
             VStack(spacing: 20){
-                CustomButtonComponent(title: "Lanjutkan", action: { print(
-                    "Tap Schedule")
+                CustomButtonComponent(title: "Lanjutkan", action: {
+                    viewModel.CreateAppointment(vetId: vetId, doctorId: doctorId, petId: petId, notes: notes, date: selectedDate, time: selectedTime)
+                    
+                    
+                    
+                    
                 }, isDisabled: false, backgroundColor: .white, textColor: .blue)
             }
             .padding(.horizontal, 16)
@@ -69,19 +87,20 @@ struct SummaryView: View {
             
             
         }
+        .background(Color(.systemGray6))
         .navigationBarTitle("Ringkasan")
         .navigationBarTitleDisplayMode(.inline)
     }
     
 }
 
-#Preview {
-    @Previewable
-    @StateObject var appCoordinator = AppCoordinator()
-    NavigationStack(path: $appCoordinator.path) {
-        SummaryView(appCoordinator)
-            .navigationDestination(for: Screen.self) { screen in
-                appCoordinator.build(screen)
-            }
-    }
-}
+//#Preview {
+//    @Previewable
+//    @StateObject var appCoordinator = AppCoordinator()
+//    NavigationStack(path: $appCoordinator.path) {
+//        SummaryView(appCoordinator)
+//            .navigationDestination(for: Screen.self) { screen in
+//                appCoordinator.build(screen)
+//            }
+//    }
+//}

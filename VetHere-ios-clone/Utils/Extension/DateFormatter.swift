@@ -25,3 +25,12 @@ func formattedDateYYYYMMDD(_ date: Date) -> String {
     formatter.dateFormat = "yyyy-MM-dd" 
     return formatter.string(from: date)
 }
+
+func formattedTimeHHMMSS(_ date: Date) -> String {
+    let formatter = DateFormatter()
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.dateFormat = "HH:mm:ss"
+    return formatter.string(from: date)
+}
+
+

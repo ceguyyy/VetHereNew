@@ -5,21 +5,34 @@
 //  Created by Christian Gunawan on 06/12/24.
 //
 
-//
-//  NoteView.swift
-//  VetHere-ios-clone
-//
-//  Created by Christian Gunawan on 06/12/24.
-//
 
 import SwiftUI
 
 struct NoteView: View {
     @StateObject private var viewModel: NoteViewModel
-    @State var notes: String = ""
+    @State var notes: String = "Catatan:"
     
-    init(_ coordinator: any AppCoordinatorProtocol) {
+    let vetId: UUID
+    let vetName: String
+    let doctorId: UUID
+    let doctorName: String
+    let petId: UUID
+    let petName: String
+    let date: Date
+    let time: Date
+    
+    init(_ coordinator: any AppCoordinatorProtocol, vetId: UUID, vetName: String, doctorId: UUID, doctorName: String, petId: UUID, petName: String, date: Date, time: Date) {
         self._viewModel = StateObject(wrappedValue: NoteViewModel(coordinator))
+        
+        self.vetId = vetId
+        self.vetName = vetName
+        self.doctorId = doctorId
+        self.doctorName = doctorName
+        self.petId = petId
+        self.petName = petName
+        self.date = date
+        self.time = time
+        
     }
     
     var body: some View {
@@ -56,7 +69,10 @@ struct NoteView: View {
             
             VStack(spacing: 20){
                 CustomButtonComponent(title: "Lanjutkan", action: {
-                    print("Catatan Simpan")
+                    viewModel.goToDetails(.goToSummary(vetId: vetId, VetName: vetName, DoctorName: doctorName, DoctorId: doctorId, PetId: petId, PetName: petName, appointmentDate: date, appointmentTime: time, notes: notes))
+                    
+                    
+                    
                 }, isDisabled: false, backgroundColor: .white, textColor: .accentColor)
             }.padding(.horizontal, 16)
                 .padding(.bottom, 20)
@@ -68,13 +84,13 @@ struct NoteView: View {
     }
 }
 
-#Preview {
-    @Previewable
-    @StateObject var appCoordinator = AppCoordinator()
-    NavigationStack(path: $appCoordinator.path) {
-        NoteView(appCoordinator)
-            .navigationDestination(for: Screen.self) { screen in
-                appCoordinator.build(screen)
-            }
-    }
-}
+//#Preview {
+//    @Previewable
+//    @StateObject var appCoordinator = AppCoordinator()
+//    NavigationStack(path: $appCoordinator.path) {
+//        NoteView(appCoordinator)
+//            .navigationDestination(for: Screen.self) { screen in
+//                appCoordinator.build(screen)
+//            }
+//    }
+//}

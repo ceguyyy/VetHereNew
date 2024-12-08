@@ -32,12 +32,15 @@ class NearestVetViewModel: ObservableObject {
     
     enum goToDetailsGesture {
         case goToDetails(vetId: UUID, vetDistance:Double)
+        case goToProfile
     }
     
     func goToDetails(_ goToDetailsGesture: goToDetailsGesture) {
         switch goToDetailsGesture {
         case .goToDetails(let vetId, let vetDistance):
             coordinator.push(.details(vetId: vetId, vetDistance: vetDistance))
+        case .goToProfile:
+            coordinator.push(.profile)
         }
     }
     
@@ -111,6 +114,7 @@ class NearestVetViewModel: ObservableObject {
                 self.isLoading = false
             }
         }
+
         
     }
 

@@ -48,6 +48,8 @@ class AppCoordinator: AppCoordinatorProtocol {
             SplashView(self)
         case .login:
             LoginView(self)
+        case .profile:
+            ProfileView(self)
         case .nearestVet:
             NearestVetsView(self)
         case .details(let vetId, let vetDistance):
@@ -59,12 +61,21 @@ class AppCoordinator: AppCoordinatorProtocol {
         case .myPet:
             MyPetView(self)
         case .myPetDetail(let petId):
-//            MyPetDetailView(self, petId:petId)
-            EmptyView()
+            MyPetDetailView(self, petId: petId)
         case .register:
             RegisterView(self)
         case .bookChoosePet(let vetId, let vetName, let doctorId, let doctorName):
             BookChoosePetView(self, vetId: vetId, vetName: vetName, doctorId: doctorId, doctorName: doctorName)
+        case .bookChooseSchedule(let vetId, let vetName, let doctorId, let doctorName, let PetId, let PetName):
+            BookChooseScheduleView(self, vetId: vetId, vetName: vetName, doctorId: doctorId, doctorName: doctorName, petId: PetId, petName: PetName)
+        case .bookNotes(let vetId, let vetName, let doctorId, let doctorName, let PetId, let PetName, let date, let time):
+            NoteView(self, vetId: vetId, vetName: vetName, doctorId: doctorId, doctorName: doctorName, petId: PetId, petName: PetName, date: date, time: time)
+        case .summary(let vetId, let vetName, let doctorId, let doctorName, let PetId, let PetName, let date, let time, let notes):
+            SummaryView(self, vetId: vetId, vetName: vetName, doctorId: doctorId, doctorName: doctorName, petId: PetId, petName: PetName, date: date, time: time, notes: notes)
+        case .successToDatabase:
+            SuccessBookView(self)
+        case .errorToDatabase:
+            FailedBookView(self)
         }
         
     }

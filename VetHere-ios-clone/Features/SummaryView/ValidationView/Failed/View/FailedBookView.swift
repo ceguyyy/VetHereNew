@@ -8,69 +8,100 @@
 import SwiftUI
 
 struct FailedBookView: View {
-    @State private var scale: CGFloat = 1.0
-    
-    var body: some View {
+
+  @State private var scale: CGFloat = 1.0
+  @StateObject private var viewModel: ValidationSummaryViewModel
+
+  init(_ coordinator: any AppCoordinatorProtocol) {
+    self._viewModel = StateObject(wrappedValue: ValidationSummaryViewModel(coordinator))
+  }
+
+  var body: some View {
+    VStack {
+      Text("Booking Gagal")
+        .font(.title)
+        .fontWeight(.bold)
+        .padding(.top, 36)
+
+      ZStack {
+
+        Image("ValidationImage")
+          .scaledToFit()
+          .frame(width: 300, height: 300)
+
         VStack {
-            Text("Booking Gagal")
-                .font(.title)
-                .fontWeight(.bold)
-                .padding(.top, 36)
-            
+          ZStack {
+
             Image(systemName: "circle.fill")
-                .resizable()
-                .frame(width: 134, height: 134)
-                .scaleEffect(scale)
-                .foregroundColor(Color.blue)
-                .opacity(0.5)
-                .onAppear {
-                    withAnimation(
-                        Animation.spring(duration: 1.0).repeatForever(autoreverses: true)
-                    ) {
-                        scale = 1.5
-                    }
+              .resizable()
+              .frame(width: 200, height: 200)
+              .scaleEffect(scale)
+              .foregroundColor(Color.red)
+              .opacity(0.5)
+              .onAppear {
+                withAnimation(
+                  Animation.spring(duration: 1.0).repeatForever(autoreverses: true)
+                ) {
+                  scale = 1.5
                 }
-            
-                .padding(.top, 36)
-                .overlay( Image(systemName: "circle.fill")
-                    .resizable()
-                    .foregroundColor(Color.white)
-                    .frame(width: 134, height: 134)
-                    .padding(.top, 36))
-                .overlay( Image(systemName: "x.circle.fill")
-                    .resizable()
-                    .foregroundColor(Color.blue)
-                    .frame(width: 134, height: 134)
-                    .padding(.top, 36))
-          
-            
-              
-            
-            Spacer()
+              }
+
+            Image(systemName: "circle.fill").resizable()
+              .frame(width: 175, height: 175)
+              .foregroundColor(.white)
+            Image(systemName: "x.circle.fill").resizable()
+              .frame(width: 175, height: 175)
+              .foregroundColor(.red)
+
+          }
+
+          VStack(alignment: .leading) {
+            Text("Ups, Pemesanan Anda Gagal! 🐾").padding(.vertical, 100).fontWeight(.bold)
+              .font(.largeTitle)
+          }
+
+          Spacer()
+
         }
-        .navigationTitle("Gagal Pesan")
-        .frame(width: 360, height: 360)
-        .background(Color(.lightGray))
-        .cornerRadius(10)
-        
+
         VStack {
-            HStack {
-                Spacer()
-                Text("Kembali kehalaman utama")
-                Spacer()
-            }
-            .padding()
-            .foregroundColor(.white)
-            .background(.blue)
-            .frame(maxWidth: .infinity)
-            .cornerRadius(8)
-            .padding()
+          Spacer()
+          HStack {
+            Spacer()
+            Text("Kembali kehalaman utama")
+              .foregroundColor(.white)
+              .font(.headline)
+            Spacer()
+          }
+          .padding()
+          .background(Color.blue)
+          .cornerRadius(8)
+          .padding(.horizontal)
+          .onTapGesture {
+            viewModel.goToDetails(.goToSplah)
+          }
         }
         .frame(maxWidth: .infinity)
+        .padding(.top, 200)
+      }
 
+      Spacer()
     }
+    .navigationBarBackButtonHidden()
+    .navigationBarTitle("Booking Gagal", displayMode: .inline)
+    .background(Color("Failed"))
+    .cornerRadius(10)
+    .padding()
+  }
 }
 
 #Preview {
-    FailedBookView()
+  @Previewable
+  @StateObject var appCoordinator = AppCoordinator()
+  NavigationStack(path: $appCoordinator.path) {
+    FailedBookView(appCoordinator)
+      .navigationDestination(for: Screen.self) { screen in
+        appCoordinator.build(screen)
+      }
+  }
 }
