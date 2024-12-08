@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var viewModel: ContentViewModel
-    @State private var selectedTab: ApplicationTab = .Clinic // Track active tab
+    @State private var selectedTab: ApplicationTab = .Clinic 
 
     init(_ coordinator: any AppCoordinatorProtocol) {
         self._viewModel = StateObject(
@@ -23,7 +23,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Klinik", systemImage: "house")
                 }
-                .tag(ApplicationTab.Clinic) // Match tag to active tab
+                .tag(ApplicationTab.Clinic)
             MyPetView(viewModel.coordinator)
                 .tabItem {
                     Label("Peliharaan", systemImage: "pawprint.fill")

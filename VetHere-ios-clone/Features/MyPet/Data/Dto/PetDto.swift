@@ -7,11 +7,15 @@
 
 import Foundation
 
-struct GetUserPetsResponseDto : Codable{
+struct GetUserPetsResponseDto : Decodable{
     let pet_id : String
     let pet_name : String
     let pet_type : String?
-    let pet_image : String?
+    let pet_image : String
+}
+
+struct GetUserPetsRequestDto: Codable{
+    
 }
 
 struct GetPetDetailRequestDto : Codable{

@@ -7,29 +7,26 @@
 
 import Foundation
 
-class Pet : Identifiable{
-    let petId : String
-    let petName : String
-    let petType : String?
-    let petImage : String?
-    let petWeight : Double?
-    let petDOB : String?
-    let petBreed : String?
-    let petColor : String?
-    let medicalRecord : MedicalRecord?
-    let vaccineHistory : [VaccineHistory]
+class Pet{
+    let id : UUID
+    let name : String
+    let type : String
+    let image : String
+    let weight : Double
+    let DOB : String
+    let breed : String
+    let color : String
+//    let medicalRecord : MedicalRecord?
+//    let vaccineHistory : [VaccineHistory]
     
-    init(petId: String, petName: String, petType: String?, petImage: String?, petWeight:Double?, petDOB: String?, petBreed: String?, petColor: String?, medicalRecord : MedicalRecord?, vaccineHistory : [VaccineHistory]) {
-        self.petId = petId
-        self.petName = petName
-        self.petType = petType
-        self.petWeight = petWeight
-        self.petImage = petImage
-        self.petDOB = petDOB
-        self.petBreed = petBreed
-        self.petColor = petColor
-        self.medicalRecord = medicalRecord
-        self.vaccineHistory = vaccineHistory
-        
+    init(id: UUID, name: String, type: String, image: String, weight: Double, DOB: String, breed: String, color: String) {
+        self.id = id
+        self.name = name
+        self.type = type
+        self.image = image
+        self.weight = weight
+        self.DOB = DOB
+        self.breed = breed
+        self.color = color
     }
 }
