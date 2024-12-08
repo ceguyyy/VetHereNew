@@ -19,7 +19,7 @@ struct MyPetView: View {
     var body: some View {
         VStack{
             PetHeaderComponent()
-            List(viewModel.pets, id: \.petId) { pet in // Using petId as the unique identifier
+            List(viewModel.pets, id: \.petId) { pet in
                 HStack {
                     ImageView(imageURL: pet.petImage, width: 40, height: 40).clipShape(Circle())
                     VStack(alignment: .leading) {
@@ -34,10 +34,14 @@ struct MyPetView: View {
                         .foregroundColor(.gray)
                 }
                 .padding(.vertical, 4)
+                .onTapGesture {
+                    viewModel.selectedPet = pet
+                    viewModel.onInput(.DidChoosePet)
+                }
             }
         }
         .onAppear{
-            viewModel.GetUserPets()
+            viewModel.getUserPets()
         }
     }
 }

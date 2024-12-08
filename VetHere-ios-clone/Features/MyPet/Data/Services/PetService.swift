@@ -19,4 +19,16 @@ internal struct PetService{
             parameterEncoding: .json
         )
     }
+    
+    static func getUserPetDetail(params: GetPetDetailRequestDto) -> APIService{
+        let path = "/pet"
+        
+        return APIService(
+            method: .POST,
+            path: path,
+            headers: nil,
+            params: params.toDictionary(),
+            parameterEncoding: .json
+        )
+    }
 }
