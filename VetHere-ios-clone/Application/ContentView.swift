@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var viewModel: ContentViewModel
+
     @State private var selectedTab: ApplicationTab = .Clinic
     init(_ coordinator: any AppCoordinatorProtocol) {
         self._viewModel = StateObject(
@@ -23,7 +24,7 @@ struct ContentView: View {
                     Label("Klinik", systemImage: "house")
                 }
                 .tag(ApplicationTab.Clinic)
-            MyPetView()
+            MyPetView(viewModel.coordinator)
                 .tabItem {
                     Label("Peliharaan", systemImage: "pawprint.fill")
                 }

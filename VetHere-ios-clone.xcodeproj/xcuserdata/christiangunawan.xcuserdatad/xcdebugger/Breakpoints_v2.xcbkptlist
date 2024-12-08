@@ -20,5 +20,65 @@
             landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "53E6CA32-EEFD-4B32-B6BF-3487D3DE65BC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VetHere-ios-clone/Features/Authentication/Presentation/ViewModels/LoginViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "onInput(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "53E6CA32-EEFD-4B32-B6BF-3487D3DE65BC - 5e47cf2e620ebf26"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #2 () async -&gt; () in VetHere_ios_clone.LoginViewModel.onInput(VetHere_ios_clone.LoginViewModel.InputGesture) -&gt; ()"
+                  moduleName = "VetHere-ios-clone.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/christiangunawan/Downloads/VetHere-ios-clone%202/VetHere-ios-clone/Features/Authentication/Presentation/ViewModels/LoginViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99">
+               </Location>
+               <Location
+                  uuid = "53E6CA32-EEFD-4B32-B6BF-3487D3DE65BC - c891834387488b93"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for closure #2 () async -&gt; () in VetHere_ios_clone.LoginViewModel.onInput(VetHere_ios_clone.LoginViewModel.InputGesture) -&gt; ()"
+                  moduleName = "VetHere-ios-clone.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/christiangunawan/Downloads/VetHere-ios-clone%202/VetHere-ios-clone/Features/Authentication/Presentation/ViewModels/LoginViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99">
+               </Location>
+               <Location
+                  uuid = "53E6CA32-EEFD-4B32-B6BF-3487D3DE65BC - 28f4d0ff21cc6330"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #2 () async -&gt; () in VetHere_ios_clone.LoginViewModel.onInput(VetHere_ios_clone.LoginViewModel.InputGesture) -&gt; ()"
+                  moduleName = "VetHere-ios-clone.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/christiangunawan/Downloads/VetHere-ios-clone%202/VetHere-ios-clone/Features/Authentication/Presentation/ViewModels/LoginViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
