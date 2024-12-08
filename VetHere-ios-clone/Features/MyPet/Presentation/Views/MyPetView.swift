@@ -8,40 +8,60 @@
 import SwiftUI
 
 struct MyPetView: View {
-    @StateObject var viewModel : PetViewModel
-    init(
-        _ coordinator: any AppCoordinatorProtocol
-    ) {
-        self._viewModel = StateObject(
-            wrappedValue: PetViewModel(coordinator)
-        )
+    @StateObject var viewModel: PetViewModel
+    
+    init(_ coordinator: any AppCoordinatorProtocol) {
+        self._viewModel = StateObject(wrappedValue: PetViewModel(coordinator))
     }
+    
     var body: some View {
-        VStack{
-            PetHeaderComponent()
-            List(viewModel.pets, id: \.petId) { pet in
-                HStack {
-                    ImageView(imageURL: pet.petImage, width: 40, height: 40).clipShape(Circle())
+        NavigationView {
+            VStack {
+                if viewModel.isLoading {
+                    LoadingView()
+                } else if let errorMessage = viewModel.errorMessage {
+                    ErrorView(message: errorMessage)
+                } else if viewModel.transformDTOtoPet().isEmpty {
+                    NoFoundView()
+                } else {
+                    let pets = viewModel.transformDTOtoPet()
                     VStack(alignment: .leading) {
-                        Text(pet.petName)
-                            .font(.body)
-                        Text(pet.petType!)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+                        
+                        List{
+                            Section(header: Text("My Pets")){
+                                ForEach(pets, id: \.id) { pet in
+                                    HStack {
+                                        ImageView(imageURL: pet.image, width: 50, height: 50).clipShape(Circle())
+                                        
+                                        VStack(alignment: .leading) {
+                                            Text(pet.name) .font(.body)
+                                            Text(pet.type).font(.caption).foregroundColor(.secondary)
+                                        }
+                                        Spacer()
+                                        Image(systemName: "chevron.right")
+                                            .foregroundColor(.gray)
+                                    }
+                                    .padding(.vertical,4)
+                                    .fontWeight(.bold)
+                                    .cornerRadius(8)
+                                    .onTapGesture {
+                                        print("Pet ID: \(pet.id)")
+                                    }
+                                }
+                            }
+                        }.listStyle(InsetListStyle())
+                            .frame(maxWidth: .infinity)
+                        
                     }
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .foregroundColor(.gray)
-                }
-                .padding(.vertical, 4)
-                .onTapGesture {
-                    viewModel.selectedPet = pet
-                    viewModel.onInput(.DidChoosePet)
                 }
             }
-        }
-        .onAppear{
-            viewModel.getUserPets()
+            .navigationTitle("Hewan Peliharaan")
+            .refreshable {
+                viewModel.onInput(.didFetchMyPet)
+            }
+            .onAppear {
+                viewModel.onInput(.didFetchMyPet)
+            }
         }
     }
 }
@@ -49,7 +69,7 @@ struct MyPetView: View {
 #Preview {
     @Previewable
     @StateObject var appCoordinator = AppCoordinator()
-    NavigationStack(path: $appCoordinator.path){
+    NavigationStack(path: $appCoordinator.path) {
         MyPetView(appCoordinator)
             .navigationDestination(for: Screen.self) { screen in
                 appCoordinator.build(screen)

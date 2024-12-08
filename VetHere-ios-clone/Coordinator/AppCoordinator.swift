@@ -59,7 +59,8 @@ class AppCoordinator: AppCoordinatorProtocol {
         case .myPet:
             MyPetView(self)
         case .myPetDetail(let petId):
-            MyPetDetailView(self, petId:petId)
+//            MyPetDetailView(self, petId:petId)
+            EmptyView()
         case .register:
             RegisterView(self)
         case .bookChoosePet(let vetId, let vetName, let doctorId, let doctorName):
