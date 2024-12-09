@@ -20,10 +20,10 @@ class VetDetail{
     let longitude: Double
     let createdAt: Date
     let updatedAt: Date
-    let doctor: [Doctor]?
-    let facilities: [Facilities]?
+    let doctor: [DoctorModel]?
+    let facilities: [FacilitiesModel]?
     
-    init(id: UUID, name: String, description: String, rating: Int, openHour: String, closeHour: String, image: String, phoneNumber: String, lattitude: Double, longitude: Double, createdAt: Date, updatedAt: Date, doctor: [Doctor]?, facilities: [Facilities]?) {
+    init(id: UUID, name: String, description: String, rating: Int, openHour: String, closeHour: String, image: String, phoneNumber: String, lattitude: Double, longitude: Double, createdAt: Date, updatedAt: Date, doctor: [DoctorModel]?, facilities: [FacilitiesModel]?) {
         self.id = id
         self.name = name
         self.description = description

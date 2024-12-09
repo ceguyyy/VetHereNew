@@ -66,7 +66,7 @@ class VetDetailsViewModel: ObservableObject {
             self.isLoading = true
             self.errorMessage = nil
             let dto = vetDetailRequestDTO(vet_id: vetId.uuidString)
-            let service = VetDetailService.VetDetail(params: dto)
+            let service = VetDetailService.getVetDetail(params: dto)
             let result = await networkManager.makeRequest(service, output: vetDetailResponseDTO.self)
             
             switch result {
@@ -86,27 +86,27 @@ class VetDetailsViewModel: ObservableObject {
                         createdAt: Date(),
                         updatedAt: Date(),
                         doctor: vetDetailDTO.vet_doctors?.map {
-                            Doctor(
+                            DoctorModel(
                                 id: UUID(uuidString: $0.doctor_id) ?? UUID(),
                                 name: $0.doctor_name,
                                 rating: $0.doctor_rating,
-                                specialization: Specialization(
+                                specialization: SpecializationModel(
                                     id: UUID(uuidString: $0.specialization.specialization_id) ?? UUID(),
                                     name: $0.specialization.specialization_name
                                 ),
                                 image: ""
                             )
                         } ?? [
-                            Doctor(
+                            DoctorModel(
                                 id: UUID(), name: "NoDoctor", rating: 0,
-                                specialization: Specialization(id: UUID(), name: ""), image: "")
+                                specialization: SpecializationModel(id: UUID(), name: ""), image: "")
                         ],
                         facilities: vetDetailDTO.vet_facilities?.map {
-                            Facilities(
+                            FacilitiesModel(
                                 id: UUID(uuidString: $0.facility_id) ?? UUID(),
                                 name: $0.facility_name
                             )
-                        } ?? [Facilities(id: UUID(), name: "NoFacilities")]
+                        } ?? [FacilitiesModel(id: UUID(), name: "NoFacilities")]
                     )
                     loadingState = .loaded
                     print("Successfully fetched veterinarians: \(vetDetailDTO)")

@@ -5,14 +5,6 @@
 //  Created by Christian Gunawan on 05/12/24.
 //
 
-
-//
-//  VetAnnotation.swift
-//  VetHereiOS
-//
-//  Created by Christian Gunawan on 30/10/24.
-//
-
 import Foundation
 import CoreLocation
 

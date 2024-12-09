@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-struct AppointmentView: View {
+struct AppointmentViewComponent: View {
     let vetDetail: VetDetail
     let vetId: UUID
     let viewmodel: VetDetailsViewModel
@@ -14,7 +14,7 @@ struct AppointmentView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             ForEach(vetDetail.doctor ?? [], id: \.id) { doctor in
-                DoctorCardComponentView(
+                DoctorCardViewComponent(
                     doctor: doctor,
                     bookingAction: {
                         viewmodel.goToDetails(

@@ -38,6 +38,16 @@ struct NearestVetsView: View {
                 }
             }
             .navigationTitle("Klinik Terdekat")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        viewModel.goToDetails(.goToProfile)
+                    }) {
+                        Image(systemName: "person.circle")
+                            .font(.title)
+                    }
+                }
+            }
         }  .searchable(text: $viewModel.searchText)
             .refreshable {
                 viewModel.onInput(.didFetchNearestVet)
@@ -48,12 +58,12 @@ struct NearestVetsView: View {
     }
 }
 #Preview {
-  @Previewable
-  @StateObject var appCoordinator = AppCoordinator()
-  NavigationStack(path: $appCoordinator.path) {
-    NearestVetsView(appCoordinator)
-      .navigationDestination(for: Screen.self) { screen in
-        appCoordinator.build(screen)
-      }
-  }
+    @Previewable
+    @StateObject var appCoordinator = AppCoordinator()
+    NavigationStack(path: $appCoordinator.path) {
+        NearestVetsView(appCoordinator)
+            .navigationDestination(for: Screen.self) { screen in
+                appCoordinator.build(screen)
+            }
+    }
 }

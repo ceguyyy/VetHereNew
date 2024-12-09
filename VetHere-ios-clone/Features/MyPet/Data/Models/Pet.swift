@@ -16,8 +16,7 @@ class Pet{
     let DOB : String
     let breed : String
     let color : String
-//    let medicalRecord : MedicalRecord?
-//    let vaccineHistory : [VaccineHistory]
+
     
     init(id: UUID, name: String, type: String, image: String, weight: Double, DOB: String, breed: String, color: String) {
         self.id = id

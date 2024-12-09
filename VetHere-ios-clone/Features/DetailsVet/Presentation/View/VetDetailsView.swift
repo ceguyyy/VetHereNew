@@ -62,9 +62,9 @@ struct VetDetailsView: View {
                             Group {
                                 switch selectedSegment {
                                 case .appointment:
-                                    AppointmentView(vetDetail: vetDetail, vetId: vetId, viewmodel: viewmodel)
+                                    AppointmentViewComponent(vetDetail: vetDetail, vetId: vetId, viewmodel: viewmodel)
                                 case .information:
-                                    InformationView(vetDetail: vetDetail)
+                                    InformationViewComponent(vetDetail: vetDetail)
                                 }
                             }
                         }
@@ -79,10 +79,6 @@ struct VetDetailsView: View {
             viewmodel.onInput(.didFetchDetailVet(vetid: vetId), vetId: vetId)
             
         }
- 
-
-
-
         .refreshable {
             viewmodel.onInput(.didFetchDetailVet(vetid: vetId), vetId: vetId)
         }

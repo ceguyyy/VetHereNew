@@ -8,7 +8,7 @@
 import Foundation
 
 internal struct VetDetailService {
-  static func VetDetail(
+  static func getVetDetail(
     params: vetDetailRequestDTO
   ) -> APIService {
     let path = "/vet/details"
