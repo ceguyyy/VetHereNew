@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SplashView: View {
     @StateObject private var viewModel: SplashViewModel
-    var user: User?
 
     init(_ coordinator: any AppCoordinatorProtocol) {
         self._viewModel = StateObject(
@@ -18,12 +17,13 @@ struct SplashView: View {
     }
 
     var body: some View {
-        Text("SplashScreen")
+        ImageView(imageURL: "https://cdn.dribbble.com/userupload/10694930/file/original-40090094f817aa42c4a7eba8c6f1a61f.jpg?resize=400x0", width: 400, height:300 )
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     viewModel.onInput(.DidAnimationFinished)
                 }
             }
+            .navigationBarBackButtonHidden()
     }
 }
 

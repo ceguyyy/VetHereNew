@@ -25,22 +25,22 @@ struct RegisterView: View {
                 .padding(.top, 50)
                 .bold()
             Spacer()
-            Text("Nama Depan")
+            Text("First Name")
                 .font(
                     Font.custom("SF Pro", size: 20)
                         .weight(.semibold)
                 )
-            TextField("Masukan Nama Depan", text: $viewModel.input.firstNameText)
+            TextField("First name", text: $viewModel.input.firstNameText)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .autocapitalization(.none)
                 .keyboardType(.emailAddress)
                 .padding(.bottom, 10)
-            Text("Nama Belakang")
+            Text("Last Name")
                 .font(
                     Font.custom("SF Pro", size: 20)
                         .weight(.semibold)
                 )
-            TextField("Masukan Nama Belakang", text: $viewModel.input.lastNameText)
+            TextField("Last name", text: $viewModel.input.lastNameText)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .autocapitalization(.none)
                 .keyboardType(.emailAddress)
@@ -51,14 +51,14 @@ struct RegisterView: View {
                     Font.custom("SF Pro", size: 20)
                         .weight(.semibold)
                 )
-            TextField("Masukan username", text: $viewModel.input.usernameText)
+            TextField("username", text: $viewModel.input.usernameText)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .autocapitalization(.none)
                 .keyboardType(.emailAddress)
                 .padding(.bottom, 10)
             
             
-            Text("Kata Sandi")
+            Text("Password")
                 .font(
                     Font.custom("SF Pro", size: 20)
                         .weight(.semibold)
@@ -91,7 +91,7 @@ struct RegisterView: View {
             VStack(alignment: .center){
                 HStack{
                     Spacer()
-                    Text("Belum Punya Account? Registrasi")
+                    Text("Already have account? SignIn")
                         .foregroundColor(.blue)
                         .padding(.top, 10)
                     Spacer()
@@ -107,5 +107,12 @@ struct RegisterView: View {
 }
 
 #Preview {
-    RegisterView(AppCoordinator())
+    @Previewable
+    @StateObject var appCoordinator = AppCoordinator()
+    NavigationStack(path: $appCoordinator.path){
+        RegisterView(appCoordinator)
+            .navigationDestination(for: Screen.self) { screen in
+                appCoordinator.build(screen)
+            }
+    }
 }

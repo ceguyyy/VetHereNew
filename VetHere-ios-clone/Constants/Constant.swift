@@ -9,5 +9,6 @@ import Foundation
 
 internal struct Constant {
 //    static var baseURL = "https://debatee-backend-b66949d53479.herokuapp.com"
-    static var baseURLDev = "http://localhost:8000"
+    static var baseURLDev = "http://192.168.1.25:8000"
+    static var ErrorImage = "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
 }

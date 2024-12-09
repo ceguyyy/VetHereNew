@@ -12,11 +12,11 @@ class AppCoordinator: AppCoordinatorProtocol {
     @Published var path: NavigationPath = NavigationPath()
     @Published var currentTab: ApplicationTab = .Clinic
     
-
-    
     func push(_ screen: Screen) {
+        print("Navigating to screen: \(screen)")
         path.append(screen)
     }
+
 
     func pop() {
         guard !path.isEmpty else { return }
@@ -48,10 +48,39 @@ class AppCoordinator: AppCoordinatorProtocol {
             SplashView(self)
         case .login:
             LoginView(self)
+        case .profile:
+            ProfileView(self)
+        case .nearestVet:
+            NearestVetsView(self)
+        case .details(let vetId, let vetDistance):
+            VetDetailsView(self, vetId: vetId, vetDistance: vetDistance)
+        case .history:
+            HistoryView()
+        case .contentView:
+            ContentView(self)
+        case .myPet:
+            MyPetView(self)
+        case .myPetDetail(let petId):
+            MyPetDetailView(self, petId: petId)
         case .register:
             RegisterView(self)
-        case .nearestVet:
-            NearestVetView()
+        case .bookChoosePet(let vetId, let vetName, let doctorId, let doctorName):
+            BookChoosePetView(self, vetId: vetId, vetName: vetName, doctorId: doctorId, doctorName: doctorName)
+        case .bookChooseSchedule(let vetId, let vetName, let doctorId, let doctorName, let PetId, let PetName):
+            BookChooseScheduleView(self, vetId: vetId, vetName: vetName, doctorId: doctorId, doctorName: doctorName, petId: PetId, petName: PetName)
+        case .bookNotes(let vetId, let vetName, let doctorId, let doctorName, let PetId, let PetName, let date, let time):
+            BookInputNoteView(self, vetId: vetId, vetName: vetName, doctorId: doctorId, doctorName: doctorName, petId: PetId, petName: PetName, date: date, time: time)
+        case .summary(let vetId, let vetName, let doctorId, let doctorName, let PetId, let PetName, let date, let time, let notes):
+            BookSummaryView(self, vetId: vetId, vetName: vetName, doctorId: doctorId, doctorName: doctorName, petId: PetId, petName: PetName, date: date, time: time, notes: notes)
+        case .successToDatabase:
+            BookSuccessView(self)
+        case .errorToDatabase:
+            BookFailedView(self)
+        case .medicalRecord(let date, let vetName, let doctorName,let diagnose,let action, let petName):
+            MedicalRecordView(self, date: date, vetName: vetName, doctorName: doctorName, diagnose: diagnose, petName:petName, action: action)
+        case .vaccineHistory(let date, let vetName, let doctorName,  let vaccineName, let petName):
+            VaccineHistoryView(self, date: date, vetName: vetName, doctorName: doctorName, vaccineName: vaccineName, petName:petName)
         }
     }
+
 }
