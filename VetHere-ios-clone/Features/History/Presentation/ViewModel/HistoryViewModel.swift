@@ -17,7 +17,8 @@ class HistoryViewModel: ObservableObject {
     
     
     enum goAction {
-        case goToHistoryDetails(date: String, time: String, vetName: String, doctorName: String, petName:String, notes:String)
+        case goToHistoryDetails(date: Date, time: String, vetName: String, doctorName: String, petName:String, notes:String)
+        case goToProfile
     }
     
     
@@ -30,10 +31,12 @@ class HistoryViewModel: ObservableObject {
         self.coordinator = coordinator
     }
     
-    func goToSchedule(_ goAction: goAction){
+    func goToAction(_ goAction: goAction){
         switch goAction{
         case .goToHistoryDetails(date: let date, time: let time, vetName: let vetName, doctorName: let doctorName, petName: let petName, notes: let notes):
-            print("history details")
+            coordinator.push(.historyDetailView(date: date, time: time, vetName: vetName, doctorName: doctorName, PetName: petName, notes: notes))
+        case .goToProfile:
+            coordinator.push(.profile)
         }
     }
     
@@ -43,11 +46,20 @@ class HistoryViewModel: ObservableObject {
         case .didFetchHistory:
             getHistory()
         }
+    }
         
         func transformDTOtoHistory() -> [HistoryModel]{
             return history.map {
                 dto in
-                HistoryModel(id: dto., vetName: <#T##String#>, doctorName: <#T##String#>, petName: <#T##String#>, notes: <#T##String#>, date: <#T##Date#>, time: <#T##String#>)
+             
+                HistoryModel(id:UUID(uuidString: dto.appointment_id) ?? UUID(),
+                             vetName: dto.vet_name,
+                             doctorName: dto.doctor_name,
+                             petName: dto.pet_name,
+                             notes: dto.appointment_notes,
+                             date: formattedDateToStringDDMMYYYY(dto.appointment_date) ?? Date(),
+                             time: dto.appointment_time
+                             )
             }
         }
         
@@ -93,7 +105,6 @@ class HistoryViewModel: ObservableObject {
         }
         
     }
-}
     
 //    func getUserPetDetail(petId: String) {
 //        Task { @MainActor [weak self] in

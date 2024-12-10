@@ -55,7 +55,7 @@ class AppCoordinator: AppCoordinatorProtocol {
         case .details(let vetId, let vetDistance):
             VetDetailsView(self, vetId: vetId, vetDistance: vetDistance)
         case .history:
-            HistoryView()
+            HistoryView(self)
         case .contentView:
             ContentView(self)
         case .myPet:
@@ -80,6 +80,9 @@ class AppCoordinator: AppCoordinatorProtocol {
             MedicalRecordView(self, date: date, vetName: vetName, doctorName: doctorName, diagnose: diagnose, petName:petName, action: action)
         case .vaccineHistory(let date, let vetName, let doctorName,  let vaccineName, let petName):
             VaccineHistoryView(self, date: date, vetName: vetName, doctorName: doctorName, vaccineName: vaccineName, petName:petName)
+        case .historyDetailView(let date, let time, let vetName, let doctorName, let petName, let notes):
+            HistoryDetailView(self, date: date, time: time, vetName: vetName, doctorName: doctorName, petName: petName, notes: notes)
+            
         }
     }
 

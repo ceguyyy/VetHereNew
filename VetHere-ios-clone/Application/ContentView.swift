@@ -29,11 +29,11 @@ struct ContentView: View {
                     Label("Peliharaan", systemImage: "pawprint.fill")
                 }
                 .tag(ApplicationTab.MyPets)
-            HistoryView()
+            HistoryView(viewModel.coordinator)
                 .tabItem {
                     Label("Riwayat", systemImage: "clock")
                 }
-                .tag(Screen.history)
+                .tag(ApplicationTab.History)
         }
         .navigationBarBackButtonHidden()
     }

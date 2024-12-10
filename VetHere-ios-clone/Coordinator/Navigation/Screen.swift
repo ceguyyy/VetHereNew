@@ -26,6 +26,7 @@ enum Screen: Identifiable, Hashable{
     case errorToDatabase
     case medicalRecord(date: String, vetName: String, doctorName: String, diagnose: String, action: String, petName: String)
     case vaccineHistory(date: String, vetName: String, doctorName: String, vaccineName: String, petName: String)
+    case historyDetailView(date: Date, time: String, vetName: String, doctorName: String, PetName: String, notes: String)
     
   
 //    case contentView

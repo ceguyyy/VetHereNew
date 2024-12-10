@@ -17,14 +17,13 @@ struct MyPetView: View {
 
   var body: some View {
     NavigationView {
-      VStack {
+        VStack {
         if viewModel.isLoading {
           LoadingView()
         } else if viewModel.transformDTOtoPet().isEmpty {
           NoFoundView()
         } else {
           let pets = viewModel.transformDTOtoPet()
-          VStack(alignment: .leading) {
             List {
               Section(header: Text("My Pets")) {
                 ForEach(pets, id: \.id) { pet in
@@ -51,7 +50,7 @@ struct MyPetView: View {
                 }
               }
             }
-            .listStyle(InsetListStyle())
+            .listStyle(InsetGroupedListStyle())
 
             VStack {
               HStack {
@@ -71,16 +70,11 @@ struct MyPetView: View {
             .sheet(isPresented: $showNewPetSheet) {
                 NewPetView(AppCoordinator(), isPresented: $showNewPetSheet)
             }
-          }
+          
         }
       }
       .navigationTitle("Hewan Peliharaan")
-      .refreshable {
-        viewModel.onInput(.didFetchMyPet)
-      }
-      .onAppear {
-        viewModel.onInput(.didFetchMyPet)
-      }
+     
       .toolbar {
         ToolbarItem(placement: .navigationBarTrailing) {
           Button(action: {
@@ -90,6 +84,12 @@ struct MyPetView: View {
               .font(.title)
           }
         }
+      }
+      .refreshable {
+        viewModel.onInput(.didFetchMyPet)
+      }
+      .onAppear {
+        viewModel.onInput(.didFetchMyPet)
       }
     }
   }
