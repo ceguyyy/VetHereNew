@@ -11,7 +11,7 @@ enum ApplicationTab: Identifiable, CaseIterable {
     case Clinic
     case MyPets
     case History
-    case myPet
+//    case myPet
     
     var id: Self { return self }
 }

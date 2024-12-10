@@ -33,4 +33,29 @@ func formattedTimeHHMMSS(_ date: Date) -> String {
     return formatter.string(from: date)
 }
 
+func formattedDateToStringDDMMYYYY(_ dateString: String) -> Date? {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "dd:MM:yyyy"
+    dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+    dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+    
+    return dateFormatter.date(from: dateString)
+}
 
+
+
+func extractTime(from datetimeStr: String) -> String? {
+    let inputFormatter = DateFormatter()
+    inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+    
+    if let date = inputFormatter.date(from: datetimeStr) {
+      
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "HH:mm:ss"
+
+        return outputFormatter.string(from: date)
+    } else {
+       
+        return nil
+    }
+}

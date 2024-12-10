@@ -31,45 +31,32 @@ struct MedicalRecordView: View {
     
     var body: some View {
         NavigationView {
-                    VStack(alignment: .leading, spacing: 20) {
+            ScrollView{
+                
+                VStack(alignment: .leading, spacing: 20) {
+                    HStack {
+                        Spacer()
                         Text("\(date)")
                             .font(.headline)
                             .foregroundColor(.primary)
-                        Divider()
+                            .padding()
+                        Spacer()
+                    }
+                    Divider()
+                    
+                    VStack(alignment: .leading, spacing: 8) {
                         
-                        VStack(alignment: .leading, spacing: 8) {
-                            HStack {
-                                Text("Nama Klinik")
-                                    .font(.subheadline)
-                                Spacer()
-                                Text("\(vetName)")
-                                    .font(.body)
-                                    .foregroundColor(.gray)
-                            }
-                            
-                            HStack {
-                                Text("Nama Dokter")
-                                    .font(.subheadline)
-                                Spacer()
-                                Text("\(doctorName)")
-                                    .font(.body)
-                                    .foregroundColor(.gray)
-                            }
-                            
-                            HStack {
-                                Text("Nama Peliharaan")
-                                    .font(.subheadline)
-                                Spacer()
-                                Text("\(petName)")
-                                    .font(.body)
-                                    .foregroundColor(.gray)
-                            }
-                        }
-                        Divider()
+                        BookSummaryInfoRowComponent(label: "Nama Klinik", value: vetName).padding(.horizontal,20)
                         
-                        VStack{
-                            
-                        }
+                        
+                        BookSummaryInfoRowComponent(label: "Nama Dokter", value: doctorName).padding(.horizontal,20)
+                        
+                    }
+                    
+                    
+                    Divider()
+                    
+                    VStack(alignment:.leading){
                         Text("Diagnosa")
                             .font(.title2)
                             .fontWeight(.bold)
@@ -79,8 +66,11 @@ struct MedicalRecordView: View {
                             .foregroundColor(.secondary)
                             .lineLimit(nil)
                             .fixedSize(horizontal: false, vertical: true)
-                        Divider()
-                        
+                    }.padding(.horizontal,20)
+                    
+                    Divider()
+                    
+                    VStack(alignment:.leading){
                         Text("Tindakan")
                             .font(.title2)
                             .fontWeight(.bold)
@@ -90,9 +80,14 @@ struct MedicalRecordView: View {
                             .foregroundColor(.secondary)
                             .lineLimit(nil)
                             .fixedSize(horizontal: false, vertical: true)
-                        
-                        Spacer()
-                    }
+                    }.padding(.horizontal,20)
+                    
+                    
+                    Spacer()
+                }
+            }
+                    .cornerRadius(10)
+                    .background(Color(UIColor.systemGroupedBackground))
                     .padding()
                     .navigationTitle("Medical Record")
                     .navigationBarTitleDisplayMode(.inline)
