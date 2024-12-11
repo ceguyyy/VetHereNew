@@ -26,11 +26,11 @@ struct NearestVetsView: View {
                 } else {
                     ScrollView {
                         VStack(alignment: .leading) {
-                            ForEach(viewModel.transformDTOToVets(), id: \.id) { vet in
+                            ForEach(viewModel.transformDTOToVets(), id: \.vet_id) { vet in
                                 VetCardComponentView(vet: vet)
                                     .padding(.bottom)
                                     .onTapGesture {
-                                        viewModel.goToDetails(.goToDetails(vetId: vet.id, vetDistance: vet.distance))
+                                        viewModel.goToDetails(.goToDetails(vetId: vet.vet_id, vetDistance: vet.vet_distance))
                                     }
                             }
                         }

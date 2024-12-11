@@ -33,9 +33,9 @@ struct VetDetailsView: View {
                 if let vetDetail = viewmodel.vetDetail {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 20) {
-                            ImageView(imageURL: vetDetail.image, width: 393, height: 216)
+                            ImageView(imageURL: vetDetail.vet_image, width: 393, height: 216)
                             VStack(alignment: .leading, spacing: 4) {
-                                Text(vetDetail.name)
+                                Text(vetDetail.vet_name)
                                     .font(.largeTitle)
                                     .fontWeight(.bold)
                                     .padding(.horizontal)
@@ -45,7 +45,7 @@ struct VetDetailsView: View {
                                     .foregroundColor(.gray)
                                     .padding(.horizontal)
                                 
-                                Text("Buka sampai \(vetDetail.closeHour)")
+                                Text("Buka sampai \(vetDetail.vet_closeHour)")
                                     .font(.subheadline)
                                     .foregroundColor(.gray)
                                     .padding(.horizontal)
@@ -74,7 +74,7 @@ struct VetDetailsView: View {
                 }
             }
         }
-        .navigationBarTitle(viewmodel.vetDetail?.name ?? "Unknown")
+        .navigationBarTitle(viewmodel.vetDetail?.vet_name ?? "Unknown")
         .onAppear {
             viewmodel.onInput(.didFetchDetailVet(vetid: vetId), vetId: vetId)
             

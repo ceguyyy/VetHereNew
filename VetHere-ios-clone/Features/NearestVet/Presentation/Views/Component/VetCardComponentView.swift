@@ -8,25 +8,25 @@
 import SwiftUI
 
 struct VetCardComponentView: View {
-    let vet: Vet
+    let vet: vets
     
     var body: some View {
         VStack(alignment: .leading) {
-            ImageView(imageURL: vet.image, width: 361, height: 200)
+            ImageView(imageURL: vet.vet_image, width: 361, height: 200)
             VStack(alignment: .leading, spacing: 8) {
-                Text(vet.name)
+                Text(vet.vet_name)
                     .padding(.bottom, 2)
                     .font(.system(size: 22, weight: .bold))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundColor(Color("TextColor"))
                 
                 HStack(spacing: 2) {
-                    ForEach(0..<vet.rating, id: \.self) { _ in
+                    ForEach(0..<vet.vet_rating, id: \.self) { _ in
                         Image(systemName: "star.fill")
                             .foregroundColor(.yellow)
                             .font(.system(size: 12))
                     }
-                    ForEach(0..<(5 - vet.rating), id: \.self) { _ in
+                    ForEach(0..<(5 - vet.vet_rating), id: \.self) { _ in
                         Image(systemName: "star")
                             .foregroundColor(.yellow)
                             .font(.system(size: 12))
@@ -38,7 +38,7 @@ struct VetCardComponentView: View {
                     
                     HStack {
                         Image(systemName: "map.fill")
-                        Text("\(vet.range, specifier: "%.1f") Km")
+                        Text("\(vet.vet_range, specifier: "%.1f") Km")
                             .font(.system(size: 12))
                             .foregroundColor(Color("TextColor"))
                     }
@@ -49,13 +49,13 @@ struct VetCardComponentView: View {
                     
                     HStack {
                         Image(systemName: "clock.fill")
-                        Text("\(vet.closeHour, specifier: "%.2f")")
+                        Text("\(vet.vet_closeHour, specifier: "%.2f")")
                             .font(.system(size: 12))
                             .foregroundColor(Color("TextColor"))
                     }
                 }
                 
-                Text(vet.address)
+                Text(vet.vet_address)
                     .font(.system(size: 13))
                     .foregroundColor(Color("TextColor"))
                     .lineLimit(2)
@@ -73,18 +73,18 @@ struct VetCardComponentView: View {
 
 #Preview {
     VetCardComponentView(
-        vet: Vet(
-            id: UUID(),
-            name: "Vet Name",
-            description: "Best vet in town",
-            rating: 4,
-            openHour: 8.0,
-            closeHour: 17.0,
-            image: "",
-            range: 3.5,
-            address: "Jalan Raya BSD",
+        vet: vets(
+            vet_id: UUID(),
+            vet_name: "Vet Name",
+            vet_description: "Best vet in town",
+            vet_rating: 4,
+            vet_openHour: 8.0,
+            vet_closeHour: 17.0,
+            vet_image: "",
+            vet_range: 3.5,
+            vet_address: "Jalan Raya BSD",
             createdAt: Date(),
             updatedAt: Date(),
-            distance: 0
+            vet_distance: 0
         ))
 }

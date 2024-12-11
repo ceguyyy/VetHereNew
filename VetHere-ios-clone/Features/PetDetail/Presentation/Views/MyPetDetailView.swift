@@ -84,7 +84,7 @@ struct MyPetDetailView: View {
                                             VStack(alignment: .leading) {
                                                 Text(record.medicalRecordDetails.first?.diagnosis ?? "No Diagnosis")
                                                     .font(.headline)
-                                                Text(record.medicalRecordDetails.first?.date ?? "No Date")
+                                                Text(formattedDateYYYYMMDD(record.medicalRecordDetails.first?.createdAt ?? Date())/*record.medicalRecordDetails.first?.createdAt ?? "No Date"*/)
                                                     .font(.subheadline)
                                             }
                                             Spacer()
@@ -103,7 +103,7 @@ struct MyPetDetailView: View {
 
                             Section(header: Text("Vaksin")) {
                                 if let vaccineHistories = pet.vaccine_histories, !vaccineHistories.isEmpty {
-                                    ForEach(vaccineHistories, id: \.vaccineId) { vaccine in
+                                    ForEach(vaccineHistories, id: \.id) { vaccine in
                                         HStack {
                                             VStack(alignment: .leading) {
                                                 Text(vaccine.vaccineName)

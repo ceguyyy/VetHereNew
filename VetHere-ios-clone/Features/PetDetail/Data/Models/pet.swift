@@ -7,8 +7,8 @@
 
 import Foundation
 
-class PetDetail{
-    let id: UUID
+class pet{
+    let pet_id: UUID
     let pet_type: String
     let pet_breed: String
     let pet_image: String
@@ -16,11 +16,11 @@ class PetDetail{
     let pet_color: String
     let pet_dob: String
     let pet_weight: Int
-    let medical_record: [MedicalRecord]?
-    let vaccine_histories: [VaccineHistory]?
+    let medical_record: [medical_records]?
+    let vaccine_histories: [vaccine_history]?
     
-    init(id: UUID, pet_type: String, pet_breed: String, pet_image: String, pet_name: String, pet_color: String, pet_dob: String, pet_weight: Int, medical_record: [MedicalRecord]?, vaccine_histories: [VaccineHistory]?) {
-        self.id = id
+    init(pet_id: UUID, pet_type: String, pet_breed: String, pet_image: String, pet_name: String, pet_color: String, pet_dob: String, pet_weight: Int, medical_record: [medical_records]?, vaccine_histories: [vaccine_history]?) {
+        self.pet_id = pet_id
         self.pet_type = pet_type
         self.pet_breed = pet_breed
         self.pet_image = pet_image

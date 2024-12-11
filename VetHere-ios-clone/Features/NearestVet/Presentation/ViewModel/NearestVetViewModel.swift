@@ -44,21 +44,21 @@ class NearestVetViewModel: ObservableObject {
         }
     }
     
-    func transformDTOToVets() -> [Vet] {
+    func transformDTOToVets() -> [vets] {
         return vet.map { dto in
-            Vet(
-                id: UUID(uuidString: dto.vet.vet_id) ?? UUID(),
-                name: dto.vet.vet_name,
-                description: dto.vet.vet_description,
-                rating: dto.vet.vet_rating,
-                openHour: Double(dto.vet.vet_open_hour) ?? 0.0,
-                closeHour: Double(dto.vet.vet_close_hour) ?? 0.0,
-                image: dto.vet.vet_image,
-                range: dto.vet_distance,
-                address: "",
+            vets(
+                vet_id: UUID(uuidString: dto.vet.vet_id) ?? UUID(),
+                vet_name: dto.vet.vet_name,
+                vet_description: dto.vet.vet_description,
+                vet_rating: dto.vet.vet_rating,
+                vet_openHour: Double(dto.vet.vet_open_hour) ?? 0.0,
+                vet_closeHour: Double(dto.vet.vet_close_hour) ?? 0.0,
+                vet_image: dto.vet.vet_image,
+                vet_range: dto.vet_distance,
+                vet_address: "",
                 createdAt: Date(),
                 updatedAt: Date(),
-                distance: dto.vet_distance
+                vet_distance: dto.vet_distance
             )
         }
     }
@@ -68,12 +68,12 @@ class NearestVetViewModel: ObservableObject {
         var message: String
     }
     
-    var filteredVets: [Vet] {
+    var filteredVets: [vets] {
         let allVets = transformDTOToVets()
         if searchText.isEmpty {
             return allVets
         } else {
-            return allVets.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+            return allVets.filter { $0.vet_name.localizedCaseInsensitiveContains(searchText) }
         }
     }
     
