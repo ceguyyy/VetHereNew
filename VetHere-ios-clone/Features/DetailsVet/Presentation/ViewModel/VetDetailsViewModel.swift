@@ -13,7 +13,7 @@ class VetDetailsViewModel: ObservableObject {
     private let credentialManager = KeychainCredentialManager.shared
     private let coordinator: any AppCoordinatorProtocol
     @Published var input: InputValue = InputValue()
-    @Published var vetDetail: VetDetail?
+    @Published var vetDetail: vet_detail?
     @Published var errorMessage: String?
     @Published var isLoading: Bool = false
     @Published var loadingState: LoadingState = .loading
@@ -72,7 +72,7 @@ class VetDetailsViewModel: ObservableObject {
             switch result {
             case .success(let response):
                 if let vetDetailDTO = response.data {
-                    self.vetDetail = VetDetail(
+                    self.vetDetail = vet_detail(
                         id: UUID(uuidString: vetDetailDTO.vet_id) ?? UUID(),
                         name: vetDetailDTO.vet_name,
                         description: vetDetailDTO.vet_description,
@@ -86,27 +86,39 @@ class VetDetailsViewModel: ObservableObject {
                         createdAt: Date(),
                         updatedAt: Date(),
                         doctor: vetDetailDTO.vet_doctors?.map {
-                            DoctorModel(
-                                id: UUID(uuidString: $0.doctor_id) ?? UUID(),
-                                name: $0.doctor_name,
-                                rating: $0.doctor_rating,
-                                specialization: SpecializationModel(
-                                    id: UUID(uuidString: $0.specialization.specialization_id) ?? UUID(),
-                                    name: $0.specialization.specialization_name
+                            doctors(
+                                doctor_id: UUID(uuidString: $0.doctor_id) ?? UUID(),
+                                doctor_name: $0.doctor_name,
+                                doctor_rating: $0.doctor_rating,
+                                
+                                specialization: specialization(
+                                    speclization_id: UUID(uuidString: $0.specialization.specialization_id) ?? UUID(),
+                                    speclization_name: $0.specialization.specialization_name,
+                                    created_at: Date(),
+                                    updated_at: Date()
                                 ),
-                                image: ""
+                                doctor_image: ""
                             )
                         } ?? [
-                            DoctorModel(
-                                id: UUID(), name: "NoDoctor", rating: 0,
-                                specialization: SpecializationModel(id: UUID(), name: ""), image: "")
+                            doctors(
+                                doctor_id: UUID(), doctor_name: "NoDoctor", doctor_rating: 0,
+                                specialization: specialization(
+                                    speclization_id: UUID(),
+                                    speclization_name: "",
+                                    created_at: Date(),
+                                    updated_at: Date()
+                                ), doctor_image: ""),
+                           
                         ],
                         facilities: vetDetailDTO.vet_facilities?.map {
-                            FacilitiesModel(
-                                id: UUID(uuidString: $0.facility_id) ?? UUID(),
-                                name: $0.facility_name
+                            facilities(
+                                facilities_id: UUID(uuidString: $0.facility_id) ?? UUID(),
+                                name: $0.facility_name,
+                                updatedAt: Date(),
+                                createdAt: Date()
                             )
-                        } ?? [FacilitiesModel(id: UUID(), name: "NoFacilities")]
+                        } ?? [facilities(facilities_id: UUID(), name: "NoFacilities",updatedAt: Date(),
+                                         createdAt: Date())]
                     )
                     loadingState = .loaded
                     print("Successfully fetched veterinarians: \(vetDetailDTO)")

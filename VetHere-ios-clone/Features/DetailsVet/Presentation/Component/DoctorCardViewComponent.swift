@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct DoctorCardViewComponent: View {
-  var doctor: DoctorModel
+  var doctor: doctors
   var bookingAction: () -> Void
   var chatAction: () -> Void
 
     var body: some View {
-        if doctor.name == "NoDoctor"{
+        if doctor.doctor_name == "NoDoctor"{
             HStack(){
                 Spacer()
                 Text("No Doctor Available").foregroundColor(.gray).font(.caption)
@@ -23,7 +23,7 @@ struct DoctorCardViewComponent: View {
         } else{
             VStack(alignment: .leading) {
                 HStack() {
-                    if let imageURL = URL(string: doctor.image ?? Constant.ErrorImage) {
+                    if let imageURL = URL(string: doctor.doctor_image ?? Constant.ErrorImage) {
                         AsyncImage(url: imageURL) { image in
                             image.resizable()
                                 .frame(width: 88, height: 88)
@@ -41,16 +41,16 @@ struct DoctorCardViewComponent: View {
                         }
                     }
                     VStack(alignment: .leading) {
-                        Text(doctor.name)
+                        Text(doctor.doctor_name)
                             .font(.headline)
                             .bold()
                             .padding(.leading)
-                        Text(doctor.specialization.name)
+                        Text(doctor.specialization.specialization_name)
                             .font(.caption)
                             .foregroundColor(.secondary)
                             .padding(.leading)
                         HStack {
-                            ForEach(0..<doctor.rating, id: \.self) { _ in
+                            ForEach(0..<doctor.doctor_rating, id: \.self) { _ in
                                 Image(systemName: "star.fill")
                                     .foregroundColor(.yellow)
                                     .font(.system(size: 12))

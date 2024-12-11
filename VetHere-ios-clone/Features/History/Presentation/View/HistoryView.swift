@@ -25,15 +25,15 @@ struct HistoryView: View {
                 } else {
                     List {
                         Section(header: Text("Riwayat Pemesanan")) {
-                            ForEach(viewModel.transformDTOtoHistory(), id: \.id) { history in
+                            ForEach(viewModel.transformDTOtoAppoinment(), id: \.appointment_id) { history in
                                 HStack {
                                     ImageView(imageURL: Constant.ErrorImage, width: 50, height: 50)
                                         .clipShape(Circle())
 
                                     VStack(alignment: .leading) {
-                                        Text(history.vetName)
+                                        Text(history.vet_name)
                                             .font(.body)
-                                        Text(history.doctorName)
+                                        Text(history.doctor_name)
                                             .font(.caption)
                                             .foregroundColor(.secondary)
                                     }
@@ -43,7 +43,7 @@ struct HistoryView: View {
                                 }
                                 .padding(.vertical, 4)
                                 .onTapGesture {
-                                    viewModel.goToAction(.goToHistoryDetails(date: history.date, time: history.time, vetName: history.vetName, doctorName: history.doctorName, petName: history.petName, notes: history.notes))
+                                    viewModel.goToAction(.goToHistoryDetails(date: history.appointment_date, time: history.appointment_time, vetName: history.vet_name, doctorName: history.doctor_name, petName: history.pet_name, notes: history.appointment_notes))
                                 }
                             }
                         }

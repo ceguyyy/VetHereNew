@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FacilitiesViewComponent: View {
-    let facilities: [FacilitiesModel]
+    let facilities: [facilities]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -16,7 +16,7 @@ struct FacilitiesViewComponent: View {
                 .font(.headline)
                 .fontWeight(.bold)
             VStack(alignment: .leading, spacing: 4) {
-                ForEach(facilities, id: \.id) { facility in
+                ForEach(facilities, id: \.facilities_id) { facility in
                     Text("• \(facility.name)")
                         .font(.body)
                         .foregroundColor(.primary)

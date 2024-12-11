@@ -30,8 +30,8 @@ class PetDetailViewModel: ObservableObject {
     }
     
     enum goAction{
-        case goToMedicalRecord(date: String,vetName : String,doctorName: String, petName: String, diagnose: String, action: String)
-        case goToVaccineHistory(date: String,vetName : String,doctorName: String, petName: String, vaccineName: String)
+        case goToMedicalRecord(vetName : String,doctorName: String, petName: String, medicalrecord: medical_records)
+        case goToVaccineHistory(vetName : String,doctorName: String, petName: String, vaccine: vaccine_history)
     }
 
     
@@ -46,34 +46,35 @@ class PetDetailViewModel: ObservableObject {
     func goToDetails(_ goAction:goAction){
         switch goAction{
 
-        case .goToMedicalRecord(date: let date, vetName: let vetName, doctorName: let doctorName, petName: let petName, diagnose: let diagnose, action: let action):
-            coordinator.push(.medicalRecord(date: date, vetName: vetName, doctorName: doctorName, diagnose: diagnose, action: action, petName: petName))
-        case .goToVaccineHistory(date: let date, vetName: let vetName, doctorName: let doctorName, petName: let petName, vaccineName: let vaccineName):
-            coordinator.push(.vaccineHistory(date: date, vetName: vetName, doctorName: doctorName, vaccineName: vaccineName, petName: petName))
+        case .goToMedicalRecord(vetName: let vetName, doctorName: let doctorName, petName: let petName, medicalrecord: let medicalRecord):
+            coordinator.push(.medicalRecord(vetName: vetName, doctorName: doctorName, petName: petName, medical_records: medicalRecord))
+        case .goToVaccineHistory(vetName: let vetName, doctorName: let doctorName, petName: let petName, vaccine: let vaccine):
+            coordinator.push(.vaccineHistory(vetName: vetName, doctorName: doctorName, petName: petName, vaccine: vaccine))
         }
     }
     
-    func transformDTOtoPet() -> PetDetail? {
+    func transformDTOtoPet() -> pet? {
         guard let dto = petsDetail else {
             return nil
         }
-        let medicalRecords: [MedicalRecord] = dto.medical_record?.map { record in
-            MedicalRecord(
-                medicalRecordId: record.medical_record_id,
+        let medicalRecords: [medical_records] = dto.medical_record?.map { record in
+            medical_records(
+                medicalRecordId: UUID(uuidString: record.medical_record_id) ?? UUID(),
                 medicalRecordDetails: record.medical_record_details.map { detail in
-                    MedicalRecordDetail(
-                        medicalRecordId: detail.medical_record_detail_id,
+                    medical_record_details(
+                        medicalRecordId: UUID(uuidString: detail.medical_record_detail_id) ?? UUID(),
                         vetName: detail.vet_name,
                         diagnosis: detail.diagnosis,
                         treatment: detail.treatment,
-                        date: detail.created_at
+                        createdAt: formattedDateToStringDDMMYYYY(detail.created_at) ?? Date(),
+                        updatedAt: Date()
                     )
                 }
             )
         } ?? []
 
-        let vaccineHistories: [VaccineHistory] = dto.vaccine_histories?.map { history in
-            VaccineHistory(
+        let vaccineHistories: [vaccine_history] = dto.vaccine_histories?.map { history in
+            vaccine_history(
                 vaccineId: UUID(uuidString: history.vaccine_id) ?? UUID() ,
                 vaccineName: history.vaccine_name,
                 vetName: history.vet_name,
@@ -81,8 +82,8 @@ class PetDetailViewModel: ObservableObject {
             )
         } ?? []
 
-        return PetDetail(
-            id: UUID(uuidString: dto.pet_id) ?? UUID(),
+        return pet(
+            pet_id: UUID(uuidString: dto.pet_id) ?? UUID(),
             pet_type: dto.pet_type ?? "Unknown",
             pet_breed: dto.pet_breed ?? "Unknown",
             pet_image: dto.pet_image ?? Constant.ErrorImage,
@@ -138,104 +139,3 @@ class PetDetailViewModel: ObservableObject {
     }
 
     }
-    
-//    func getUserPetDetail(petId: String) {
-//        Task { @MainActor [weak self] in
-//            guard let self = self else { return }
-//            
-//            let dto = GetPetDetailRequestDto(pet_id: petId)
-//            let service = PetService.getUserPetDetail(params: dto)
-//            let request = await networkManager.makeRequest(service, output: GetPetDetailResponseDto.self)
-//            
-//            switch request {
-//            case .success(let response):
-//                if response.meta.success, let data = response.data {
-//                    // Map vaccine histories
-//                    let vaccineHistories = data.vaccine_histories?.map { record in
-//                        VaccineHistory(
-//                            vaccineId: record.vaccine_id,
-//                            vaccineName: record.vaccine_name,
-//                            vetName: record.vet_name,
-//                            vaccineDate: record.vaccine_date
-//                        )
-//                    }
-//                    
-//                    // Map medical record details
-//                    let medicalRecordDetails = data.medical_record?.medical_record_details.map { detail in
-//                        MedicalRecordDetail(
-//                            medicalRecordId: detail.medical_record_detail_id,
-//                            vetName: detail.vet_name,
-//                            diagnosis: detail.diagnosis,
-//                            treatment: detail.treatment,
-//                            date: detail.created_at
-//                        )
-//                    } ?? []
-//                    
-//                    // Map medical record
-//                    let medicalRecord = data.medical_record.map { record in
-//                        MedicalRecord(
-//                            medicalRecordId: record.medical_record_id,
-//                            medicalRecordDetails: medicalRecordDetails
-//                        )
-//                    }
-//                    
-//                    let mockMedicalRecord = MedicalRecord(
-//                        medicalRecordId: "1",
-//                        medicalRecordDetails: [
-//                            MedicalRecordDetail(
-//                                medicalRecordId: "1",
-//                                vetName: "Dr. Smith",
-//                                diagnosis: "Healthy",
-//                                treatment: "Vaccination",
-//                                date: "08/12/2024"
-//                            ),
-//                            MedicalRecordDetail(
-//                                medicalRecordId: "2",
-//                                vetName: "Dr. John",
-//                                diagnosis: "Injury",
-//                                treatment: "Bandaging",
-//                                date: "10/11/2024"
-//                            ),
-//                            MedicalRecordDetail(
-//                                medicalRecordId: "3",
-//                                vetName: "Dr. Alice",
-//                                diagnosis: "Skin Infection",
-//                                treatment: "Antibiotics",
-//                                date: "11/15/2024"
-//                            ),
-//                            MedicalRecordDetail(
-//                                medicalRecordId: "4",
-//                                vetName: "Dr. Bob",
-//                                diagnosis: "Allergy",
-//                                treatment: "Antihistamines",
-//                                date: "12/01/2024"
-//                            )
-//                        ]
-//                    )
-//                    
-//                    // Map full pet details
-//                    let petDetail = Pet(
-//                        petId: data.pet_id,
-//                        petName: data.pet_name,
-//                        petType: data.pet_type,
-//                        petImage: data.pet_image,
-//                        petWeight: data.pet_weight,
-//                        petDOB: data.pet_dob,
-//                        petBreed: data.pet_breed,
-//                        petColor: data.pet_color,
-//                        medicalRecord: mockMedicalRecord,
-//                        vaccineHistory: vaccineHistories ?? []
-//                    )
-//                    
-//                    selectedPet = petDetail
-//                    
-//                } else {
-//                    print("Failed to fetch pet details: \(response.meta.message)")
-//                }
-//                
-//            case .failure(let error):
-//                print("Error fetching pet details: \(error)")
-//            }
-//        }
-//    }
-//}
