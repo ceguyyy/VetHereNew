@@ -103,6 +103,7 @@ class LoginViewModel:ObservableObject {
                 @MainActor [ weak self] in
                 guard let self else { return }
                 let dto = RegisterRequestDTO(username: self.input.usernameText, password: self.input.passwordText, first_name: self.input.firstNameText, last_name: self.input.lastNameText)
+
                 guard !self.input.usernameText.isEmpty, !self.input.passwordText.isEmpty, !self.input.firstNameText.isEmpty else {
                     print("Username or password cannot be empty")
                     return

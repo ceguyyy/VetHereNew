@@ -31,8 +31,10 @@ class ProfileViewModel: ObservableObject {
     }
     
 
+
     func transformDTOtoProfile() -> users {
         return users(
+
             userID: UUID(),
             username: user.username,
             firstName: user.first_name,
