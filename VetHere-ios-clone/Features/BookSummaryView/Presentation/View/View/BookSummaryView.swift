@@ -80,7 +80,7 @@ struct BookSummaryView: View {
                     
                     
                     
-                }, isDisabled: false, backgroundColor: .white, textColor: .blue)
+                }, isDisabled: false, backgroundColor: Color("AppOrange"), textColor: .white)
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 20)

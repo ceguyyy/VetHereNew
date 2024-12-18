@@ -21,62 +21,76 @@ struct LoginView: View {
         VStack(alignment: .leading) {
             Text("Login")
                 .font(.largeTitle)
-                .padding(.top, 50)
+                .padding(.top, 30)
                 .bold()
-            Spacer()
+                .padding(.horizontal,12)
+                .padding(.bottom,50)
+            
             Text("Username")
                 .font(
                     Font.custom("SF Pro", size: 20)
                         .weight(.semibold)
-                )
-            TextField("username", text: $viewModel.input.usernameText)
+                ).padding(.horizontal,12)
+            TextField("Enter Your Username", text: $viewModel.input.usernameText)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .autocapitalization(.none)
                 .keyboardType(.emailAddress)
                 .padding(.bottom, 10)
+                .padding(.horizontal,12)
             Text("Password")
                 .font(
                     Font.custom("SF Pro", size: 20)
                         .weight(.semibold)
                 )
+                .padding(.horizontal,12)
             
             SecureField("******", text: $viewModel.input.passwordText)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.bottom, 10)
+                .padding(.horizontal,12)
             
             if viewModel.input.passwordValidation != nil{
                 if !viewModel.input.passwordValidation!.isValid{
                     let message = viewModel.input.passwordValidation!.message
-                    Text(message)
-                        .foregroundColor(.red)
-                        .padding(.bottom, 10)
+                    VStack{
+                        Text(message)
+                            .foregroundColor(.red)
+                            .padding(.bottom, 10)
+                    }
+            
+                        .padding(.horizontal,12)
+                    
                 }
             }
             Spacer()
+            VStack(alignment: .center){
+                HStack{
+                    Spacer()
+                    Text("Buat Akun")
+                        .foregroundColor(.blue)
+                        .padding(.top, 10)
+                   
+                    Spacer()
+                }.onTapGesture {
+                    viewModel.swiftLoginRegister(.DidTapRegisterView)
+                }
+            }
             Button(action: {
                 viewModel.onInput(.DidTapLogin)
             }) {
                 Text("Login")
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.gray)
+                    .background(Color("AppOrange"))
                     .foregroundColor(.black)
                     .cornerRadius(8)
             }
             .padding(.bottom, 10)
-            VStack(alignment: .center){
-                HStack{
-                    Spacer()
-                    Text("Doesn't have account? Register")
-                        .foregroundColor(.blue)
-                        .padding(.top, 10)
-                    Spacer()
-                }.onTapGesture {
-                    viewModel.swiftLoginRegister(.DidTapRegisterView)
-                }
-            }
+            .padding()
+           
         }
-        .padding()
+        .foregroundColor(Color("AppPrimary"))
+        .background(Color("AppTertiary"))
         .navigationBarBackButtonHidden()
     }
 }

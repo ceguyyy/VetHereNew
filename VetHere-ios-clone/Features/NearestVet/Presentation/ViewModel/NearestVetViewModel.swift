@@ -84,7 +84,6 @@ class NearestVetViewModel: ObservableObject {
         }
     }
         
-        
         func fetchNearestVets() {
             Task { @MainActor [weak self] in
                 guard let self = self,
@@ -100,7 +99,7 @@ class NearestVetViewModel: ObservableObject {
                 switch result {
                 case .success(let response):
                     if let vets = response.data {
-                        self.vet = vets
+                        vet = vets
                         print("Successfully fetched veterinarians: \(vets)")
                     } else {
                         self.errorMessage = "No veterinarians found in your area."

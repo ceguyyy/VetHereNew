@@ -36,17 +36,5 @@ internal struct AuthenticationService {
         )
     }
     
-//    static func validateUsername(
-//        params: ValidateUsernameRequestDTO
-//    ) -> APIService {
-//        let path = "/user/check-username"
-//        
-//        return APIService(
-//            method: .POST,
-//            path: path,
-//            headers: nil,
-//            params: params.toDictionary(),
-//            parameterEncoding: .json
-//        )
-//    }
+
 }

@@ -98,16 +98,13 @@ class LoginViewModel:ObservableObject {
             Task {
                 @MainActor [ weak self] in
                 guard let self else { return }
-                let dto = RegisterRequestDTO(username: self.input.usernameText, password: self.input.passwordText, firstName: self.input.firstNameText, lastName: self.input.lastNameText)
+                let dto = RegisterRequestDTO(username: self.input.usernameText, password: self.input.passwordText, first_name: self.input.firstNameText, last_name: self.input.lastNameText)
                 let service = AuthenticationService.register(params: dto)
                 let request = await networkManager.makeRequest(service, output: AuthenticationResponseDTO.self)
                 let response = request.flatMap { response -> Result<Void, NetworkError> in
                     guard response.meta.success, let data = response.data else {
                         return .failure(.noData)
                     }
-                    
-                    credentialManager.setCredential(withToken: data.access_token, withRefreshToken: data.refresh_token)
-                    
                     return .success(())
                 }
 
