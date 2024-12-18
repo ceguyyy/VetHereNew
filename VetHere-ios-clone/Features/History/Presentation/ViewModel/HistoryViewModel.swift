@@ -48,17 +48,17 @@ class HistoryViewModel: ObservableObject {
         }
     }
         
-        func transformDTOtoHistory() -> [HistoryModel]{
+    func transformDTOtoAppoinment() -> [appoinments]{
             return history.map {
                 dto in
              
-                HistoryModel(id:UUID(uuidString: dto.appointment_id) ?? UUID(),
-                             vetName: dto.vet_name,
-                             doctorName: dto.doctor_name,
-                             petName: dto.pet_name,
-                             notes: dto.appointment_notes,
-                             date: formattedDateToStringDDMMYYYY(dto.appointment_date) ?? Date(),
-                             time: dto.appointment_time
+                appoinments(appointment_id:UUID(uuidString: dto.appointment_id) ?? UUID(),
+                            vet_name: dto.vet_name,
+                            doctor_name: dto.doctor_name,
+                            pet_name: dto.pet_name,
+                            appointment_notes: dto.appointment_notes,
+                            appointment_date: formattedDateToStringDDMMYYYY(dto.appointment_date) ?? Date(),
+                            appointment_time: dto.appointment_time
                              )
             }
         }

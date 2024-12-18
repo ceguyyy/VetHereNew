@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Screen: Identifiable, Hashable{
+enum Screen: Identifiable, Hashable, Equatable{
     case splash
     case login
     case profile
@@ -24,8 +24,8 @@ enum Screen: Identifiable, Hashable{
     case summary(vetId: UUID, vetName: String, doctorId: UUID, DoctorName: String, petId: UUID, PetName: String, Date: Date, Time: Date, Notes: String)
     case successToDatabase
     case errorToDatabase
-    case medicalRecord(date: String, vetName: String, doctorName: String, diagnose: String, action: String, petName: String)
-    case vaccineHistory(date: String, vetName: String, doctorName: String, vaccineName: String, petName: String)
+    case medicalRecord(vetName: String, doctorName: String,petName: String, medical_records: medical_records)
+    case vaccineHistory(vetName: String, doctorName: String, petName: String, vaccine: vaccine_history)
     case historyDetailView(date: Date, time: String, vetName: String, doctorName: String, PetName: String, notes: String)
     
   

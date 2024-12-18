@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct InformationViewComponent: View {
-    let vetDetail: VetDetail
+    let vetDetail: vet_detail
     
     var body: some View {
         VStack {
             MapAndAddressComponentView(
-                lattitude: vetDetail.lattitude, longitude: vetDetail.longitude
+                lattitude: vetDetail.vet_lattitude, longitude: vetDetail.vet_longitude
             )
             .cornerRadius(10)
             .padding(.bottom)
             
             
-            Text(vetDetail.description)}
+            Text(vetDetail.vet_description)}
         VStack {
             HStack{
                 if let facilities = vetDetail.facilities {

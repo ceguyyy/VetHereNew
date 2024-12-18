@@ -5,28 +5,22 @@
 //  Created by Christian Gunawan on 06/12/24.
 //
 
-
-
-
 import SwiftUI
 
 struct MedicalRecordView: View {
     @StateObject private var viewModel: MedicalRecordViewModel
-    let date: String
+    
+    let medicalRecord: medical_records
     let vetName:String
     let doctorName: String
-    let diagnose: String
-    let action: String
     let petName:String
     
-    init(_ coordinator: any AppCoordinatorProtocol, date: String, vetName: String, doctorName: String, diagnose: String, petName: String, action: String) {
+    init(_ coordinator: any AppCoordinatorProtocol,vetName: String, doctorName: String, petName: String, medicalRecord: medical_records) {
         self._viewModel = StateObject(wrappedValue: MedicalRecordViewModel(coordinator))
-        self.date = date
         self.vetName = vetName
         self.doctorName = doctorName
-        self.diagnose = diagnose
-        self.action = action
         self.petName = petName
+        self.medicalRecord = medicalRecord
        }
     
     var body: some View {
@@ -36,7 +30,7 @@ struct MedicalRecordView: View {
                 VStack(alignment: .leading, spacing: 20) {
                     HStack {
                         Spacer()
-                        Text("\(date)")
+                        Text("\(medicalRecord.medicalRecordDetails.first?.createdAt)")
                             .font(.headline)
                             .foregroundColor(.primary)
                             .padding()
@@ -61,7 +55,7 @@ struct MedicalRecordView: View {
                             .font(.title2)
                             .fontWeight(.bold)
                         
-                        Text("\(diagnose)")
+                        Text("\(medicalRecord.medicalRecordDetails.first?.diagnosis)")
                             .font(.body)
                             .foregroundColor(.secondary)
                             .lineLimit(nil)
@@ -75,7 +69,7 @@ struct MedicalRecordView: View {
                             .font(.title2)
                             .fontWeight(.bold)
                         
-                        Text("\(action)")
+                        Text("\(medicalRecord.medicalRecordDetails.first?.treatment)")
                             .font(.body)
                             .foregroundColor(.secondary)
                             .lineLimit(nil)
@@ -95,43 +89,11 @@ struct MedicalRecordView: View {
             }
     }
 
-#Preview {
-    @Previewable
-    @StateObject var appCoordinator = AppCoordinator()
-    NavigationStack(path: $appCoordinator.path) {
-        MedicalRecordView(appCoordinator, date: "2024-11-24T15:45:41.097558+07:00", vetName: "Vet Clinic 10", doctorName: "Ucok", diagnose: "Butuh Ditangani", petName: "Ajis", action: "Butuh Ditangani")
-            .navigationDestination(for: Screen.self) { screen in
-                appCoordinator.build(screen)
-            }
-    }
-}
-
-//
-//import SwiftUI
-//
-//struct MedicalRecordView: View {
-//    @StateObject private var viewModel: MedicalRecordViewModel
-//    
-//    let userName = "Binus"
-//    let userBio = "Happy person"
-//    let userProfileImage = "https://thumb.viva.co.id/media/frontend/thumbs3/2023/03/12/640dcafc3d2ac-binus-university_1265_711.jpg"
-//
-//    init(_ coordinator: any AppCoordinatorProtocol) {
-//        self._viewModel = StateObject(wrappedValue: MedicalRecordViewModel(coordinator))
-//    }
-//    
-//    var body: some View {
-//        VStack(spacing: 20) {
-//            Text("Medical Record")
-//        }
-//    }
-//}
-//
 //#Preview {
 //    @Previewable
 //    @StateObject var appCoordinator = AppCoordinator()
 //    NavigationStack(path: $appCoordinator.path) {
-//        ProfileView(appCoordinator)
+//        MedicalRecordView(appCoordinator, date: "2024-11-24T15:45:41.097558+07:00", vetName: "Vet Clinic 10", doctorName: "Ucok", diagnose: "Butuh Ditangani", petName: "Ajis", action: "Butuh Ditangani", medicalRecord: me)
 //            .navigationDestination(for: Screen.self) { screen in
 //                appCoordinator.build(screen)
 //            }
