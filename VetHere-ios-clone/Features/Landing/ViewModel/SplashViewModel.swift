@@ -23,6 +23,7 @@ class SplashViewModel : ObservableObject{
         case .DidAnimationFinished:
             print("animation finished")
             let isVerified = authenticationDefault.loadIsVerified()
+            
             if isVerified {
                 coordinator.push(.contentView)
                 return

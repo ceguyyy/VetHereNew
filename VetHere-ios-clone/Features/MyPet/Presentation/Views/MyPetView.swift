@@ -52,12 +52,15 @@ struct MyPetView: View {
             }
             .listStyle(InsetGroupedListStyle())
 
+          
+        }
+            Spacer()
             VStack {
               HStack {
                 Spacer()
                   CustomButtonComponent(
                   text: "Tambah Hewan",
-                  backgroundColor: .blue,
+                  backgroundColor: Color("AppOrange"),
                   action: {
                     showNewPetSheet = true
                   },
@@ -70,8 +73,7 @@ struct MyPetView: View {
             .sheet(isPresented: $showNewPetSheet) {
                 NewPetView(AppCoordinator(), isPresented: $showNewPetSheet)
             }
-          
-        }
+            
       }
       .navigationTitle("Hewan Peliharaan")
      
@@ -88,9 +90,9 @@ struct MyPetView: View {
       .refreshable {
         viewModel.onInput(.didFetchMyPet)
       }
-      .onAppear {
-        viewModel.onInput(.didFetchMyPet)
-      }
+      
+      }.onAppear {
+          viewModel.onInput(.didFetchMyPet)
     }
   }
 }
