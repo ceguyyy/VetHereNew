@@ -15,8 +15,8 @@ struct LoginRequestDto : Encodable {
 internal struct RegisterRequestDTO: Encodable {
     let username: String
     let password: String
-    let firstName: String
-    let lastName: String
+    let first_name: String
+    let last_name: String
 }
 
 internal struct AuthenticationResponseDTO: Codable {

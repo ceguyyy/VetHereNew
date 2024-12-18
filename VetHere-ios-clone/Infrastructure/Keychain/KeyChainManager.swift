@@ -10,8 +10,11 @@ import Foundation
 public class KeychainCredentialManager {
     public static let shared = KeychainCredentialManager()
     private let keyChain = KeychainSwift.shared
+    private let authenticationDefaults = AuthenticationUserDefaults.shared
     
     private init () {  }
+    
+    
     
     func fetchCredential() -> Token? {
         guard let accessToken = keyChain.get(Constant.credentialKey),
@@ -42,8 +45,7 @@ public class KeychainCredentialManager {
     }
     
     func clearCredentials() {
-           keyChain.delete(Constant.credentialKey)
-           keyChain.delete(Constant.refreshKey)
+        authenticationDefaults.saveIsVerified(false)
            print("Credentials cleared from Keychain")
        }
     
