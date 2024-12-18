@@ -94,10 +94,4 @@ struct DoctorCardViewComponent: View {
     
 }
 
-#Preview {
-    DoctorCardViewComponent(doctor: DoctorModel(id: UUID(), name: "UCOK", rating: 5, specialization: SpecializationModel(id: UUID(), name: "Ahli"), image: Constant.ErrorImage), bookingAction: {
-        print("Booked")
-    }, chatAction: {
-        print("Chat")
-    })
-}
+

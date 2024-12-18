@@ -65,6 +65,10 @@ class LoginViewModel:ObservableObject {
             print("did tap login")
             Task{@MainActor [weak self] in
                 guard let self = self else { return }
+                guard !self.input.usernameText.isEmpty, !self.input.passwordText.isEmpty else {
+                    print("Username or password cannot be empty")
+                    return
+                }
                 let dto = LoginRequestDto(username: self.input.usernameText, password: self.input.passwordText)
                 let service = AuthenticationService.login(params: dto)
                 let request = await networkManager.makeRequest(service, output: AuthenticationResponseDTO.self)
@@ -99,6 +103,11 @@ class LoginViewModel:ObservableObject {
                 @MainActor [ weak self] in
                 guard let self else { return }
                 let dto = RegisterRequestDTO(username: self.input.usernameText, password: self.input.passwordText, first_name: self.input.firstNameText, last_name: self.input.lastNameText)
+
+                guard !self.input.usernameText.isEmpty, !self.input.passwordText.isEmpty, !self.input.firstNameText.isEmpty else {
+                    print("Username or password cannot be empty")
+                    return
+                }
                 let service = AuthenticationService.register(params: dto)
                 let request = await networkManager.makeRequest(service, output: AuthenticationResponseDTO.self)
                 let response = request.flatMap { response -> Result<Void, NetworkError> in
