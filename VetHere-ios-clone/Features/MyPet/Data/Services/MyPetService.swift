@@ -20,6 +20,19 @@ internal struct MyPetService {
             parameterEncoding: .json
         )
     }
+    
+    static func deleteMyPet(
+        params: deletePetRequestDto
+    ) -> APIService {
+        let path = "/pet/delete"
+        return APIService(
+            method: .POST,
+            path: path,
+            headers: nil,
+            params: params.toDictionary(),
+            parameterEncoding: .json
+        )
+    }
 }
 
 

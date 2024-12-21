@@ -80,7 +80,7 @@ struct VaccineHistoryView: View {
     @Previewable
     @StateObject var appCoordinator = AppCoordinator()
     NavigationStack(path: $appCoordinator.path) {
-        VaccineHistoryView(appCoordinator, vetName:"clinic 1", doctorName: "Ucok", petName: "adit", vaccine: vaccine_history(vaccineId: UUID(), vaccineName: "ANti-Parasit", vetName: "Clinic1", vaccineDate: "2022-2-2"))
+        VaccineHistoryView(appCoordinator, vetName:"clinic 1", doctorName: "Ucok", petName: "adit", vaccine: vaccine_history(vaccineId: UUID(), vaccineName: "ANti-Parasit", vetName: "Clinic1", vaccineDate: "2022-02-02"))
             .navigationDestination(for: Screen.self) { screen in
                 appCoordinator.build(screen)
             }

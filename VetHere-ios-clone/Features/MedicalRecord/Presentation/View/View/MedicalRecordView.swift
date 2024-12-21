@@ -26,11 +26,9 @@ struct MedicalRecordView: View {
     var body: some View {
         NavigationView {
             ScrollView{
-                
                 VStack(alignment: .leading, spacing: 20) {
                     HStack {
-                        Spacer()
-                        Text("\(medicalRecord.medicalRecordDetails.first?.createdAt)")
+                        Text("\(String(describing: medicalRecord.medicalRecordDetails.first?.createdAt))")
                             .font(.headline)
                             .foregroundColor(.primary)
                             .padding()
@@ -89,13 +87,10 @@ struct MedicalRecordView: View {
             }
     }
 
-//#Preview {
-//    @Previewable
-//    @StateObject var appCoordinator = AppCoordinator()
-//    NavigationStack(path: $appCoordinator.path) {
-//        MedicalRecordView(appCoordinator, date: "2024-11-24T15:45:41.097558+07:00", vetName: "Vet Clinic 10", doctorName: "Ucok", diagnose: "Butuh Ditangani", petName: "Ajis", action: "Butuh Ditangani", medicalRecord: me)
-//            .navigationDestination(for: Screen.self) { screen in
-//                appCoordinator.build(screen)
-//            }
-//    }
-//}
+#Preview {
+    @Previewable
+    @StateObject var appCoordinator = AppCoordinator()
+    NavigationStack(path: $appCoordinator.path) {
+        MedicalRecordView(appCoordinator, vetName: "Klinik Indah", doctorName: "Aji", petName: "Arif", medicalRecord: medical_records(medicalRecordId: UUID(), medicalRecordDetails: [medical_record_details(medicalRecordId: UUID(), vetName: "Klinik Indah", diagnosis: "Muntaber", treatment: "Minum Obat 3x sehari", createdAt: Date(), updatedAt: Date())]))
+    }
+}

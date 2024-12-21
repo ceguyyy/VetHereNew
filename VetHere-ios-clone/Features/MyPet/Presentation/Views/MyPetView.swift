@@ -41,7 +41,21 @@ struct MyPetView: View {
                     Spacer()
                     Image(systemName: "chevron.right")
                       .foregroundColor(.gray)
+                  }.swipeActions {
+                      Button(role: .destructive) {
+                          viewModel.onInput(.didDeleteMyPet(petId: pet.id))
+                      } label: {
+                          Label("Delete", systemImage: "trash")
+                      }
+                      Button {
+                          viewModel.goToSchedule(.goToUpdatePet(petId: pet.id))
+                      } label: {
+                          Label("Edit", systemImage: "pencil")
+                      }
+                      .tint(.blue)
                   }
+                  
+                    
                   .padding(.vertical, 4)
                   .onTapGesture {
                     viewModel.goToSchedule(.goToPetDetails(petId: pet.id))

@@ -26,11 +26,13 @@ class MyPetViewModel: ObservableObject {
         case goToSchedule(vetid: UUID, vetName: String, doctorId: UUID, DoctorName: String, petId: UUID, petName: String)
         case goToProfile
         case goToPetDetails(petId: UUID)
-            }
+        case goToUpdatePet(petId: UUID)
+    }
     
     
     enum InputGesture{
         case didFetchMyPet
+        case didDeleteMyPet(petId: UUID)
 
     }
 
@@ -47,6 +49,8 @@ class MyPetViewModel: ObservableObject {
             coordinator.push(.profile)
         case .goToPetDetails(let petId):
             coordinator.push(.myPetDetail(petId: petId))
+        case .goToUpdatePet(petId: let petId):
+            coordinator.push(.updatePet(petId: petId))
         }
     }
     
@@ -54,7 +58,9 @@ class MyPetViewModel: ObservableObject {
         switch inputGesture{
         case .didFetchMyPet:
             getUserPets()
-       
+    
+        case .didDeleteMyPet(let petId):
+            deletePet(petId: petId)
         }
         
     }
@@ -70,6 +76,31 @@ class MyPetViewModel: ObservableObject {
                 breed: "",
                 color: "")
         }
+    }
+    
+    func deletePet(petId: UUID){
+        Task {
+            @MainActor [ weak self] in
+            guard let self else { return }
+            let dto = deletePetRequestDto(pet_id: petId.uuidString)
+            let service = MyPetService.deleteMyPet(params: dto)
+            let request = await networkManager.makeRequest(service, output: deletePetResponseDto.self)
+            let response = request.flatMap { response -> Result<Void, NetworkError> in
+                guard response.meta.success, let data = response.data else {
+                    return .failure(.noData)
+                }
+                return .success(())
+            }
+
+            switch response {
+            case .success(_):
+                getUserPets()
+            case .failure(let error):
+                debugPrint("Failed registering: \(error.localizedDescription)")
+                self.errorMessage = "Failed to delete pet"
+            }
+            }
+        
     }
     
     func getUserPets() {
