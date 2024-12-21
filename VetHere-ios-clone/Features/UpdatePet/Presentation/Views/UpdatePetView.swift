@@ -98,6 +98,7 @@ struct UpdatePetView: View {
                         petColor: petColor,
                         petImage: selectedUIImage,
                         petId: petId
+
                     )
                 }) {
                     if viewModel.isSaving {

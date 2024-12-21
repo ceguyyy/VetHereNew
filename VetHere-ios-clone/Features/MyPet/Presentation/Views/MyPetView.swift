@@ -44,6 +44,7 @@ struct MyPetView: View {
                   }.swipeActions {
                       Button(role: .destructive) {
                           viewModel.onInput(.didDeleteMyPet(petId: pet.id))
+
                       } label: {
                           Label("Delete", systemImage: "trash")
                       }
