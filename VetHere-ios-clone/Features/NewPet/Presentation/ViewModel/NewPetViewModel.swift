@@ -32,7 +32,7 @@ class NewPetViewModel: ObservableObject {
         self.coordinator = coordinator
     }
     
-    // Moved showImagePicker functions to the ViewModel
+
     func showImagePickerForCamera() {
         showImagePicker = true
         imagePickerSource = .camera
