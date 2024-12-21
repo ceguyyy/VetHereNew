@@ -7,13 +7,13 @@
 
 import Foundation
 
-internal struct NewPetService {
+internal struct UpdatePetService {
     
-    static func addNewPet(
-        params: NewPetRequestDTO,
+    static func UpdateNewPet(
+        params: UpdatePetRequestDTO,
         file: NetworkManager.File
     ) -> APIService {
-        let path = "/pet/create"
+        let path = "/pet/update"
         return APIService(
             method: .POST,
             path: path,
@@ -24,3 +24,5 @@ internal struct NewPetService {
         )
     }
 }
+
+

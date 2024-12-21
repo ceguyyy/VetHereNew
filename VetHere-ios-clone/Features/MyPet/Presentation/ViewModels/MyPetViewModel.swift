@@ -26,7 +26,8 @@ class MyPetViewModel: ObservableObject {
         case goToSchedule(vetid: UUID, vetName: String, doctorId: UUID, DoctorName: String, petId: UUID, petName: String)
         case goToProfile
         case goToPetDetails(petId: UUID)
-            }
+        case goToUpdatePet(petId: UUID)
+    }
     
     
     enum InputGesture{
@@ -47,6 +48,8 @@ class MyPetViewModel: ObservableObject {
             coordinator.push(.profile)
         case .goToPetDetails(let petId):
             coordinator.push(.myPetDetail(petId: petId))
+        case .goToUpdatePet(petId: let petId):
+            coordinator.push(.updatePet(petId: petId))
         }
     }
     
