@@ -7,17 +7,20 @@
 
 import Foundation
 
-internal struct MyPetService {
-    static func getMyPet(
-        params: GetUserPetsRequestDto
+internal struct UpdatePetService {
+    
+    static func UpdateNewPet(
+        params: UpdatePetRequestDTO,
+        file: NetworkManager.File
     ) -> APIService {
-        let path = "/pet/all"
+        let path = "/pet/update"
         return APIService(
-            method: .GET,
+            method: .POST,
             path: path,
             headers: nil,
             params: params.toDictionary(),
-            parameterEncoding: .json
+            parameterEncoding: .multiformdata,
+            file: file
         )
     }
 }

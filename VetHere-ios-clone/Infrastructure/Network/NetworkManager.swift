@@ -63,7 +63,7 @@ public class NetworkManager {
             "application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         case .multiformdata:
           guard let file = request.file else {
-            return .failure(NetworkError.invalidParameters)  // Ensure there's a file to upload
+            return .failure(NetworkError.invalidParameters)
           }
           let boundary = "Boundary-\(UUID().uuidString)"
           var body = Data()
@@ -90,9 +90,14 @@ public class NetworkManager {
       }
     }
 
-    if let credential = credentialManager.fetchCredential() {
-      urlRequest.addValue("Bearer \(credential.accessToken)", forHTTPHeaderField: "Authorization")
-    }
+      if let credential = credentialManager.fetchCredential() {
+          let accessToken = credential.accessToken
+          urlRequest.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+          print("Authorization Header: Bearer \(accessToken)")
+      } else {
+          print("No credentials available for Authorization header")
+      }
+
 
     do {
       let (data, httpResponse) = try await URLSession.shared.data(for: urlRequest)

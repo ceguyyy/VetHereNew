@@ -7,11 +7,11 @@
 
 import Foundation
 
-internal struct MyPetService {
-    static func getMyPet(
-        params: GetUserPetsRequestDto
+internal struct ProfileService {
+    static func getProfile(
+        params: GetProfileRequestDto
     ) -> APIService {
-        let path = "/pet/all"
+        let path = "/user"
         return APIService(
             method: .GET,
             path: path,

@@ -9,7 +9,7 @@ import Foundation
 import SwiftUICore
 import UIKit
 
-class NewPetViewModel: ObservableObject {
+class UpdatePetViewModel: ObservableObject {
     private let networkManager = NetworkManager.shared
     private let coordinator: any AppCoordinatorProtocol
     
@@ -32,7 +32,6 @@ class NewPetViewModel: ObservableObject {
         self.coordinator = coordinator
     }
     
-    // Moved showImagePicker functions to the ViewModel
     func showImagePickerForCamera() {
         showImagePicker = true
         imagePickerSource = .camera
@@ -62,9 +61,9 @@ class NewPetViewModel: ObservableObject {
             self.errorMessage = nil
             self.successMessage = nil
             
-            let dto = NewPetRequestDTO(pet_type_Id: pet_type_id, breed_id: breed_id, pet_image: pet_image, pet_name: pet_name, pet_color: pet_color, pet_dob: pet_dob, pet_weight: pet_weight)
+            let dto = UpdatePetRequestDTO(pet_type_Id: pet_type_id, breed_id: breed_id, pet_image: pet_image, pet_name: pet_name, pet_color: pet_color, pet_dob: pet_dob, pet_weight: pet_weight)
             let file = NetworkManager.File(data: pet_image, mimeType: "image/jpeg", filename: "pet_image.jpeg")
-            let service = NewPetService.addNewPet(params: dto, file: file)
+            let service = UpdatePetService.UpdateNewPet(params: dto, file: file)
             
             let result = await networkManager.makeRequest(service, output: AddNewPetResponseDTO.self)
             
@@ -98,7 +97,6 @@ class NewPetViewModel: ObservableObject {
                return
            }
            
-          
            onInput(.didSavePet,
                    pet_type_id: petType,
                    breed_id: petBreed,

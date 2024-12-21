@@ -40,7 +40,7 @@ struct VetCardComponentView: View {
                         Image(systemName: "map.fill")
                         Text("\(vet.vet_range, specifier: "%.1f") Km")
                             .font(.system(size: 12))
-                            .foregroundColor(Color("TextColor"))
+                            .foregroundColor(Color("AppPrimary"))
                     }
                     
                     Text("•")
@@ -51,21 +51,21 @@ struct VetCardComponentView: View {
                         Image(systemName: "clock.fill")
                         Text("\(vet.vet_closeHour, specifier: "%.2f")")
                             .font(.system(size: 12))
-                            .foregroundColor(Color("TextColor"))
+                            .foregroundColor(Color("AppPrimary"))
                     }
                 }
                 
                 Text(vet.vet_address)
                     .font(.system(size: 13))
-                    .foregroundColor(Color("TextColor"))
+                    .foregroundColor(Color("AppPrimary"))
                     .lineLimit(2)
             }
             .padding(12)
         }
         .frame(width: 361)
         .padding(.bottom)
-        .foregroundColor(Color("TextColor"))
-        .background(Color("ColorCard"))
+        .foregroundColor(Color("AppPrimary"))
+        .background(Color("AppSecondary"))
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .cornerRadius(10)
     }

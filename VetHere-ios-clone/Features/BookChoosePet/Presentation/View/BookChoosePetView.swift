@@ -79,8 +79,8 @@ struct BookChoosePetView: View {
                         
                     },
                     isDisabled: false,
-                    backgroundColor: Color.white,
-                    textColor: .black
+                    backgroundColor: .blue,
+                    textColor: .white
                 )            .sheet(isPresented: $showNewPetSheet) {
                     NewPetView(AppCoordinator(), isPresented: $showNewPetSheet)
                 }
@@ -101,7 +101,7 @@ struct BookChoosePetView: View {
 
                     },
                     isDisabled: selectedPet == nil,
-                    backgroundColor: selectedPet == nil ? Color.gray.opacity(0.2) : Color.blue,
+                    backgroundColor: selectedPet == nil ? Color.gray.opacity(0.2) : Color("AppOrange"),
                     textColor: .white
                 )
             }

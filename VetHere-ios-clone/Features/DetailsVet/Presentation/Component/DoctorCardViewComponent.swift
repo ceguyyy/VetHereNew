@@ -66,8 +66,8 @@ struct DoctorCardViewComponent: View {
                         }
                         .padding(.vertical, 8)
                         .padding(.horizontal, 16)
-                        .foregroundColor(Color("TextColor"))
-                        .background(Color("ColorCard"))
+                        .foregroundColor(Color("AppPrimary"))
+                        .background(Color("AppOrange"))
                         .cornerRadius(10)
                         
                         Button(action: {
@@ -77,15 +77,15 @@ struct DoctorCardViewComponent: View {
                         }
                         .padding(.vertical, 8)
                         .padding(.horizontal, 12)
-                        .foregroundColor(Color("TextColor"))
-                        .background(Color("ColorCard"))
+                        .foregroundColor(Color("AppPrimary"))
+                        .background(Color("AppOrange"))
                         .cornerRadius(10)
                         
                     }
                     .padding(.horizontal)
                 }
-                .foregroundColor(Color("TextColor"))
-                .background(Color("DoctorCard"))
+                .foregroundColor(Color("AppPrimary"))
+                .background(Color("AppSecondary"))
             }
             .cornerRadius(10)
             .padding(.horizontal)
@@ -93,3 +93,5 @@ struct DoctorCardViewComponent: View {
     }
     
 }
+
+

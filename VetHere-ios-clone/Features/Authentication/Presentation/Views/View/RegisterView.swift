@@ -22,76 +22,74 @@ struct RegisterView: View {
         VStack(alignment: .leading) {
             Text("Register")
                 .font(.largeTitle)
-                .padding(.top, 50)
+                .padding(.top, 30)
                 .bold()
-            Spacer()
+                .padding(.horizontal,12)
+                .padding(.bottom,50)
             Text("First Name")
                 .font(
                     Font.custom("SF Pro", size: 20)
                         .weight(.semibold)
-                )
+                ).padding(.horizontal,12)
             TextField("First name", text: $viewModel.input.firstNameText)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .autocapitalization(.none)
                 .keyboardType(.emailAddress)
                 .padding(.bottom, 10)
+                .padding(.horizontal,12)
             Text("Last Name")
                 .font(
                     Font.custom("SF Pro", size: 20)
                         .weight(.semibold)
                 )
+                .padding(.horizontal,12)
             TextField("Last name", text: $viewModel.input.lastNameText)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .autocapitalization(.none)
                 .keyboardType(.emailAddress)
                 .padding(.bottom, 10)
+                .padding(.horizontal,12)
             
             Text("Username")
                 .font(
                     Font.custom("SF Pro", size: 20)
                         .weight(.semibold)
                 )
+                .padding(.horizontal,12)
             TextField("username", text: $viewModel.input.usernameText)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .autocapitalization(.none)
                 .keyboardType(.emailAddress)
                 .padding(.bottom, 10)
+                .padding(.horizontal,8)
             
             
             Text("Password")
                 .font(
                     Font.custom("SF Pro", size: 20)
                         .weight(.semibold)
-                )
+                ).padding(.horizontal,12)
             
             SecureField("******", text: $viewModel.input.passwordText)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.bottom, 10)
+                .padding(.horizontal,8)
             
             if viewModel.input.passwordValidation != nil{
                 if !viewModel.input.passwordValidation!.isValid{
                     let message = viewModel.input.passwordValidation!.message
-                    Text(message)
-                        .foregroundColor(.red)
-                        .padding(.bottom, 10)
+                    VStack {
+                        Text(message)
+                            .foregroundColor(.red)
+                            .padding(.bottom, 10)
+                    }.padding(.horizontal,12)
                 }
             }
             Spacer()
-            Button(action: {
-                viewModel.onInput(.DidTapRegister)
-            }) {
-                Text("Register")
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.gray)
-                    .foregroundColor(.black)
-                    .cornerRadius(8)
-            }
-            .padding(.bottom, 10)
             VStack(alignment: .center){
                 HStack{
                     Spacer()
-                    Text("Already have account? SignIn")
+                    Text("Sudah punya akun? Login")
                         .foregroundColor(.blue)
                         .padding(.top, 10)
                     Spacer()
@@ -99,8 +97,23 @@ struct RegisterView: View {
                     viewModel.swiftLoginRegister(.DidTapLoginView)
                 }
             }
+            Button(action: {
+                viewModel.onInput(.DidTapRegister)
+            }) {
+                Text("Register")
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color("AppOrange"))
+                    .foregroundColor(.black)
+                    .cornerRadius(8)
+            }
+            .padding(.bottom, 10)
+            .padding()
+            
+         
         }
-        .padding()
+        .foregroundColor(Color("AppPrimary"))
+        .background(Color("AppTertiary"))
         .navigationBarBackButtonHidden()
 
     }

@@ -41,7 +41,21 @@ struct MyPetView: View {
                     Spacer()
                     Image(systemName: "chevron.right")
                       .foregroundColor(.gray)
+                  }.swipeActions {
+                      Button(role: .destructive) {
+                          print("delete")
+                      } label: {
+                          Label("Delete", systemImage: "trash")
+                      }
+                      Button {
+                          viewModel.goToSchedule(.goToUpdatePet(petId: pet.id))
+                      } label: {
+                          Label("Edit", systemImage: "pencil")
+                      }
+                      .tint(.blue)
                   }
+                  
+                    
                   .padding(.vertical, 4)
                   .onTapGesture {
                     viewModel.goToSchedule(.goToPetDetails(petId: pet.id))
@@ -52,12 +66,15 @@ struct MyPetView: View {
             }
             .listStyle(InsetGroupedListStyle())
 
+          
+        }
+            Spacer()
             VStack {
               HStack {
                 Spacer()
                   CustomButtonComponent(
                   text: "Tambah Hewan",
-                  backgroundColor: .blue,
+                  backgroundColor: Color("AppOrange"),
                   action: {
                     showNewPetSheet = true
                   },
@@ -70,8 +87,7 @@ struct MyPetView: View {
             .sheet(isPresented: $showNewPetSheet) {
                 NewPetView(AppCoordinator(), isPresented: $showNewPetSheet)
             }
-          
-        }
+            
       }
       .navigationTitle("Hewan Peliharaan")
      
@@ -88,9 +104,9 @@ struct MyPetView: View {
       .refreshable {
         viewModel.onInput(.didFetchMyPet)
       }
-      .onAppear {
-        viewModel.onInput(.didFetchMyPet)
-      }
+      
+      }.onAppear {
+          viewModel.onInput(.didFetchMyPet)
     }
   }
 }
