@@ -24,9 +24,9 @@ internal struct MyPetService {
     static func deleteMyPet(
         params: deletePetRequestDto
     ) -> APIService {
-        let path = "/pet/delete"
+        let path = "/pet"
         return APIService(
-            method: .POST,
+            method: .DELETE,
             path: path,
             headers: nil,
             params: params.toDictionary(),

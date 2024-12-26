@@ -82,6 +82,7 @@ class UpdatePetViewModel: ObservableObject {
         }
     }
     
+    
     func validateAndSavePet(
            petName: String,
            petWeight: String,

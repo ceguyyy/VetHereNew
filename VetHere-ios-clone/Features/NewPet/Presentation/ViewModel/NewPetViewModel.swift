@@ -72,6 +72,7 @@ class NewPetViewModel: ObservableObject {
             case .success(let response):
                 self.successMessage = "Pet added successfully!"
                 self.isSaving = false
+                
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
                 self.isSaving = false

@@ -83,6 +83,7 @@ class MyPetViewModel: ObservableObject {
             @MainActor [ weak self] in
             guard let self else { return }
             let dto = deletePetRequestDto(pet_id: petId.uuidString)
+            print(petId.uuidString)
             let service = MyPetService.deleteMyPet(params: dto)
             let request = await networkManager.makeRequest(service, output: deletePetResponseDto.self)
             let response = request.flatMap { response -> Result<Void, NetworkError> in
@@ -98,6 +99,7 @@ class MyPetViewModel: ObservableObject {
             case .failure(let error):
                 debugPrint("Failed registering: \(error.localizedDescription)")
                 self.errorMessage = "Failed to delete pet"
+                coordinator.popToRoot()
             }
             }
         

@@ -48,6 +48,7 @@ struct MyPetView: View {
                       } label: {
                           Label("Delete", systemImage: "trash")
                       }
+                      .tint(.red)
                       Button {
                           viewModel.goToSchedule(.goToUpdatePet(petId: pet.id))
                       } label: {

@@ -84,7 +84,7 @@ struct MyPetDetailView: View {
                                             VStack(alignment: .leading) {
                                                 Text(record.medicalRecordDetails.first?.diagnosis ?? "No Diagnosis")
                                                     .font(.headline)
-                                                Text(formattedDateYYYYMMDD(record.medicalRecordDetails.first?.createdAt ?? Date())/*record.medicalRecordDetails.first?.createdAt ?? "No Date"*/)
+                                                Text(formattedDateYYYYMMDD(record.medicalRecordDetails.first?.createdAt ?? Date()))
                                                     .font(.subheadline)
                                             }
                                             Spacer()
@@ -103,12 +103,12 @@ struct MyPetDetailView: View {
 
                             Section(header: Text("Vaksin")) {
                                 if let vaccineHistories = pet.vaccine_histories, !vaccineHistories.isEmpty {
-                                    ForEach(vaccineHistories, id: \.id) { vaccine in
+                                    ForEach(vaccineHistories, id: \.vaccine_history_id) { record in
                                         HStack {
                                             VStack(alignment: .leading) {
-                                                Text(vaccine.vaccineName)
+                                                Text(record.vaccine_history_details.first?.vaccine_name ?? "No vaksin")
                                                     .font(.headline)
-                                                Text(vaccine.vaccineDate ?? "No Date")
+                                                Text(formattedDateYYYYMMDD(record.vaccine_history_details.first?.createdAt ?? Date()))
                                                     .font(.subheadline)
                                             }
                                             Spacer()
@@ -118,7 +118,7 @@ struct MyPetDetailView: View {
                                         .padding(.vertical, 4)
                                     }
                                 } else {
-                                    Text("No vaccine history available")
+                                    Text("No medical records available")
                                         .font(.subheadline)
                                         .foregroundColor(.gray)
                                 }

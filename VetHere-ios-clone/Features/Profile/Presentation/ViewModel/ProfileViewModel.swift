@@ -15,13 +15,31 @@ class ProfileViewModel: ObservableObject {
     private let coordinator: any AppCoordinatorProtocol
 
     @Published var errorMessage: String?
+    @Published var isSaving: Bool = false
+    @Published var successMessage: String?
     @Published var isLoading: Bool = false
     @Published var loadingState: LoadingState = .loading
+    @Published var imagePickerSource: UIImagePickerController.SourceType = .photoLibrary
+    @Published var showImagePicker: Bool = false
 
     @Published var user = GetProfileResponseDto(username: "", first_name: "", last_name: nil, image: nil)
     
     init(_ coordinator: any AppCoordinatorProtocol) {
         self.coordinator = coordinator
+    }
+    
+    func edit(){
+        coordinator.push(.editProfile)
+    }
+    
+    func showImagePickerForCamera() {
+        showImagePicker = true
+        imagePickerSource = .camera
+    }
+
+    func showImagePickerForGallery() {
+        showImagePicker = true
+        imagePickerSource = .photoLibrary
     }
     
     func logout() {
@@ -90,4 +108,29 @@ class ProfileViewModel: ObservableObject {
             self.isLoading = false 
         }
     }
+    
+    
+    func UpdateProfile(firstName: String, lastName: String, profileImage: Data) {
+        Task { @MainActor [weak self] in
+            guard let self = self else { return }
+            
+
+            self.errorMessage = nil
+            
+            let dto = UpdateProfileRequestDto(first_name: firstName, last_name: lastName, image: profileImage)
+            let file = NetworkManager.File(data: profileImage, mimeType: "image/jpeg", filename: "image.jpeg")
+            let service = ProfileService.updateProfile(params: dto, file: file)
+            
+            let result = await networkManager.makeRequest(service, output: UpdateNewPetResponseDTO.self)
+            
+            switch result {
+            case .success(let response):
+                coordinator.pop()
+            case .failure(let error):
+                self.errorMessage = error.localizedDescription
+            }
+        }
+    }
+    
+    
 }

@@ -28,6 +28,7 @@ enum Screen: Identifiable, Hashable, Equatable{
     case vaccineHistory(vetName: String, doctorName: String, petName: String, vaccine: vaccine_history)
     case historyDetailView(date: Date, time: String, vetName: String, doctorName: String, PetName: String, notes: String)
     case updatePet(petId: UUID)
+    case editProfile
     
   
 //    case contentView
