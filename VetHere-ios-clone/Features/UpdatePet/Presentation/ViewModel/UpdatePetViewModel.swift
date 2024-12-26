@@ -54,6 +54,7 @@ class UpdatePetViewModel: ObservableObject {
     }
     
     func UpdatePet(pet_type_id: String, breed_id: String, pet_color: String, pet_dob: String, pet_weight: String, pet_image: Data, pet_name: String, pet_id: UUID) {
+
         Task { @MainActor [weak self] in
             guard let self = self else { return }
             
@@ -61,6 +62,7 @@ class UpdatePetViewModel: ObservableObject {
             self.errorMessage = nil
             self.successMessage = nil
             
+
             let dto = UpdatePetRequestDTO(pet_id: pet_id.uuidString, pet_type_Id: pet_type_id, breed_id: breed_id, pet_image: pet_image, pet_name: pet_name, pet_color: pet_color, pet_dob: pet_dob, pet_weight: pet_weight)
             let file = NetworkManager.File(data: pet_image, mimeType: "image/jpeg", filename: "pet_image.jpeg")
             let service = UpdatePetService.UpdateNewPet(params: dto, file: file)
@@ -72,6 +74,7 @@ class UpdatePetViewModel: ObservableObject {
                 self.successMessage = "Pet updated successfully!"
                 self.isSaving = false
                 coordinator.pop()
+
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
                 self.isSaving = false
@@ -87,8 +90,10 @@ class UpdatePetViewModel: ObservableObject {
            petDOB: String,
            petBreed: String,
            petColor: String,
+
            petImage: UIImage?,
            petId: UUID
+
        ) {
            guard !petName.isEmpty, !petWeight.isEmpty, !petType.isEmpty else {
                errorMessage = "Please fill in all required fields."
@@ -100,7 +105,9 @@ class UpdatePetViewModel: ObservableObject {
                return
            }
            
+
            onInput(.didUpdatePet,
+
                    pet_type_id: petType,
                    breed_id: petBreed,
                    pet_color: petColor,
@@ -109,6 +116,7 @@ class UpdatePetViewModel: ObservableObject {
                    pet_image: imageData,
                    pet_Name: petName,
                    pet_id: petId)
+
        }
     
     func resetForm() {
