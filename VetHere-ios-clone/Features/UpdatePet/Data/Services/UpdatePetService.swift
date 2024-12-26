@@ -13,9 +13,9 @@ internal struct UpdatePetService {
         params: UpdatePetRequestDTO,
         file: NetworkManager.File
     ) -> APIService {
-        let path = "/pet/update"
+        let path = "/pet"
         return APIService(
-            method: .POST,
+            method: .PATCH,
             path: path,
             headers: nil,
             params: params.toDictionary(),

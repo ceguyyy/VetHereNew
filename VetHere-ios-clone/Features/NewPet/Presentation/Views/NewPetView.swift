@@ -41,7 +41,7 @@ struct NewPetView: View {
                                     .frame(width: 128, height: 128)
                                     .clipShape(Circle())
                                     .onTapGesture {
-                                        showImageSourceActionSheet = true // Show action sheet when tapping on image
+                                        showImageSourceActionSheet = true 
                                     }
                             } else {
                                 VStack {
@@ -51,7 +51,7 @@ struct NewPetView: View {
                                         .frame(width: 128, height: 128)
                                         .foregroundColor(.gray)
                                         .onTapGesture {
-                                            showImageSourceActionSheet = true // Show action sheet when tapping on image
+                                            showImageSourceActionSheet = true
                                         }
 
                                     Text("Sentuh untuk menambahkan gambar")

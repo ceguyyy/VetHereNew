@@ -74,12 +74,13 @@ class PetDetailViewModel: ObservableObject {
         } ?? []
 
         let vaccineHistories: [vaccine_history] = dto.vaccine_histories?.map { history in
-            vaccine_history(
-                vaccineId: UUID(uuidString: history.vaccine_id) ?? UUID() ,
-                vaccineName: history.vaccine_name,
-                vetName: history.vet_name,
-                vaccineDate: history.vaccine_date
-            )
+            vaccine_history(vaccine_history_id: UUID(uuidString: history.vaccine_history_id) ?? UUID() ,
+                            vaccine_history_details: history.vaccine_histories_details.map { detail in vaccine_history_details(
+                                vaccine_history_detail_id: UUID(uuidString: detail.vaccine_history_detail_id) ?? UUID(),
+                                vet_name: detail.vet_name,
+                                vaccine_name: detail.vaccine_name,
+                                createdAt: formattedDateToStringDDMMYYYY(detail.created_at) ?? Date(),
+                                updatedAt: Date())})
         } ?? []
 
         return pet(
@@ -90,7 +91,7 @@ class PetDetailViewModel: ObservableObject {
             pet_name: dto.pet_name,
             pet_color: dto.pet_color ?? "Unknown",
             pet_dob: dto.pet_dob ?? "Unknown",
-            pet_weight: 0,
+            pet_weight: dto.pet_weight ?? 0,
             medical_record: medicalRecords,
             vaccine_histories: vaccineHistories
         )

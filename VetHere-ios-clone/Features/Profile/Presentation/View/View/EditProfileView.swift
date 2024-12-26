@@ -1,32 +1,24 @@
 //
-//  NewPetView 2.swift
+//  EditProfileView.swift
 //  VetHere-ios-clone
 //
-//  Created by Christian Gunawan on 09/12/24.
+//  Created by Christian Gunawan on 26/12/24.
 //
 
 
 import SwiftUI
 
-struct UpdatePetView: View {
+struct EditProfileView: View {
     @State private var selectedUIImage: UIImage? = nil
-    @State private var petName: String = ""
-    @State private var petWeight: String = ""
-    @State private var petDOB: Date = Date()
-    @State private var petBreed: String = ""
-    @State private var petColor: String = ""
+    @State private var userName: String = ""
+    @State private var firstName: String = ""
+    @State private var lastName: String = ""
     @State private var showImageSourceActionSheet: Bool = false
-    
-    let petId: UUID
-    
-    @State private var petType: String = "Anjing"
-    let petTypes = ["Anjing", "Kucing", "Eksotis", "Hamster", "Lainnya"]
-    
-    @StateObject var viewModel: UpdatePetViewModel
-    
-    init(_ coordinator: any AppCoordinatorProtocol, petId: UUID) {
-        self._viewModel = StateObject(wrappedValue: UpdatePetViewModel(coordinator))
-        self.petId = petId
+
+    @StateObject var viewModel: ProfileViewModel
+
+    init(_ coordinator: any AppCoordinatorProtocol) {
+        self._viewModel = StateObject(wrappedValue: ProfileViewModel(coordinator))
     }
 
     var body: some View {
@@ -54,8 +46,8 @@ struct UpdatePetView: View {
                                         .onTapGesture {
                                             showImageSourceActionSheet = true
                                         }
-
-                                    Text("Sentuh untuk menambahkan gambar")
+                                    
+                                    Text("Tap to add an image")
                                         .font(.footnote)
                                         .foregroundColor(.gray)
                                 }
@@ -64,45 +56,28 @@ struct UpdatePetView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding()
                     }
-
+                    
                     Section(header: Text("Information")) {
-                        TextField("Nama Hewan", text: $petName)
-                        TextField("Berat Hewan (kg)", text: $petWeight)
-                            .keyboardType(.decimalPad)
-                        Picker("Tipe Hewan", selection: $petType) {
-                            ForEach(petTypes, id: \.self) { type in
-                                Text(type).tag(type)
-                            }
-                        }
-                        DatePicker("Tanggal Lahir", selection: $petDOB, displayedComponents: .date)
-                    }
-
-                    Section(header: Text("Informasi Tambahan")) {
-                        TextField("Keturunan (Optional)", text: $petBreed)
-                        TextField("Warna (Optional)", text: $petColor)
+                        TextField("First Name", text: $firstName)
+                        TextField("Last Name", text: $lastName)
                     }
                 }
                 .listStyle(InsetGroupedListStyle())
-
+                
                 Spacer()
-
+                
                 Button(action: {
-                    let formattedDOB = formattedDateYYYYMMDD(petDOB)
-                    viewModel.validateAndSavePet(
-                        petName: petName,
-                        petWeight: petWeight,
-                        petType: petType,
-                        petDOB: formattedDOB,
-                        petBreed: petBreed,
-                        petColor: petColor,
-                        petImage: selectedUIImage,
-                        petId: petId
-                    )
+                    if let image = selectedUIImage,
+                       let imageData = image.jpegData(compressionQuality: 0.8) {
+                        viewModel.UpdateProfile(firstName: firstName, lastName: lastName, profileImage: imageData)
+                    } else {
+                        viewModel.UpdateProfile(firstName: firstName, lastName: lastName, profileImage: Data())
+                    }
                 }) {
                     if viewModel.isSaving {
                         ProgressView()
                     } else {
-                        Text("Save Pet")
+                        Text("Save")
                             .fontWeight(.bold)
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -114,25 +89,24 @@ struct UpdatePetView: View {
                 .padding()
                 .disabled(viewModel.isSaving)
             }
-            .navigationBarTitle("Update Hewan Baru", displayMode: .inline)
+            .navigationBarTitle("Update Profile", displayMode: .inline)
             .sheet(isPresented: $viewModel.showImagePicker) {
                 ImagePicker(image: $selectedUIImage, sourceType: viewModel.imagePickerSource)
             }
             .actionSheet(isPresented: $showImageSourceActionSheet) {
                 ActionSheet(
-                    title: Text("Pilih Sumber Gambar"),
+                    title: Text("Choose Image Source"),
                     buttons: [
-                        .default(Text("Kamera")) {
+                        .default(Text("Camera")) {
                             viewModel.showImagePickerForCamera()
                         },
-                        .default(Text("Pilih dari Galeri")) {
+                        .default(Text("Choose from Gallery")) {
                             viewModel.showImagePickerForGallery()
                         },
                         .cancel()
                     ]
                 )
             }
-            
         }
     }
 }
@@ -141,6 +115,6 @@ struct UpdatePetView: View {
     @Previewable
     @StateObject var appCoordinator = AppCoordinator()
     NavigationStack(path: $appCoordinator.path) {
-        UpdatePetView(appCoordinator, petId: UUID())
+        EditProfileView(appCoordinator)
     }
 }

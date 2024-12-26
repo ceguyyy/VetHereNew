@@ -5,13 +5,6 @@
 //  Created by Christian Gunawan on 06/12/24.
 //
 
-//
-//  ProfileView.swift
-//  VetHere-ios-clone
-//
-//  Created by Christian Gunawan on 06/12/24.
-//
-//
 
 import SwiftUI
 
@@ -43,13 +36,10 @@ struct ProfileView: View {
      
                 
             } else {
-                ImageView(imageURL: viewModel.user.image, width: 100, height: 100)
+                ImageView(imageURL: viewModel.user.image, width: 250, height: 250)
                     .scaledToFill()
-                    .frame(width: 100, height: 100)
-                    .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.gray, lineWidth: 2))
-                    .shadow(radius: 5)
-                
+                    .frame(width: 250, height: 250)
+                    .clipShape(Rectangle())
 
                 Text(viewModel.user.username)
                     .font(.title)
@@ -62,19 +52,22 @@ struct ProfileView: View {
                     .padding([.leading, .trailing], 20)
                     .multilineTextAlignment(.center)
                 
+                Spacer()
+                
                 Button(action: {
                     viewModel.logout()
                 }) {
                     Text("Logout")
-                        .font(.headline)
-                        .foregroundColor(.red)
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Capsule().stroke(Color.red, lineWidth: 2))
+                        .foregroundColor(.white)
+                        .background(Color.red)
+                        .cornerRadius(10)
                 }
                 .padding(.top, 30)
             }
-            
-            Spacer()
+
         }
         .onAppear {
             viewModel.getProfile()
@@ -82,7 +75,18 @@ struct ProfileView: View {
         .padding()
         .navigationTitle("Profile")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            viewModel.edit()
+                        }) {
+                            Image(systemName: "pencil")
+                                .foregroundColor(.blue)
+                        }
+                    }
+                }
     }
+    
 }
 
 #Preview {

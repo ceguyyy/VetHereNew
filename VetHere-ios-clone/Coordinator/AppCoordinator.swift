@@ -86,10 +86,10 @@ class AppCoordinator: AppCoordinatorProtocol {
             VaccineHistoryView(self, vetName: vetName, doctorName: doctorName, petName: petName, vaccine: vaccine)
         case .updatePet(petId: let petId):
             UpdatePetView(self, petId: petId)
+        case .editProfile:
+            EditProfileView(self)
+
         }
     }
 
 }
-//vetName: String, doctorName: String, petName: String, vaccine: vaccine_history
-//case .vaccineHistory(let vaccine, let vetName, let doctorName,let petName):
-//    VaccineHistoryView(self, vetName: vetName, doctorName: doctorName, petName: petName, vaccine: vaccine)

@@ -43,10 +43,11 @@ struct MyPetView: View {
                       .foregroundColor(.gray)
                   }.swipeActions {
                       Button(role: .destructive) {
-                          print("delete")
+                          viewModel.onInput(.didDeleteMyPet(petId: pet.id))
                       } label: {
                           Label("Delete", systemImage: "trash")
                       }
+                      .tint(.red)
                       Button {
                           viewModel.goToSchedule(.goToUpdatePet(petId: pet.id))
                       } label: {
