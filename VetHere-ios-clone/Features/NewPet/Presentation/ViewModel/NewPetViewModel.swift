@@ -32,7 +32,7 @@ class NewPetViewModel: ObservableObject {
         self.coordinator = coordinator
     }
     
-    // Moved showImagePicker functions to the ViewModel
+
     func showImagePickerForCamera() {
         showImagePicker = true
         imagePickerSource = .camera
@@ -63,7 +63,7 @@ class NewPetViewModel: ObservableObject {
             self.successMessage = nil
             
             let dto = NewPetRequestDTO(pet_type_Id: pet_type_id, breed_id: breed_id, pet_image: pet_image, pet_name: pet_name, pet_color: pet_color, pet_dob: pet_dob, pet_weight: pet_weight)
-            let file = NetworkManager.File(data: pet_image, mimeType: "image/jpeg", filename: "pet_image.jpeg")
+            let file = NetworkManager.File(data: pet_image, mimeType: "image/jpeg", filename: "pet_image")
             let service = NewPetService.addNewPet(params: dto, file: file)
             
             let result = await networkManager.makeRequest(service, output: AddNewPetResponseDTO.self)
@@ -72,6 +72,7 @@ class NewPetViewModel: ObservableObject {
             case .success(let response):
                 self.successMessage = "Pet added successfully!"
                 self.isSaving = false
+                
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
                 self.isSaving = false

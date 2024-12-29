@@ -12,11 +12,12 @@ class appoinments{
     let vet_name: String
     let doctor_name: String
     let pet_name: String
+    let appointment_status: String
     let appointment_notes: String
     let appointment_date: Date
     let appointment_time: String
     
-    init(appointment_id: UUID, vet_name: String, doctor_name: String, pet_name: String, appointment_notes: String, appointment_date: Date, appointment_time: String) {
+    init(appointment_id: UUID, vet_name: String, doctor_name: String, pet_name: String, appointment_notes: String, appointment_date: Date, appointment_time: String, appointment_status: String) {
         self.appointment_id = appointment_id
         self.vet_name = vet_name
         self.doctor_name = doctor_name
@@ -24,5 +25,6 @@ class appoinments{
         self.appointment_notes = appointment_notes
         self.appointment_date = appointment_date
         self.appointment_time = appointment_time
+        self.appointment_status = appointment_status
     }
 }

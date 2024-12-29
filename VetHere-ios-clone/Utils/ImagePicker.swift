@@ -1,9 +1,3 @@
-//
-//  ImagePicker.swift
-//  VetHere-ios-clone
-//
-//  Created by Christian Gunawan on 09/12/24.
-//
 
 
 //

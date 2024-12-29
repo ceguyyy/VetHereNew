@@ -32,6 +32,7 @@ class MyPetViewModel: ObservableObject {
     
     enum InputGesture{
         case didFetchMyPet
+        case didDeleteMyPet(petId: UUID)
 
     }
 
@@ -57,7 +58,9 @@ class MyPetViewModel: ObservableObject {
         switch inputGesture{
         case .didFetchMyPet:
             getUserPets()
-       
+    
+        case .didDeleteMyPet(let petId):
+            deletePet(petId: petId)
         }
         
     }
@@ -69,10 +72,38 @@ class MyPetViewModel: ObservableObject {
                 name: dto.pet_name,
                 type: dto.pet_type ?? "Unknown",
                 image: dto.pet_image ?? Constant.ErrorImage,
-                weight: 0, DOB: "",
+                weight: 0,
+                DOB: "",
                 breed: "",
                 color: "")
         }
+    }
+    
+    func deletePet(petId: UUID){
+        Task {
+            @MainActor [ weak self] in
+            guard let self else { return }
+            let dto = deletePetRequestDto(pet_id: petId.uuidString)
+            print(petId.uuidString)
+            let service = MyPetService.deleteMyPet(params: dto)
+            let request = await networkManager.makeRequest(service, output: deletePetResponseDto.self)
+            let response = request.flatMap { response -> Result<Void, NetworkError> in
+                guard response.meta.success, let data = response.data else {
+                    return .failure(.noData)
+                }
+                return .success(())
+            }
+
+            switch response {
+            case .success(_):
+                getUserPets()
+            case .failure(let error):
+                debugPrint("Failed registering: \(error.localizedDescription)")
+                self.errorMessage = "Failed to delete pet"
+                coordinator.popToRoot()
+            }
+            }
+        
     }
     
     func getUserPets() {

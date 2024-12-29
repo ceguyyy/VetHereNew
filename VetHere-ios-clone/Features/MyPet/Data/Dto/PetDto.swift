@@ -18,3 +18,10 @@ struct GetUserPetsRequestDto: Codable{
     
 }
 
+struct deletePetRequestDto: Codable{
+    let pet_id : String
+}
+
+struct deletePetResponseDto: Decodable{
+}
+

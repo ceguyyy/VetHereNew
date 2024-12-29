@@ -16,6 +16,7 @@ struct HistoryDetailView: View {
     let doctorName: String
     let petName: String
     let notes: String
+    let status: String
     
     @StateObject private var viewModel: HistoryDetailViewModel
     @State private var showNewPetSheet: Bool = false
@@ -27,7 +28,8 @@ struct HistoryDetailView: View {
         vetName: String,
         doctorName: String,
         petName: String,
-        notes: String
+        notes: String,
+        status: String
     ) {
         self.date = date
         self.time = time
@@ -35,6 +37,7 @@ struct HistoryDetailView: View {
         self.doctorName = doctorName
         self.petName = petName
         self.notes = notes
+        self.status = status
         self._viewModel = StateObject(wrappedValue: HistoryDetailViewModel(coordinator))
     }
     
@@ -42,21 +45,13 @@ struct HistoryDetailView: View {
         NavigationView {
             ScrollView{
                 VStack(alignment: .leading, spacing: 20) {
-                    HStack {
-                        Spacer()
-                        Text("Ringkasan Pemesanan")
-                            .font(.headline)
-                            .foregroundColor(.primary)
-                            .padding()
-                        Spacer()
-                    }
+                    Spacer()
                     
                     VStack(alignment: .leading, spacing: 8) {
                         
                         BookSummaryInfoRowComponent(label: "Tanggal", value: (formattedDateYYYYMMDD(date))).padding(.horizontal,20)
-                        
-                        
                         BookSummaryInfoRowComponent(label: "Waktu", value: extractTime(from: time) ?? time).padding(.horizontal,20)
+                        BookSummaryInfoRowComponent(label: "Status", value: status).padding(.horizontal,20)
                         
                     }
                     
@@ -65,8 +60,6 @@ struct HistoryDetailView: View {
                     VStack(alignment: .leading, spacing: 8) {
                         
                         BookSummaryInfoRowComponent(label: "Nama Klinik", value: vetName).padding(.horizontal,20)
-                        
-                        
                         BookSummaryInfoRowComponent(label: "Nama Dokter", value: doctorName).padding(.horizontal,20)
                         BookSummaryInfoRowComponent(label: "Nama Hewan", value: petName).padding(.horizontal,20)
                         
@@ -85,11 +78,15 @@ struct HistoryDetailView: View {
                     Spacer()
                 }
             }.cornerRadius(10)
-            .background(Color(UIColor.systemGroupedBackground))
+            
+        
             .padding()
-            navigationTitle("Ringkasan Pemesanan")
-            .navigationBarTitleDisplayMode(.inline)
+            
+        
               }
+        .background(Color(UIColor.systemGroupedBackground))
+      
+        .navigationTitle("Riwayat Pemesanan").navigationBarTitleDisplayMode(.inline)
           }
     }
 
@@ -102,7 +99,7 @@ struct HistoryDetailView_Previews: PreviewProvider {
             vetName: "Klinik Lorem",
             doctorName: "Dokter Lorem",
             petName: "Alpha",
-            notes: "Keluhan Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
+            notes: "Keluhan Lorem ipsum dolor sit amet, consectetur adipiscing elit...", status: "Waiting"
         )
     }
 }

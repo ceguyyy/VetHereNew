@@ -9,6 +9,7 @@
 import Foundation
 
 struct UpdatePetRequestDTO: Encodable {
+    var pet_id: String
     var pet_type_Id: String
     var breed_id: String?
     var pet_image: Data

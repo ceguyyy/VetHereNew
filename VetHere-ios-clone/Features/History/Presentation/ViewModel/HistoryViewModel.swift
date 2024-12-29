@@ -17,7 +17,7 @@ class HistoryViewModel: ObservableObject {
     
     
     enum goAction {
-        case goToHistoryDetails(date: Date, time: String, vetName: String, doctorName: String, petName:String, notes:String)
+        case goToHistoryDetails(date: Date, time: String, vetName: String, doctorName: String, petName:String, notes:String, status:String)
         case goToProfile
     }
     
@@ -33,8 +33,8 @@ class HistoryViewModel: ObservableObject {
     
     func goToAction(_ goAction: goAction){
         switch goAction{
-        case .goToHistoryDetails(date: let date, time: let time, vetName: let vetName, doctorName: let doctorName, petName: let petName, notes: let notes):
-            coordinator.push(.historyDetailView(date: date, time: time, vetName: vetName, doctorName: doctorName, PetName: petName, notes: notes))
+        case .goToHistoryDetails(date: let date, time: let time, vetName: let vetName, doctorName: let doctorName, petName: let petName, notes: let notes, status: let status):
+            coordinator.push(.historyDetailView(date: date, time: time, vetName: vetName, doctorName: doctorName, PetName: petName, notes: notes, status: status))
         case .goToProfile:
             coordinator.push(.profile)
         }
@@ -51,14 +51,14 @@ class HistoryViewModel: ObservableObject {
     func transformDTOtoAppoinment() -> [appoinments]{
             return history.map {
                 dto in
-             
                 appoinments(appointment_id:UUID(uuidString: dto.appointment_id) ?? UUID(),
                             vet_name: dto.vet_name,
                             doctor_name: dto.doctor_name,
                             pet_name: dto.pet_name,
                             appointment_notes: dto.appointment_notes,
                             appointment_date: formattedDateToStringDDMMYYYY(dto.appointment_date) ?? Date(),
-                            appointment_time: dto.appointment_time
+                            appointment_time: dto.appointment_time,
+                            appointment_status: dto.appointment_status
                              )
             }
         }
@@ -67,13 +67,10 @@ class HistoryViewModel: ObservableObject {
         func getHistory() {
             Task { @MainActor [weak self] in
                 guard let self = self else { return }
-                
                 self.isLoading = true
                 self.errorMessage = nil
-                
                 let dto = GetHistoryRequestDto()
                 let service = HistoryService.getHistory(params: dto)
-                
                 let result = await networkManager.makeRequest(service, output: [GetHistoryResponseDTO].self)
                 
                 switch result {
@@ -103,106 +100,21 @@ class HistoryViewModel: ObservableObject {
                 self.isLoading = false
             }
         }
+    
+    func statusColor(for status: String) -> Color {
+          switch status {
+          case "Accepted":
+              return .green
+          case "Waiting":
+              return .orange
+          case "Rejected":
+              return .red
+          case "Finished":
+              return .blue
+          default:
+              return .secondary
+          }
+      }
         
     }
-    
-//    func getUserPetDetail(petId: String) {
-//        Task { @MainActor [weak self] in
-//            guard let self = self else { return }
-//            
-//            let dto = GetPetDetailRequestDto(pet_id: petId)
-//            let service = PetService.getUserPetDetail(params: dto)
-//            let request = await networkManager.makeRequest(service, output: GetPetDetailResponseDto.self)
-//            
-//            switch request {
-//            case .success(let response):
-//                if response.meta.success, let data = response.data {
-//                    // Map vaccine histories
-//                    let vaccineHistories = data.vaccine_histories?.map { record in
-//                        VaccineHistory(
-//                            vaccineId: record.vaccine_id,
-//                            vaccineName: record.vaccine_name,
-//                            vetName: record.vet_name,
-//                            vaccineDate: record.vaccine_date
-//                        )
-//                    }
-//                    
-//                    // Map medical record details
-//                    let medicalRecordDetails = data.medical_record?.medical_record_details.map { detail in
-//                        MedicalRecordDetail(
-//                            medicalRecordId: detail.medical_record_detail_id,
-//                            vetName: detail.vet_name,
-//                            diagnosis: detail.diagnosis,
-//                            treatment: detail.treatment,
-//                            date: detail.created_at
-//                        )
-//                    } ?? []
-//                    
-//                    // Map medical record
-//                    let medicalRecord = data.medical_record.map { record in
-//                        MedicalRecord(
-//                            medicalRecordId: record.medical_record_id,
-//                            medicalRecordDetails: medicalRecordDetails
-//                        )
-//                    }
-//                    
-//                    let mockMedicalRecord = MedicalRecord(
-//                        medicalRecordId: "1",
-//                        medicalRecordDetails: [
-//                            MedicalRecordDetail(
-//                                medicalRecordId: "1",
-//                                vetName: "Dr. Smith",
-//                                diagnosis: "Healthy",
-//                                treatment: "Vaccination",
-//                                date: "08/12/2024"
-//                            ),
-//                            MedicalRecordDetail(
-//                                medicalRecordId: "2",
-//                                vetName: "Dr. John",
-//                                diagnosis: "Injury",
-//                                treatment: "Bandaging",
-//                                date: "10/11/2024"
-//                            ),
-//                            MedicalRecordDetail(
-//                                medicalRecordId: "3",
-//                                vetName: "Dr. Alice",
-//                                diagnosis: "Skin Infection",
-//                                treatment: "Antibiotics",
-//                                date: "11/15/2024"
-//                            ),
-//                            MedicalRecordDetail(
-//                                medicalRecordId: "4",
-//                                vetName: "Dr. Bob",
-//                                diagnosis: "Allergy",
-//                                treatment: "Antihistamines",
-//                                date: "12/01/2024"
-//                            )
-//                        ]
-//                    )
-//                    
-//                    // Map full pet details
-//                    let petDetail = Pet(
-//                        petId: data.pet_id,
-//                        petName: data.pet_name,
-//                        petType: data.pet_type,
-//                        petImage: data.pet_image,
-//                        petWeight: data.pet_weight,
-//                        petDOB: data.pet_dob,
-//                        petBreed: data.pet_breed,
-//                        petColor: data.pet_color,
-//                        medicalRecord: mockMedicalRecord,
-//                        vaccineHistory: vaccineHistories ?? []
-//                    )
-//                    
-//                    selectedPet = petDetail
-//                    
-//                } else {
-//                    print("Failed to fetch pet details: \(response.meta.message)")
-//                }
-//                
-//            case .failure(let error):
-//                print("Error fetching pet details: \(error)")
-//            }
-//        }
-//    }
-//}
+

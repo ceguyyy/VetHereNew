@@ -10,16 +10,16 @@ import Foundation
 class pet{
     let pet_id: UUID
     let pet_type: String
-    let pet_breed: String
+    let pet_breed: String?
     let pet_image: String
     let pet_name: String
-    let pet_color: String
+    let pet_color: String?
     let pet_dob: String
-    let pet_weight: Int
+    let pet_weight: Double
     let medical_record: [medical_records]?
     let vaccine_histories: [vaccine_history]?
     
-    init(pet_id: UUID, pet_type: String, pet_breed: String, pet_image: String, pet_name: String, pet_color: String, pet_dob: String, pet_weight: Int, medical_record: [medical_records]?, vaccine_histories: [vaccine_history]?) {
+    init(pet_id: UUID, pet_type: String, pet_breed: String, pet_image: String, pet_name: String, pet_color: String, pet_dob: String, pet_weight: Double, medical_record: [medical_records]?, vaccine_histories: [vaccine_history]?) {
         self.pet_id = pet_id
         self.pet_type = pet_type
         self.pet_breed = pet_breed

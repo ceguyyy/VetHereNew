@@ -15,6 +15,7 @@ struct GetHistoryResponseDTO: Decodable {
     let vet_name: String
     let doctor_name: String
     let pet_name: String
+    let appointment_status: String
     let appointment_notes: String
     let appointment_date: String
     let appointment_time: String

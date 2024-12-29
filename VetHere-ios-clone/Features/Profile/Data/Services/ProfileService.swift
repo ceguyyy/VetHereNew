@@ -20,6 +20,22 @@ internal struct ProfileService {
             parameterEncoding: .json
         )
     }
+    
+    static func updateProfile(
+        params: UpdateProfileRequestDto,
+        file: NetworkManager.File
+    ) -> APIService {
+        let path = "/user"
+        return APIService(
+            method: .PATCH,
+            path: path,
+            headers: nil,
+            params: params.toDictionary(),
+            parameterEncoding: .multiformdata,
+            file: file
+        )
+    }
+    
 }
 
 

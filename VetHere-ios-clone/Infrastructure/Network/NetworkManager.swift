@@ -75,7 +75,7 @@ public class NetworkManager {
           }
 
           appendFileField(
-            name: "pet_image", data: file.data, to: &body, boundary: boundary,
+            name: file.filename, data: file.data, to: &body, boundary: boundary,
             mimeType: file.mimeType, filename: file.filename)
 
           body.append("--\(boundary)--".data(using: .utf8)!)
