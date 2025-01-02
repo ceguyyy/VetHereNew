@@ -10,7 +10,7 @@ import Foundation
 
 struct UpdatePetRequestDTO: Encodable {
     var pet_id: String
-    var pet_type_Id: String
+    var pet_type_id: String
     var breed_id: String?
     var pet_image: Data
     var pet_name: String
@@ -20,7 +20,7 @@ struct UpdatePetRequestDTO: Encodable {
 
     func toDictionary() -> [String: Any] {
         var dict: [String: Any] = [
-            "pet_type_Id": pet_type_Id,
+            "pet_type_Id": pet_type_id,
             "pet_name": pet_name,
             "pet_dob": pet_dob,
             "pet_weight": pet_weight

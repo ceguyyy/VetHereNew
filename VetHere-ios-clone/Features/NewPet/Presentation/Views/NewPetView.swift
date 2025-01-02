@@ -5,7 +5,6 @@
 //  Created by Christian Gunawan on 09/12/24.
 //
 
-
 import SwiftUI
 
 struct NewPetView: View {
@@ -17,8 +16,7 @@ struct NewPetView: View {
     @State private var petColor: String = ""
     @State private var showImageSourceActionSheet: Bool = false
     
-    @State private var petType: String = "Anjing"
-    let petTypes = ["Anjing", "Kucing", "Eksotis", "Hamster", "Lainnya"]
+    @State private var selectedPetTypeID: String = ""
     
     @StateObject var viewModel: NewPetViewModel
     @Binding var isPresented: Bool
@@ -27,7 +25,7 @@ struct NewPetView: View {
         self._viewModel = StateObject(wrappedValue: NewPetViewModel(coordinator))
         self._isPresented = isPresented
     }
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -39,9 +37,9 @@ struct NewPetView: View {
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 128, height: 128)
-                                    .clipShape(Circle())
+                             
                                     .onTapGesture {
-                                        showImageSourceActionSheet = true 
+                                        showImageSourceActionSheet = true
                                     }
                             } else {
                                 VStack {
@@ -53,44 +51,64 @@ struct NewPetView: View {
                                         .onTapGesture {
                                             showImageSourceActionSheet = true
                                         }
-
-                                    Text("Sentuh untuk menambahkan gambar")
+                                    
+                                    Text("Ketuk untuk menambahkan gambar")
                                         .font(.footnote)
                                         .foregroundColor(.gray)
                                 }
                             }
                         }
+                        
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding()
                     }
-
-                    Section(header: Text("Information")) {
-                        TextField("Nama Hewan", text: $petName)
+                    
+                    Section(header: Text("Informasi Pet")) {
+                        TextField("Nama", text: $petName)
                         TextField("Berat Hewan (kg)", text: $petWeight)
                             .keyboardType(.decimalPad)
-                        Picker("Tipe Hewan", selection: $petType) {
-                            ForEach(petTypes, id: \.self) { type in
-                                Text(type).tag(type)
+                        
+                        if viewModel.transformDTOToPetType().isEmpty {
+                            ErrorView(message: "Server Error")
+                        }else
+                        {
+                           
+                            Picker("Jenis Hewan", selection: $selectedPetTypeID) {
+                                
+                                ForEach(viewModel.transformDTOToPetType(), id: \.id) { type in
+                                    Text(type.name).tag(type.id)
+                                }
                             }
+                            .pickerStyle(MenuPickerStyle())
                         }
+                        
+                        
+                        
+                        
                         DatePicker("Tanggal Lahir", selection: $petDOB, displayedComponents: .date)
+                    }   .onAppear {
+                        viewModel.getPetType()
+                        if let firstPetType = viewModel.petTypes.first {
+                            selectedPetTypeID = firstPetType.pet_type_id
+                        }
                     }
-
+                    
                     Section(header: Text("Informasi Tambahan")) {
                         TextField("Keturunan (Optional)", text: $petBreed)
                         TextField("Warna (Optional)", text: $petColor)
                     }
                 }
+                
                 .listStyle(InsetGroupedListStyle())
-
+                
                 Spacer()
-
+                
                 Button(action: {
                     let formattedDOB = formattedDateYYYYMMDD(petDOB)
                     viewModel.validateAndSavePet(
                         petName: petName,
                         petWeight: petWeight,
-                        petType: petType,
+                        petType: selectedPetTypeID,
                         petDOB: formattedDOB,
                         petBreed: petBreed,
                         petColor: petColor,
@@ -101,7 +119,7 @@ struct NewPetView: View {
                     if viewModel.isSaving {
                         ProgressView()
                     } else {
-                        Text("Save Pet")
+                        Text("Simpan Hewan")
                             .fontWeight(.bold)
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -113,18 +131,19 @@ struct NewPetView: View {
                 .padding()
                 .disabled(viewModel.isSaving)
             }
-            .navigationBarTitle("Tambahkan Hewan Baru", displayMode: .inline)
+            
+            .navigationBarTitle("Add New Pet", displayMode: .inline)
             .sheet(isPresented: $viewModel.showImagePicker) {
                 ImagePicker(image: $selectedUIImage, sourceType: viewModel.imagePickerSource)
             }
             .actionSheet(isPresented: $showImageSourceActionSheet) {
                 ActionSheet(
-                    title: Text("Pilih Sumber Gambar"),
+                    title: Text("Choose Image Source"),
                     buttons: [
-                        .default(Text("Kamera")) {
+                        .default(Text("Camera")) {
                             viewModel.showImagePickerForCamera()
                         },
-                        .default(Text("Pilih dari Galeri")) {
+                        .default(Text("Gallery")) {
                             viewModel.showImagePickerForGallery()
                         },
                         .cancel()
@@ -136,11 +155,21 @@ struct NewPetView: View {
                 set: { _ in }
             )) {
                 Alert(
-                    title: Text("Notifikasi"),
+                    title: Text("Notification"),
                     message: Text(viewModel.errorMessage ?? ""),
                     dismissButton: .default(Text("OK"))
                 )
             }
         }
+        .refreshable {
+            viewModel.getPetType()
+            
+        }
+        .onAppear {
+            viewModel.getPetType()
+        }
+        
+        
+        
     }
 }

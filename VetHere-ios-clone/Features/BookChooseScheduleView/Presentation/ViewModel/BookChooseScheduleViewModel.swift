@@ -16,7 +16,9 @@ class BookChooseScheduleViewModel: ObservableObject{
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     @Published var loadingState: LoadingState = .loading
-    @Published var schedules: [BookChooseScheduleResponseDTO] = []
+    @Published var schedules: [String] = []
+    
+
     
     init(_ coordinator: any AppCoordinatorProtocol) {
         self.coordinator = coordinator
@@ -33,7 +35,7 @@ class BookChooseScheduleViewModel: ObservableObject{
     
     
     enum InputGesture {
-        case didFetchEmptySchedule(vetId: UUID, doctorId: UUID, appointmentDate: Date)
+        case didFetchEmptySchedule
         
     }
     
@@ -52,6 +54,8 @@ class BookChooseScheduleViewModel: ObservableObject{
         }
     }
     
+   
+
     
     func FetchEmptySchedule(vetId: UUID, doctorId: UUID, appointmentDate: Date) {
         Task { @MainActor [weak self] in
@@ -61,7 +65,7 @@ class BookChooseScheduleViewModel: ObservableObject{
             self.errorMessage = nil
             let dto = BookChooseScheduleRequestDto(vet_id: vetId.uuidString, doctor_id: doctorId.uuidString, appointment_date: formattedDateYYYYMMDD(appointmentDate))
             let service = BookChooseScheduleService.getEmptySchedule(params: dto)
-            let result = await networkManager.makeRequest(service, output: [BookChooseScheduleResponseDTO].self)
+            let result = await networkManager.makeRequest(service, output: [String].self)
             switch result {
             case .success(let response):
                 if let dataSchedule = response.data {

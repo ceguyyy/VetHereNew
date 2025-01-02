@@ -44,6 +44,31 @@ func formattedDateToStringDDMMYYYY(_ dateString: String) -> Date? {
 
 
 
+
+
+func convertTimeToDate(timeString: String) -> Date? {
+    let currentDate = Date()
+    let timeFormatter = DateFormatter()
+    timeFormatter.dateFormat = "HH:mm"
+    timeFormatter.locale = Locale(identifier: "en_US_POSIX")
+    
+
+    if let time = timeFormatter.date(from: timeString) {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day], from: currentDate)
+
+        if let combinedDate = calendar.date(bySettingHour: calendar.component(.hour, from: time),
+                                            minute: calendar.component(.minute, from: time),
+                                            second: 0,
+                                            of: calendar.date(from: components)!) {
+            return combinedDate
+        }
+    }
+
+    print("Failed to parse time: \(timeString)")
+    return nil
+}
+
 func extractTime(from datetimeStr: String) -> String? {
     let inputFormatter = DateFormatter()
     inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"

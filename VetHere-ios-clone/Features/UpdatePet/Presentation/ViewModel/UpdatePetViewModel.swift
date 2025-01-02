@@ -24,6 +24,7 @@ class UpdatePetViewModel: ObservableObject {
     @Published var petDob: String = ""
     @Published var petWeight: String = ""
     @Published var petImage: Data = Data()
+    @Published var petTypes: [GetPetTypeResponseDTO] = []
     
     @Published var showImagePicker: Bool = false
     @Published var imagePickerSource: UIImagePickerController.SourceType = .photoLibrary
@@ -53,6 +54,44 @@ class UpdatePetViewModel: ObservableObject {
         }
     }
     
+    func transformDTOToPetType() -> [PetType] {
+        return petTypes.map { dto in
+            PetType(
+                id: dto.pet_type_id,
+                name: dto.pet_type_name
+            )
+        }
+    }
+    
+    func getPetType() {
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            
+            self.errorMessage = nil
+            self.successMessage = nil
+            
+            let dto = GetPetTypeRequestDTO()
+            let service = NewPetService.getPetType(params: dto)
+            
+            let result = await networkManager.makeRequest(service, output: [GetPetTypeResponseDTO].self)
+            
+            switch result {
+            case .success(let response):
+                self.successMessage = "Pet Type Loaded Successfully"
+                
+                if let petTypesData = response.data {
+                    self.petTypes = petTypesData
+                    print("Pet Types Loaded: \(self.petTypes)")
+                   
+  
+                }
+            case .failure:
+                self.errorMessage = "Failed to load Pet Types"
+            }
+        }
+    }
+    
+    
     func UpdatePet(pet_type_id: String, breed_id: String, pet_color: String, pet_dob: String, pet_weight: String, pet_image: Data, pet_name: String, pet_id: UUID) {
 
         Task { @MainActor [weak self] in
@@ -63,7 +102,7 @@ class UpdatePetViewModel: ObservableObject {
             self.successMessage = nil
             
 
-            let dto = UpdatePetRequestDTO(pet_id: pet_id.uuidString, pet_type_Id: pet_type_id, breed_id: breed_id, pet_image: pet_image, pet_name: pet_name, pet_color: pet_color, pet_dob: pet_dob, pet_weight: pet_weight)
+            let dto = UpdatePetRequestDTO(pet_id: pet_id.uuidString, pet_type_id: pet_type_id, breed_id: breed_id, pet_image: pet_image, pet_name: pet_name, pet_color: pet_color, pet_dob: pet_dob, pet_weight: pet_weight)
             let file = NetworkManager.File(data: pet_image, mimeType: "image/jpeg", filename: "pet_image")
             let service = UpdatePetService.UpdateNewPet(params: dto, file: file)
             

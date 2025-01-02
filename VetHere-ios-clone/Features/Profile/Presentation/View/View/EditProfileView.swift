@@ -30,7 +30,6 @@ struct EditProfileView: View {
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 128, height: 128)
-                                    .clipShape(Circle())
                                     .onTapGesture {
                                         showImageSourceActionSheet = true
                                     }
@@ -44,6 +43,7 @@ struct EditProfileView: View {
                                         .onTapGesture {
                                             showImageSourceActionSheet = true
                                         }
+                                        .clipShape(Circle())
 
                                     Text("Tap to add an image")
                                         .font(.footnote)

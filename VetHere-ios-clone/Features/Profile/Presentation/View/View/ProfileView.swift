@@ -39,7 +39,7 @@ struct ProfileView: View {
                 ImageView(imageURL: viewModel.user.image, width: 250, height: 250)
                     .scaledToFill()
                     .frame(width: 250, height: 250)
-                    .clipShape(Rectangle())
+                    .clipShape(Circle())
 
                 Text(viewModel.user.username)
                     .font(.title)

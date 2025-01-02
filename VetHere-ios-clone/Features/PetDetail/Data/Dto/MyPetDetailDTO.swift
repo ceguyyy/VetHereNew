@@ -14,7 +14,7 @@ struct GetPetDetailRequestDto : Codable{
 
 struct GetPetDetailResponseDto : Codable{
     let pet_id : String
-    let pet_type : String? 
+    let pet_type : String
     let pet_breed : String?
     let pet_image: String
     let pet_weight : Double?

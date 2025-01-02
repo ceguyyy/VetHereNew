@@ -16,3 +16,5 @@ struct BookChooseScheduleRequestDto : Encodable {
 struct BookChooseScheduleResponseDTO: Decodable {
     let date: String
 }
+
+
