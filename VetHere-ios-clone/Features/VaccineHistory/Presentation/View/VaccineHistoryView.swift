@@ -29,8 +29,14 @@ struct VaccineHistoryView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     if vaccine.vaccine_history_details.isEmpty {
+<<<<<<< HEAD:VetHere-ios-clone/Features/VaccineHistory/Presentation/View/VaccineHistoryView.swift
                         VStack {
                             Text("Tidak ada rekam vaksin yang tersedia.")
+=======
+                        
+                        VStack {
+                            Text("No vaccine details available.")
+>>>>>>> NewDev:VetHere-ios-clone/Features/VaccineHistory/Presentation/View/View/VaccineHistoryView.swift
                                 .font(.body)
                                 .foregroundColor(.secondary)
                                 .padding()
@@ -39,10 +45,15 @@ struct VaccineHistoryView: View {
                         ForEach(vaccine.vaccine_history_details, id: \.vaccine_history_detail_id) { detail in
                             VStack(alignment: .leading, spacing: 16) {
                                 HStack {
+<<<<<<< HEAD:VetHere-ios-clone/Features/VaccineHistory/Presentation/View/VaccineHistoryView.swift
                                     Spacer()
                                     Text("\(detail.createdAt.formatted(.dateTime.year().month().day()))")
                                         .font(.largeTitle)
                                         .bold()
+=======
+                                    Text("\(detail.createdAt.formatted(.dateTime.year().month().day()))")
+                                        .font(.headline)
+>>>>>>> NewDev:VetHere-ios-clone/Features/VaccineHistory/Presentation/View/View/VaccineHistoryView.swift
                                         .foregroundColor(.primary)
                                         .padding()
                                     Spacer()
@@ -59,6 +70,7 @@ struct VaccineHistoryView: View {
                                 }
                                 
                                 Divider()
+<<<<<<< HEAD:VetHere-ios-clone/Features/VaccineHistory/Presentation/View/VaccineHistoryView.swift
                                 
                                 VStack(alignment: .leading) {
                                     Text("Nama Vaksin")
@@ -74,11 +86,27 @@ struct VaccineHistoryView: View {
                                 .padding(.horizontal, 20)
           
                               
+=======
+
+
+                                Text("Nama Vaksin")
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                
+                                Text("\(detail.vaccine_name)")
+                                    .font(.body)
+                                    .foregroundColor(.secondary)
+                                    .lineLimit(nil)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                
+                                Spacer()
+>>>>>>> NewDev:VetHere-ios-clone/Features/VaccineHistory/Presentation/View/View/VaccineHistoryView.swift
                             }
                         }
                     }
                 }
                 .padding()
+<<<<<<< HEAD:VetHere-ios-clone/Features/VaccineHistory/Presentation/View/VaccineHistoryView.swift
                 .navigationTitle("Riwayat Vaksin")
                 .navigationBarTitleDisplayMode(.inline)
                 .cornerRadius(10)
@@ -109,5 +137,13 @@ struct VaccineHistoryView_Previews: PreviewProvider {
             petName: "Buddy",
             vaccine: mockVaccineHistory
         )
+=======
+                .navigationTitle("Vaksin")
+                .navigationBarTitleDisplayMode(.inline)
+                .cornerRadius(10)
+                .background(Color(UIColor.systemGroupedBackground))
+            }
+        }
+>>>>>>> NewDev:VetHere-ios-clone/Features/VaccineHistory/Presentation/View/View/VaccineHistoryView.swift
     }
 }

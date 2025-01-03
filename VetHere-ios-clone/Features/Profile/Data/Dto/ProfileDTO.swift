@@ -41,3 +41,15 @@ struct UpdateProfileRequestDto: Encodable{
     
 }
 
+
+struct UpdateProfileResponseDto : Decodable{
+
+}
+
+struct UpdateProfileRequestDto: Codable{
+    let first_name : String?
+    let last_name : String?
+    let image : Data?
+    
+}
+
