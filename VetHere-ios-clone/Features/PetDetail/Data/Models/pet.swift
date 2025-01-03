@@ -10,10 +10,10 @@ import Foundation
 class pet{
     let pet_id: UUID
     let pet_type: String
-    let pet_breed: String
+    let pet_breed: String?
     let pet_image: String
     let pet_name: String
-    let pet_color: String
+    let pet_color: String?
     let pet_dob: String
     let pet_weight: Double
     let medical_record: [medical_records]?

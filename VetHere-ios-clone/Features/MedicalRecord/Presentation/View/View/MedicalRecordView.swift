@@ -27,78 +27,85 @@ struct MedicalRecordView: View {
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    
-                    ForEach(medicalRecord.medicalRecordDetails, id: \.medicalRecordId) { detail in
-                        VStack(alignment: .leading, spacing: 20) {
-                            HStack {
-                                Text("\(detail.createdAt.formatted(.dateTime.year().month().day()))")
-                                    .font(.headline)
-                                    .foregroundColor(.primary)
-                                    .padding()
-                                Spacer()
-                            }
-                            
-                            Divider()
-                            
-                            VStack(alignment: .leading, spacing: 8) {
-                                BookSummaryInfoRowComponent(label: "Nama Klinik", value: vetName)
-                                    .padding(.horizontal, 20)
-                                
-                                BookSummaryInfoRowComponent(label: "Nama Dokter", value: doctorName)
-                                    .padding(.horizontal, 20)
-                            }
-                            
-                            Divider()
-                            
-                            VStack(alignment: .leading) {
-                                Text("Diagnosa")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                
-                                Text("\(detail.diagnosis)")
-                                    .font(.body)
-                                    .foregroundColor(.secondary)
-                                    .lineLimit(nil)
-                                    .fixedSize(horizontal: false, vertical: true)
-                            }
-                            .padding(.horizontal, 20)
-                            
-                            Divider()
-                            
-                            VStack(alignment: .leading) {
-                                Text("Tindakan")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                
-                                Text("\(detail.treatment)")
-                                    .font(.body)
-                                    .foregroundColor(.secondary)
-                                    .lineLimit(nil)
-                                    .fixedSize(horizontal: false, vertical: true)
-                            }
-                            .padding(.horizontal, 20)
-                            
-                            Spacer()
-                        }
-                    }
                     if medicalRecord.medicalRecordDetails.isEmpty {
                         VStack {
-                            Text("No medical record details available.")
+                            Text("Tidak ada rekam medis yang tersedia.")
                                 .font(.body)
                                 .foregroundColor(.secondary)
                                 .padding()
                         }
+                    } else {
+                        ForEach(medicalRecord.medicalRecordDetails, id: \.medicalRecordId) { detail in
+                            VStack(alignment: .leading, spacing: 20) {
+                                HStack {
+                                    Spacer()
+                                    Text("\(detail.createdAt.formatted(.dateTime.year().month().day()))")
+                                        .font(.largeTitle)
+                                        .bold()
+                                        .foregroundColor(.primary)
+                                        .padding()
+                                    Spacer()
+                                }
+                                
+                                Divider()
+                                
+                                VStack(alignment: .leading, spacing: 8) {
+                                    BookSummaryInfoRowComponent(label: "Nama Klinik", value: vetName)
+                                        .padding(.horizontal, 20)
+                                    
+                                    BookSummaryInfoRowComponent(label: "Nama Dokter", value: doctorName)
+                                        .padding(.horizontal, 20)
+                                }
+                                
+                                Divider()
+                                
+                                VStack(alignment: .leading) {
+                                    Text("Diagnosa")
+                                        .font(.title2)
+                                        .fontWeight(.bold)
+                                    
+                                    Text("\(detail.diagnosis)")
+                                        .font(.body)
+                                        .foregroundColor(.secondary)
+                                        .lineLimit(nil)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                }
+                                .padding(.horizontal, 20)
+                                
+                                Divider()
+                                
+                                VStack(alignment: .leading) {
+                                    Text("Tindakan")
+                                        .font(.title2)
+                                        .fontWeight(.bold)
+                                    
+                                    Text("\(detail.treatment)")
+                                        .font(.body)
+                                        .foregroundColor(.secondary)
+                                        .lineLimit(nil)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                }
+                                .padding(.horizontal, 20)
+                                
+                                Spacer()
+                            }
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(10)
+                           
+                        }
                     }
                 }
                 .cornerRadius(10)
-                .background(Color(UIColor.systemGroupedBackground))
                 .padding()
-                .navigationTitle("Medical Record")
+                .navigationTitle("Riwayat Rekam Medis")
                 .navigationBarTitleDisplayMode(.inline)
             }
+            .background(Color(UIColor.systemGroupedBackground))
         }
     }
 }
+
 
 #Preview {
     @Previewable

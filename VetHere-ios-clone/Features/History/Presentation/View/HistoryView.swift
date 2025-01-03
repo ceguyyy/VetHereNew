@@ -29,21 +29,35 @@ struct HistoryView: View {
                                 HStack {
                                     ImageView(imageURL: Constant.ErrorImage, width: 50, height: 50)
                                         .clipShape(Circle())
+                                    
+                                    HStack{
+                                        VStack(alignment: .leading) {
+                                            Text(history.vet_name)
+                                                .font(.body)
+                                            Text(history.doctor_name)
+                                                .font(.caption)
+                                                .foregroundColor(.secondary)
+                                            
 
-                                    VStack(alignment: .leading) {
-                                        Text(history.vet_name)
-                                            .font(.body)
-                                        Text(history.doctor_name)
+                                        }
+                                        Spacer()
+                                        Text(history.appointment_status)
                                             .font(.caption)
-                                            .foregroundColor(.secondary)
+                                            .foregroundColor(.white)
+                                            .padding(.horizontal, 8)
+                                            .padding(.vertical, 4)
+                                            .background(viewModel.statusColor(for: history.appointment_status))
+                                            .clipShape(Capsule())
                                     }
+
+                                 
                                     Spacer()
                                     Image(systemName: "chevron.right")
                                         .foregroundColor(.gray)
                                 }
                                 .padding(.vertical, 4)
                                 .onTapGesture {
-                                    viewModel.goToAction(.goToHistoryDetails(date: history.appointment_date, time: history.appointment_time, vetName: history.vet_name, doctorName: history.doctor_name, petName: history.pet_name, notes: history.appointment_notes))
+                                    viewModel.goToAction(.goToHistoryDetails(date: history.appointment_date, time: history.appointment_time, vetName: history.vet_name, doctorName: history.doctor_name, petName: history.pet_name, notes: history.appointment_notes, status: history.appointment_status))
                                 }
                             }
                         }

@@ -72,7 +72,8 @@ class MyPetViewModel: ObservableObject {
                 name: dto.pet_name,
                 type: dto.pet_type ?? "Unknown",
                 image: dto.pet_image ?? Constant.ErrorImage,
-                weight: 0, DOB: "",
+                weight: 0,
+                DOB: "",
                 breed: "",
                 color: "")
         }

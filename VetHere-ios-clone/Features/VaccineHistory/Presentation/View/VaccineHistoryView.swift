@@ -29,9 +29,14 @@ struct VaccineHistoryView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     if vaccine.vaccine_history_details.isEmpty {
+<<<<<<< HEAD:VetHere-ios-clone/Features/VaccineHistory/Presentation/View/VaccineHistoryView.swift
+                        VStack {
+                            Text("Tidak ada rekam vaksin yang tersedia.")
+=======
                         
                         VStack {
                             Text("No vaccine details available.")
+>>>>>>> NewDev:VetHere-ios-clone/Features/VaccineHistory/Presentation/View/View/VaccineHistoryView.swift
                                 .font(.body)
                                 .foregroundColor(.secondary)
                                 .padding()
@@ -40,8 +45,15 @@ struct VaccineHistoryView: View {
                         ForEach(vaccine.vaccine_history_details, id: \.vaccine_history_detail_id) { detail in
                             VStack(alignment: .leading, spacing: 16) {
                                 HStack {
+<<<<<<< HEAD:VetHere-ios-clone/Features/VaccineHistory/Presentation/View/VaccineHistoryView.swift
+                                    Spacer()
+                                    Text("\(detail.createdAt.formatted(.dateTime.year().month().day()))")
+                                        .font(.largeTitle)
+                                        .bold()
+=======
                                     Text("\(detail.createdAt.formatted(.dateTime.year().month().day()))")
                                         .font(.headline)
+>>>>>>> NewDev:VetHere-ios-clone/Features/VaccineHistory/Presentation/View/View/VaccineHistoryView.swift
                                         .foregroundColor(.primary)
                                         .padding()
                                     Spacer()
@@ -58,6 +70,23 @@ struct VaccineHistoryView: View {
                                 }
                                 
                                 Divider()
+<<<<<<< HEAD:VetHere-ios-clone/Features/VaccineHistory/Presentation/View/VaccineHistoryView.swift
+                                
+                                VStack(alignment: .leading) {
+                                    Text("Nama Vaksin")
+                                        .font(.title2)
+                                        .fontWeight(.bold)
+                                    
+                                    Text("\(detail.vaccine_name)")
+                                        .font(.body)
+                                        .foregroundColor(.secondary)
+                                        .lineLimit(nil)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                }
+                                .padding(.horizontal, 20)
+          
+                              
+=======
 
 
                                 Text("Nama Vaksin")
@@ -71,16 +100,50 @@ struct VaccineHistoryView: View {
                                     .fixedSize(horizontal: false, vertical: true)
                                 
                                 Spacer()
+>>>>>>> NewDev:VetHere-ios-clone/Features/VaccineHistory/Presentation/View/View/VaccineHistoryView.swift
                             }
                         }
                     }
                 }
                 .padding()
+<<<<<<< HEAD:VetHere-ios-clone/Features/VaccineHistory/Presentation/View/VaccineHistoryView.swift
+                .navigationTitle("Riwayat Vaksin")
+                .navigationBarTitleDisplayMode(.inline)
+                .cornerRadius(10)
+               
+            }
+        } .background(Color(UIColor.systemGroupedBackground))
+    }
+}
+
+struct VaccineHistoryView_Previews: PreviewProvider {
+    static var previews: some View {
+        let mockDetails = [
+            vaccine_history_details(
+                vaccine_history_detail_id: UUID(),
+                vet_name: "he",
+                vaccine_name: "hello",
+                createdAt: Date(),
+                updatedAt: Date()),
+          
+        ]
+        
+        let mockVaccineHistory = vaccine_history(vaccine_history_id: UUID(), vaccine_history_details: mockDetails)
+        
+        VaccineHistoryView(
+            AppCoordinator(),
+            vetName: "Sunrise Veterinary Clinic",
+            doctorName: "Dr. Jane Doe",
+            petName: "Buddy",
+            vaccine: mockVaccineHistory
+        )
+=======
                 .navigationTitle("Vaksin")
                 .navigationBarTitleDisplayMode(.inline)
                 .cornerRadius(10)
                 .background(Color(UIColor.systemGroupedBackground))
             }
         }
+>>>>>>> NewDev:VetHere-ios-clone/Features/VaccineHistory/Presentation/View/View/VaccineHistoryView.swift
     }
 }

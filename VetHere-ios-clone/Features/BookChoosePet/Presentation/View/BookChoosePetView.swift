@@ -33,12 +33,13 @@ struct BookChoosePetView: View {
                 LoadingView()
             }
              else if viewModel.transformDTOtoPet().isEmpty {
+                 Spacer()
                 NoFoundView()
                 Spacer()
             } else {
                 List {
                     let pets = viewModel.transformDTOtoPet()
-                    Section(header: Text("PELIHARAAN SAYA").font(.subheadline).foregroundColor(.secondary)) {
+                    Section(header: Text("Peliharaan Saya ").font(.subheadline).foregroundColor(.secondary)) {
                         ForEach(pets, id: \.id) { pet in
                             HStack {
                                 ImageView(imageURL: pet.image, width: 40, height: 40).clipShape(Circle())

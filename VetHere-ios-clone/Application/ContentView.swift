@@ -36,6 +36,7 @@ struct ContentView: View {
                 .tag(ApplicationTab.History)
         }
         .navigationBarBackButtonHidden()
+        .environment(\.colorScheme, .light)
     }
 }
 

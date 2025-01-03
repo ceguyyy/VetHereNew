@@ -55,7 +55,7 @@ class NearestVetViewModel: ObservableObject {
                 vet_closeHour: Double(dto.vet.vet_close_hour) ?? 0.0,
                 vet_image: dto.vet.vet_image,
                 vet_range: dto.vet_distance,
-                vet_address: "",
+                vet_address: dto.vet.vet_address,
                 createdAt: Date(),
                 updatedAt: Date(),
                 vet_distance: dto.vet_distance
@@ -102,7 +102,7 @@ class NearestVetViewModel: ObservableObject {
                         vet = vets
                         print("Successfully fetched veterinarians: \(vets)")
                     } else {
-                        self.errorMessage = "No veterinarians found in your area."
+                        self.errorMessage = "Tidak ada Vet terdekat yang berada di area Anda"
                         print("No data available")
                     }
                 case .failure(let error):

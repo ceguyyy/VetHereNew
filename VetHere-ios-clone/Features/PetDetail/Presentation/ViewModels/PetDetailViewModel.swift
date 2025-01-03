@@ -87,11 +87,11 @@ class PetDetailViewModel: ObservableObject {
             pet_id: UUID(uuidString: dto.pet_id) ?? UUID(),
             pet_type: dto.pet_type ?? "Unknown",
             pet_breed: dto.pet_breed ?? "Unknown",
-            pet_image: dto.pet_image ?? Constant.ErrorImage,
+            pet_image: dto.pet_image,
             pet_name: dto.pet_name,
             pet_color: dto.pet_color ?? "Unknown",
-            pet_dob: dto.pet_dob ?? "Unknown",
-            pet_weight: dto.pet_weight ?? 0,
+            pet_dob: dto.pet_dob,
+            pet_weight: dto.pet_weight ?? 0 ,
             medical_record: medicalRecords,
             vaccine_histories: vaccineHistories
         )

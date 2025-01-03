@@ -23,4 +23,18 @@ internal struct NewPetService {
             file: file
         )
     }
+    
+    static func getPetType(
+        params: GetPetTypeRequestDTO
+    ) -> APIService {
+        let path = "/pet-type"
+        return APIService(
+            method: .GET,
+            path: path,
+            headers: nil,
+            params: params.toDictionary()
+        )
+    }
+
+    
 }

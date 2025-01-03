@@ -5,12 +5,10 @@
 //  Created by Christian Gunawan on 26/12/24.
 //
 
-
 import SwiftUI
 
 struct EditProfileView: View {
     @State private var selectedUIImage: UIImage? = nil
-    @State private var userName: String = ""
     @State private var firstName: String = ""
     @State private var lastName: String = ""
     @State private var showImageSourceActionSheet: Bool = false
@@ -32,7 +30,6 @@ struct EditProfileView: View {
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 128, height: 128)
-                                    .clipShape(Circle())
                                     .onTapGesture {
                                         showImageSourceActionSheet = true
                                     }
@@ -46,8 +43,9 @@ struct EditProfileView: View {
                                         .onTapGesture {
                                             showImageSourceActionSheet = true
                                         }
-                                    
-                                    Text("Tap to add an image")
+                                        .clipShape(Circle())
+
+                                    Text("Ketuk Untuk Menambahkan Foto")
                                         .font(.footnote)
                                         .foregroundColor(.gray)
                                 }
@@ -56,28 +54,25 @@ struct EditProfileView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding()
                     }
-                    
-                    Section(header: Text("Information")) {
-                        TextField("First Name", text: $firstName)
-                        TextField("Last Name", text: $lastName)
+
+                    Section(header: Text("Informasi")) {
+                        TextField("Nama Depan", text: $firstName)
+                        TextField("Nama Belakang", text: $lastName)
                     }
                 }
                 .listStyle(InsetGroupedListStyle())
-                
+
                 Spacer()
-                
+
                 Button(action: {
-                    if let image = selectedUIImage,
-                       let imageData = image.jpegData(compressionQuality: 0.8) {
-                        viewModel.UpdateProfile(firstName: firstName, lastName: lastName, profileImage: imageData)
-                    } else {
-                        viewModel.UpdateProfile(firstName: firstName, lastName: lastName, profileImage: Data())
-                    }
+        
+         
+                    viewModel.validateAndSavePet(firstName: firstName, lastName: lastName, image: selectedUIImage)
                 }) {
                     if viewModel.isSaving {
                         ProgressView()
                     } else {
-                        Text("Save")
+                        Text("Simpan")
                             .fontWeight(.bold)
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -89,7 +84,7 @@ struct EditProfileView: View {
                 .padding()
                 .disabled(viewModel.isSaving)
             }
-            .navigationBarTitle("Update Profile", displayMode: .inline)
+            .navigationBarTitle("Pembaruan Profile", displayMode: .inline)
             .sheet(isPresented: $viewModel.showImagePicker) {
                 ImagePicker(image: $selectedUIImage, sourceType: viewModel.imagePickerSource)
             }
@@ -111,10 +106,9 @@ struct EditProfileView: View {
     }
 }
 
+
 #Preview {
-    @Previewable
-    @StateObject var appCoordinator = AppCoordinator()
-    NavigationStack(path: $appCoordinator.path) {
-        EditProfileView(appCoordinator)
+    NavigationStack {
+        EditProfileView(AppCoordinator())
     }
 }

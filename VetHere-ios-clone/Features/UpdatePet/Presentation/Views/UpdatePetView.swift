@@ -16,11 +16,11 @@ struct UpdatePetView: View {
     @State private var petBreed: String = ""
     @State private var petColor: String = ""
     @State private var showImageSourceActionSheet: Bool = false
+    @State private var selectedPetTypeID: String = ""
     
     let petId: UUID
     
-    @State private var petType: String = "Anjing"
-    let petTypes = ["Anjing", "Kucing", "Eksotis", "Hamster", "Lainnya"]
+    
     
     @StateObject var viewModel: UpdatePetViewModel
     
@@ -40,7 +40,7 @@ struct UpdatePetView: View {
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 128, height: 128)
-                                    .clipShape(Circle())
+                                 
                                     .onTapGesture {
                                         showImageSourceActionSheet = true
                                     }
@@ -55,7 +55,7 @@ struct UpdatePetView: View {
                                             showImageSourceActionSheet = true
                                         }
 
-                                    Text("Sentuh untuk menambahkan gambar")
+                                    Text("Ketuk untuk menambahkan Foto")
                                         .font(.footnote)
                                         .foregroundColor(.gray)
                                 }
@@ -69,29 +69,45 @@ struct UpdatePetView: View {
                         TextField("Nama Hewan", text: $petName)
                         TextField("Berat Hewan (kg)", text: $petWeight)
                             .keyboardType(.decimalPad)
-                        Picker("Tipe Hewan", selection: $petType) {
-                            ForEach(petTypes, id: \.self) { type in
-                                Text(type).tag(type)
+                        if viewModel.transformDTOToPetType().isEmpty {
+                            ErrorView(message: "Server Error")
+                        }else
+                        {
+                            let petTypeData = viewModel.transformDTOToPetType()
+                            Picker("Jenis Hewan", selection: $selectedPetTypeID) {
+                                
+                                ForEach(viewModel.transformDTOToPetType(), id: \.id) { type in
+                                    Text(type.name).tag(type.id)
+                                }
                             }
+                            .pickerStyle(MenuPickerStyle())
                         }
                         DatePicker("Tanggal Lahir", selection: $petDOB, displayedComponents: .date)
                     }
+                    .onAppear {
+                      viewModel.getPetType()
+                      if let firstPetType = viewModel.petTypes.first {
+                          selectedPetTypeID = firstPetType.pet_type_id
+                      }
+                  }
+                  
 
                     Section(header: Text("Informasi Tambahan")) {
                         TextField("Keturunan (Optional)", text: $petBreed)
                         TextField("Warna (Optional)", text: $petColor)
                     }
                 }
+              
                 .listStyle(InsetGroupedListStyle())
-
+             
                 Spacer()
 
                 Button(action: {
                     let formattedDOB = formattedDateYYYYMMDD(petDOB)
-                    viewModel.validateAndSavePet(
+                        viewModel.validateAndSavePet(
                         petName: petName,
                         petWeight: petWeight,
-                        petType: petType,
+                        petType: selectedPetTypeID,
                         petDOB: formattedDOB,
                         petBreed: petBreed,
                         petColor: petColor,
@@ -103,7 +119,7 @@ struct UpdatePetView: View {
                     if viewModel.isSaving {
                         ProgressView()
                     } else {
-                        Text("Save Pet")
+                        Text("Simpan Hewan")
                             .fontWeight(.bold)
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -115,7 +131,7 @@ struct UpdatePetView: View {
                 .padding()
                 .disabled(viewModel.isSaving)
             }
-            .navigationBarTitle("Update Hewan Baru", displayMode: .inline)
+         
             .sheet(isPresented: $viewModel.showImagePicker) {
                 ImagePicker(image: $selectedUIImage, sourceType: viewModel.imagePickerSource)
             }
@@ -135,6 +151,15 @@ struct UpdatePetView: View {
             }
             
         }
+        .refreshable {
+            viewModel.getPetType()
+            
+        }
+        .onAppear {
+            viewModel.getPetType()
+        }
+       
+        .navigationBarTitle("Pembaruan Hewan Baru", displayMode: .inline)
     }
 }
 

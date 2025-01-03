@@ -22,8 +22,9 @@ struct VetHere_ios_cloneApp: App {
                     .navigationDestination(for: Screen.self) { screen in
                         appCoordinator.build(screen)
                     }
-            }
+            }    .environment(\.colorScheme, .light)
         }
+    
         .onChange(of: isVerified) {
             if !isVerified {
                 appCoordinator.popToRoot()

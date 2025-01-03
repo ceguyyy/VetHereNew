@@ -15,6 +15,29 @@ struct GetProfileResponseDto : Decodable{
 }
 
 struct GetProfileRequestDto: Codable{
+}
+
+struct UpdateProfileResponseDto : Decodable{
+}
+
+struct UpdateProfileRequestDto: Encodable{
+    let first_name : String?
+    let last_name : String?
+    let image : Data?
+    
+    func toDictionary() -> [String: Any] {
+        var dict: [String: Any] = [:]
+        if let first_name = first_name {
+            dict["first_name"] = first_name
+        }
+        if let last_name = last_name {
+            dict["last_name"] = last_name
+        }
+        if let image = image {
+            dict["image"] = image
+        }
+        return dict
+    }
     
 }
 

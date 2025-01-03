@@ -33,7 +33,6 @@ internal struct ProfileService {
             params: params.toDictionary(),
             parameterEncoding: .multiformdata,
             file: file
-            
         )
     }
     

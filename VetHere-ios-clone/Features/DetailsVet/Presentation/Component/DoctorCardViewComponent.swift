@@ -16,7 +16,7 @@ struct DoctorCardViewComponent: View {
         if doctor.doctor_name == "NoDoctor"{
             HStack(){
                 Spacer()
-                Text("No Doctor Available").foregroundColor(.gray).font(.caption)
+                Text("Tidak Ada Doctor Yang Tersedia").foregroundColor(.gray).font(.caption)
                 Spacer()
             }
           
