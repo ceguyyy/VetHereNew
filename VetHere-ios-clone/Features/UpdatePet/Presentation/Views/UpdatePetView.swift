@@ -55,7 +55,7 @@ struct UpdatePetView: View {
                                             showImageSourceActionSheet = true
                                         }
 
-                                    Text("Ketuk untuk menambahkan gambar")
+                                    Text("Ketuk untuk menambahkan Foto")
                                         .font(.footnote)
                                         .foregroundColor(.gray)
                                 }

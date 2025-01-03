@@ -30,7 +30,7 @@ struct VaccineHistoryView: View {
                 VStack(alignment: .leading, spacing: 20) {
                     if vaccine.vaccine_history_details.isEmpty {
                         VStack {
-                            Text("No vaccine details available.")
+                            Text("Tidak ada rekam vaksin yang tersedia.")
                                 .font(.body)
                                 .foregroundColor(.secondary)
                                 .padding()

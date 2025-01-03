@@ -10,7 +10,7 @@ import SwiftUI
 struct NoFoundView: View {
     var body: some View {
         VStack{
-            Text("Empty")
+            Text("Tidak Tersedia")
                 .foregroundColor(.gray)
                 .padding()
         }

@@ -45,7 +45,7 @@ struct EditProfileView: View {
                                         }
                                         .clipShape(Circle())
 
-                                    Text("Tap to add an image")
+                                    Text("Ketuk Untuk Menambahkan Foto")
                                         .font(.footnote)
                                         .foregroundColor(.gray)
                                 }
@@ -55,9 +55,9 @@ struct EditProfileView: View {
                         .padding()
                     }
 
-                    Section(header: Text("Information")) {
-                        TextField("First Name", text: $firstName)
-                        TextField("Last Name", text: $lastName)
+                    Section(header: Text("Informasi")) {
+                        TextField("Nama Depan", text: $firstName)
+                        TextField("Nama Belakang", text: $lastName)
                     }
                 }
                 .listStyle(InsetGroupedListStyle())
@@ -65,15 +65,14 @@ struct EditProfileView: View {
                 Spacer()
 
                 Button(action: {
-                  
-                    print("ini fecthing update?")
+        
          
                     viewModel.validateAndSavePet(firstName: firstName, lastName: lastName, image: selectedUIImage)
                 }) {
                     if viewModel.isSaving {
                         ProgressView()
                     } else {
-                        Text("Save")
+                        Text("Simpan")
                             .fontWeight(.bold)
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -85,7 +84,7 @@ struct EditProfileView: View {
                 .padding()
                 .disabled(viewModel.isSaving)
             }
-            .navigationBarTitle("Update Profile", displayMode: .inline)
+            .navigationBarTitle("Pembaruan Profile", displayMode: .inline)
             .sheet(isPresented: $viewModel.showImagePicker) {
                 ImagePicker(image: $selectedUIImage, sourceType: viewModel.imagePickerSource)
             }

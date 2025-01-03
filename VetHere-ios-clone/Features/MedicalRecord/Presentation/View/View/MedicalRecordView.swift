@@ -29,7 +29,7 @@ struct MedicalRecordView: View {
                 VStack(alignment: .leading, spacing: 20) {
                     if medicalRecord.medicalRecordDetails.isEmpty {
                         VStack {
-                            Text("No medical record details available.")
+                            Text("Tidak ada rekam medis yang tersedia.")
                                 .font(.body)
                                 .foregroundColor(.secondary)
                                 .padding()

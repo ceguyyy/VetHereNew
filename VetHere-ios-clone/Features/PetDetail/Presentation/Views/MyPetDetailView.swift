@@ -82,7 +82,7 @@ struct MyPetDetailView: View {
                                     ForEach(medicalRecords, id: \.medicalRecordId) { record in
                                         HStack {
                                             VStack(alignment: .leading) {
-                                                Text(record.medicalRecordDetails.first?.diagnosis ?? "No Diagnosis")
+                                                Text(record.medicalRecordDetails.first?.diagnosis ?? "Tidak Ada Diagnosis")
                                                     .font(.headline)
                                                 Text(formattedDateYYYYMMDD(record.medicalRecordDetails.first?.createdAt ?? Date()))
                                                     .font(.subheadline)
@@ -94,7 +94,7 @@ struct MyPetDetailView: View {
                                         .padding(.vertical, 4)
                                     }
                                 } else {
-                                    Text("No medical records available")
+                                    Text("Tidak ada Rekam Medis Yang Tersedia")
                                         .font(.subheadline)
                                         .foregroundColor(.gray)
                                 }
@@ -106,7 +106,7 @@ struct MyPetDetailView: View {
                                     ForEach(vaccineHistories, id: \.vaccine_history_id) { record in
                                         HStack {
                                             VStack(alignment: .leading) {
-                                                Text(record.vaccine_history_details.first?.vaccine_name ?? "No vaksin")
+                                                Text(record.vaccine_history_details.first?.vaccine_name ?? "Tidak Ada Vaksin yang Tersedia")
                                                     .font(.headline)
                                                 Text(formattedDateYYYYMMDD(record.vaccine_history_details.first?.createdAt ?? Date()))
                                                     .font(.subheadline)
@@ -118,7 +118,7 @@ struct MyPetDetailView: View {
                                         .padding(.vertical, 4)
                                     }
                                 } else {
-                                    Text("No medical records available")
+                                    Text("Tidak ada Rekam Medis yang tersedia")
                                         .font(.subheadline)
                                         .foregroundColor(.gray)
                                 }
@@ -127,7 +127,7 @@ struct MyPetDetailView: View {
 
                     }
                 } else {
-                    Text("Pet details not available")
+                    Text("Tidak Tersedia")
                         .font(.title)
                         .padding()
                 }
