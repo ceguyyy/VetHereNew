@@ -25,4 +25,5 @@ struct VetDto: Decodable {
     let vet_open_hour: String
     let vet_close_hour: String
     let vet_image: String
+    let vet_address: String
 }

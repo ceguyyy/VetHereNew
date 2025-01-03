@@ -10,9 +10,22 @@
 		AC17D87F2CFEFEA70054073A /* VetHere-ios-clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VetHere-ios-clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F819CDAC2D288E3A0068E62E /* Exceptions for "VetHere-ios-clone" folder in "VetHere-ios-clone" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = AC17D87E2CFEFEA70054073A /* VetHere-ios-clone */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		AC17D8812CFEFEA70054073A /* VetHere-ios-clone */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F819CDAC2D288E3A0068E62E /* Exceptions for "VetHere-ios-clone" folder in "VetHere-ios-clone" target */,
+			);
 			path = "VetHere-ios-clone";
 			sourceTree = "<group>";
 		};
@@ -255,13 +268,13 @@
 				DEVELOPMENT_TEAM = FSN9NYGU93;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "VetHere-ios-clone/Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need camera access to allow you to take a photo.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location to show nearby veterinary clinics even when the app is in the background.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationUsageDescription = Yes;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need photo library access to let you choose a photo.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -290,13 +303,13 @@
 				DEVELOPMENT_TEAM = FSN9NYGU93;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "VetHere-ios-clone/Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need camera access to allow you to take a photo.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location to show nearby veterinary clinics even when the app is in the background.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationUsageDescription = Yes;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need photo library access to let you choose a photo.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

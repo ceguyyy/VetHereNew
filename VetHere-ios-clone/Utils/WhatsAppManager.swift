@@ -18,6 +18,7 @@ func openWhatsApp(phoneNumber: String, message: String) {
         let encodedMessage = message.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? message
         if let url = URL(string: "https://wa.me/\(phoneNumber)?text=\(encodedMessage)"), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
+            print(url)
         } else {
             print("Error: Unable to open WhatsApp.")
         }
