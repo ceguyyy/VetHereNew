@@ -21,7 +21,9 @@ struct MyPetView: View {
         if viewModel.isLoading {
           LoadingView()
         } else if viewModel.transformDTOtoPet().isEmpty {
+            Spacer()
           NoFoundView()
+            Spacer()
         } else {
           let pets = viewModel.transformDTOtoPet()
             List {

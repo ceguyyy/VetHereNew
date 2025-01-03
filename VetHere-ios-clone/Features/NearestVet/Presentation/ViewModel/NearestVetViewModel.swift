@@ -102,7 +102,7 @@ class NearestVetViewModel: ObservableObject {
                         vet = vets
                         print("Successfully fetched veterinarians: \(vets)")
                     } else {
-                        self.errorMessage = "No veterinarians found in your area."
+                        self.errorMessage = "Tidak ada Vet terdekat yang berada di area Anda"
                         print("No data available")
                     }
                 case .failure(let error):
