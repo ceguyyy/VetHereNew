@@ -30,8 +30,8 @@ class PetDetailViewModel: ObservableObject {
     }
     
     enum goAction{
-        case goToMedicalRecord(vetName : String,doctorName: String, petName: String, medicalrecord: medical_records)
-        case goToVaccineHistory(vetName : String,doctorName: String, petName: String, vaccine: vaccine_history)
+        case goToMedicalRecord(vetName : String,doctorName: String, petName: String, treament: String, diagnosis: String, createdAt: String)
+        case goToVaccineHistory(vetName : String,doctorName: String, petName: String, vaccineName: String, vaccineDate: String)
     }
 
     
@@ -45,11 +45,11 @@ class PetDetailViewModel: ObservableObject {
     
     func goToDetails(_ goAction:goAction){
         switch goAction{
-
-        case .goToMedicalRecord(vetName: let vetName, doctorName: let doctorName, petName: let petName, medicalrecord: let medicalRecord):
-            coordinator.push(.medicalRecord(vetName: vetName, doctorName: doctorName, petName: petName, medical_records: medicalRecord))
-        case .goToVaccineHistory(vetName: let vetName, doctorName: let doctorName, petName: let petName, vaccine: let vaccine):
-            coordinator.push(.vaccineHistory(vetName: vetName, doctorName: doctorName, petName: petName, vaccine: vaccine))
+        
+        case .goToVaccineHistory(vetName: let vetName, doctorName: let doctorName, petName: let petName, vaccineName: let vaccineName, vaccineDate: let vaccineDate):
+            coordinator.push(.vaccineHistory(vetName: vetName, doctorName: doctorName, petName: petName, vaccineName: vaccineName, vaccineDate: vaccineDate))
+        case .goToMedicalRecord(vetName: let vetName, doctorName: let doctorName, petName: let petName, treament: let treament, diagnosis: let diagnosis, createdAt: let createdAt):
+            coordinator.push(.medicalRecord(vetName: vetName, doctorName: doctorName, petName: petName, treatment: treament, createdAt: createdAt, diagnosis: diagnosis))
         }
     }
     
@@ -57,7 +57,8 @@ class PetDetailViewModel: ObservableObject {
         guard let dto = petsDetail else {
             return nil
         }
-        let medicalRecords: [medical_records] = dto.medical_record?.map { record in
+        
+        let medicalRecord = dto.medical_record.map { record in
             medical_records(
                 medicalRecordId: UUID(uuidString: record.medical_record_id) ?? UUID(),
                 medicalRecordDetails: record.medical_record_details.map { detail in
@@ -67,22 +68,26 @@ class PetDetailViewModel: ObservableObject {
                         diagnosis: detail.diagnosis,
                         treatment: detail.treatment,
                         createdAt: formattedDateToStringDDMMYYYY(detail.created_at) ?? Date(),
-                        updatedAt: Date()
-                    )
+                        updatedAt: Date())
+    
                 }
             )
-        } ?? []
-
-        let vaccineHistories: [vaccine_history] = dto.vaccine_histories?.map { history in
-            vaccine_history(vaccine_history_id: UUID(uuidString: history.vaccine_history_id) ?? UUID() ,
-                            vaccine_history_details: history.vaccine_histories_details.map { detail in vaccine_history_details(
-                                vaccine_history_detail_id: UUID(uuidString: detail.vaccine_history_detail_id) ?? UUID(),
-                                vet_name: detail.vet_name,
-                                vaccine_name: detail.vaccine_name,
-                                createdAt: formattedDateToStringDDMMYYYY(detail.created_at) ?? Date(),
-                                updatedAt: Date())})
-        } ?? []
-
+        }
+        
+        let vaccineHistories = dto.vaccine_histories.map { history in
+            vaccine_history(
+                vaccine_history_id: UUID(uuidString: history.vaccine_history_id) ?? UUID(),
+                vaccine_history_details: history.vaccine_history_details.map { detail in
+                    vaccine_history_details(
+                        vaccine_history_detail_id: UUID(uuidString: detail.vaccine_history_detail_id) ?? UUID(),
+                        vet_name: detail.vet_name,
+                        vaccine_name: detail.vaccine_name,
+                        createdAt: formattedDateToStringDDMMYYYY(detail.created_at) ?? Date(),
+                        updatedAt: Date())
+                }
+            )
+        }
+        
         return pet(
             pet_id: UUID(uuidString: dto.pet_id) ?? UUID(),
             pet_type: dto.pet_type ?? "Unknown",
@@ -91,11 +96,12 @@ class PetDetailViewModel: ObservableObject {
             pet_name: dto.pet_name,
             pet_color: dto.pet_color ?? "Unknown",
             pet_dob: dto.pet_dob,
-            pet_weight: dto.pet_weight ?? 0 ,
-            medical_record: medicalRecords,
+            pet_weight: dto.pet_weight ?? 0,
+            medical_record: medicalRecord,
             vaccine_histories: vaccineHistories
         )
     }
+
 
 
     

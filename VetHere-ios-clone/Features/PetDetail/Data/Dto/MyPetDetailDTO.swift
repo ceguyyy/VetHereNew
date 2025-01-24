@@ -21,6 +21,6 @@ struct GetPetDetailResponseDto : Codable{
     let pet_name:String
     let pet_color:String?
     let pet_dob:String
-    let medical_record : [MedicalHistorylResponseDto]?
-    let vaccine_histories : [VaccineHistorylResponseDto]?
+    let medical_record : MedicalHistorylResponseDto?
+    let vaccine_histories : VaccineHistorylResponseDto?
 }
