@@ -76,12 +76,13 @@ class AppCoordinator: AppCoordinatorProtocol {
             BookSuccessView(self)
         case .errorToDatabase:
             BookFailedView(self)
-        case .medicalRecord(let vetName, let doctorName, let petName, let medical_records):
-            MedicalRecordView(self, vetName: vetName, doctorName: doctorName, petName: petName, medicalRecord: medical_records)
+        case .medicalRecord(let vetName, let doctorName, let petName, let treatment, let createdAt, let diagnosis):
+        
+            MedicalRecordView(self, vetName: vetName, doctorName: doctorName, petName: petName, treatment: treatment, createdAt: createdAt, diagnosis: diagnosis)
         case .historyDetailView(let date, let time, let vetName, let doctorName, let petName, let notes, let status):
             HistoryDetailView(self, date: date, time: time, vetName: vetName, doctorName: doctorName, petName: petName, notes: notes, status: status)
-        case .vaccineHistory(vetName: let vetName, doctorName: let doctorName, petName: let petName, vaccine: let vaccine):
-            VaccineHistoryView(self, vetName: vetName, doctorName: doctorName, petName: petName, vaccine: vaccine)
+        case .vaccineHistory(vetName: let vetName, doctorName: let doctorName, petName: let petName, vaccineName: let vaccineName, vaccineDate: let vaccineDate):
+            VaccineHistoryView(self, vetName: vetName, doctorName: doctorName, petName: petName, vaccineName: vaccineName, vaccineDate:vaccineDate )
         case .updatePet(petId: let petId):
             UpdatePetView(self, petId: petId)
         case .editProfile:

@@ -9,7 +9,7 @@ import Foundation
 
 struct VaccineHistorylResponseDto : Codable{
     let vaccine_history_id : String
-    let vaccine_histories_details : [VaccineHistoryDetailResponseDto]
+    let vaccine_history_details : [VaccineHistoryDetailResponseDto]
  
 }
 
