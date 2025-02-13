@@ -10,36 +10,32 @@ import SwiftUI
 struct MedicalRecordView: View {
     @StateObject private var viewModel: MedicalRecordViewModel
     
-    let medicalRecord: medical_records
     let vetName: String
     let doctorName: String
     let petName: String
+    let treatment: String
+    let createdAt: String
+    let diagnosis: String
     
-    init(_ coordinator: any AppCoordinatorProtocol, vetName: String, doctorName: String, petName: String, medicalRecord: medical_records) {
+    
+    init(_ coordinator: any AppCoordinatorProtocol, vetName: String, doctorName: String, petName: String, treatment: String, createdAt:String, diagnosis: String) {
         self._viewModel = StateObject(wrappedValue: MedicalRecordViewModel(coordinator))
         self.vetName = vetName
         self.doctorName = doctorName
         self.petName = petName
-        self.medicalRecord = medicalRecord
+        self.treatment = treatment
+        self.createdAt = createdAt
+        self.diagnosis = diagnosis
     }
     
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    if medicalRecord.medicalRecordDetails.isEmpty {
-                        VStack {
-                            Text("Tidak ada rekam medis yang tersedia.")
-                                .font(.body)
-                                .foregroundColor(.secondary)
-                                .padding()
-                        }
-                    } else {
-                        ForEach(medicalRecord.medicalRecordDetails, id: \.medicalRecordId) { detail in
                             VStack(alignment: .leading, spacing: 20) {
                                 HStack {
                                     Spacer()
-                                    Text("\(detail.createdAt.formatted(.dateTime.year().month().day()))")
+                                    Text("\(createdAt)")
                                         .font(.largeTitle)
                                         .bold()
                                         .foregroundColor(.primary)
@@ -64,7 +60,7 @@ struct MedicalRecordView: View {
                                         .font(.title2)
                                         .fontWeight(.bold)
                                     
-                                    Text("\(detail.diagnosis)")
+                                    Text("\(diagnosis)")
                                         .font(.body)
                                         .foregroundColor(.secondary)
                                         .lineLimit(nil)
@@ -79,7 +75,7 @@ struct MedicalRecordView: View {
                                         .font(.title2)
                                         .fontWeight(.bold)
                                     
-                                    Text("\(detail.treatment)")
+                                    Text("\(treatment)")
                                         .font(.body)
                                         .foregroundColor(.secondary)
                                         .lineLimit(nil)
@@ -96,39 +92,12 @@ struct MedicalRecordView: View {
                         }
                     }
                 }
-                .cornerRadius(10)
-                .padding()
-                .navigationTitle("Riwayat Rekam Medis")
-                .navigationBarTitleDisplayMode(.inline)
+        .background(Color(UIColor.systemGroupedBackground))
+        .cornerRadius(10)
+        .navigationTitle("Riwayat Rekam Medis")
+        .navigationBarTitleDisplayMode(.inline)
             }
-            .background(Color(UIColor.systemGroupedBackground))
+           
         }
-    }
-}
 
 
-#Preview {
-    @Previewable
-    @StateObject var appCoordinator = AppCoordinator()
-    NavigationStack(path: $appCoordinator.path) {
-        MedicalRecordView(
-            appCoordinator,
-            vetName: "Klinik Indah",
-            doctorName: "Aji",
-            petName: "Arif",
-            medicalRecord: medical_records(
-                medicalRecordId: UUID(),
-                medicalRecordDetails: [
-                    medical_record_details(
-                        medicalRecordId: UUID(),
-                        vetName: "Klinik Indah",
-                        diagnosis: "Muntaber",
-                        treatment: "Minum Obat 3x sehari",
-                        createdAt: Date(),
-                        updatedAt: Date()
-                    )
-                ]
-            )
-        )
-    }
-}
