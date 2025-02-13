@@ -76,7 +76,7 @@ struct ProfileView: View {
             viewModel.getProfile()
         }
         .padding()
-        .navigationTitle("Profile")
+        .navigationTitle("Profil")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {

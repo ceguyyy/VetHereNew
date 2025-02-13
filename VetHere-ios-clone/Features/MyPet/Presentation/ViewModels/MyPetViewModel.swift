@@ -70,7 +70,7 @@ class MyPetViewModel: ObservableObject {
             dto in
             Pet(id: UUID(uuidString: dto.pet_id) ?? UUID(),
                 name: dto.pet_name,
-                type: dto.pet_type ?? "Unknown",
+                type: dto.pet_type ?? "Tidak Tersedia",
                 image: dto.pet_image ?? Constant.ErrorImage,
                 weight: 0,
                 DOB: "",

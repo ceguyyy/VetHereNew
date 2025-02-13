@@ -93,7 +93,8 @@ class NearestVetViewModel: ObservableObject {
                 print("Location user: \(latitude), \(longitude)")
                 self.isLoading = true
                 self.errorMessage = nil
-                let dto = NearestRequestDto(lattitude: latitude, longitude: longitude)
+                let dto = NearestRequestDto(latitude: latitude, longitude: longitude)
+                print(dto)
                 let service = VetService.NearestVet(params: dto)
                 let result = await networkManager.makeRequest(service, output: [NearestResponseDTO].self)
                 switch result {

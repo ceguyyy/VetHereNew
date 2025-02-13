@@ -27,7 +27,7 @@ struct MyPetView: View {
         } else {
           let pets = viewModel.transformDTOtoPet()
             List {
-              Section(header: Text("My Pets")) {
+              Section(header: Text("Peliharaan Saya")) {
                 ForEach(pets, id: \.id) { pet in
                   HStack {
                     ImageView(imageURL: pet.image, width: 50, height: 50)

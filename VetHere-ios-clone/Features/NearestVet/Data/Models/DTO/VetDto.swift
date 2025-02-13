@@ -8,7 +8,7 @@
 import Foundation
 
 struct NearestRequestDto : Encodable {
-    let lattitude: Double
+    let latitude: Double
     let longitude: Double
 }
 
