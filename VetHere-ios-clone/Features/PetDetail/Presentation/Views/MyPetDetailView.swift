@@ -41,22 +41,23 @@ struct MyPetDetailView: View {
                                 Image(systemName: "scalemass.fill")
                                     .foregroundColor(Color.black)
                                     .font(.system(size: 12))
-                                Text("\(pet.pet_weight ?? 0) kg")
-                                    .font(.system(size: 12))
+                                
+                                Text("\(pet.pet_weight, specifier: "%.1f") Kg").font(.system(size: 12))
+                           
                                 Text("•")
                                     .foregroundColor(.gray)
                                     .font(.system(size: 12))
                                 
                                 Image(systemName: "pawprint.circle.fill")
                                     .font(.system(size: 12))
-                                Text("\(pet.pet_type ?? "No Value")")
+                                Text("\(pet.pet_type)")
                                     .font(.system(size: 12))
                             }
                             
                             HStack {
                                 Image(systemName: "calendar")
                                     .font(.system(size: 12))
-                                Text("\(pet.pet_dob ?? "No Value")")
+                                Text("\(pet.pet_dob)")
                                     .font(.system(size: 12))
                                 Text("•")
                                     .foregroundColor(.gray)

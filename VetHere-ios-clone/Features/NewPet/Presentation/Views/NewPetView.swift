@@ -132,18 +132,18 @@ struct NewPetView: View {
                 .disabled(viewModel.isSaving)
             }
             
-            .navigationBarTitle("Add New Pet", displayMode: .inline)
+            .navigationBarTitle("Tambahkan Hewan Baru", displayMode: .inline)
             .sheet(isPresented: $viewModel.showImagePicker) {
                 ImagePicker(image: $selectedUIImage, sourceType: viewModel.imagePickerSource)
             }
             .actionSheet(isPresented: $showImageSourceActionSheet) {
                 ActionSheet(
-                    title: Text("Choose Image Source"),
+                    title: Text("Pilih Sumber Gambar"),
                     buttons: [
-                        .default(Text("Camera")) {
+                        .default(Text("Kamera")) {
                             viewModel.showImagePickerForCamera()
                         },
-                        .default(Text("Gallery")) {
+                        .default(Text("Galleri")) {
                             viewModel.showImagePickerForGallery()
                         },
                         .cancel()

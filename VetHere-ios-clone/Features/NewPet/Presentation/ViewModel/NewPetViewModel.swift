@@ -132,7 +132,7 @@ class NewPetViewModel: ObservableObject {
            petColor: String,
            petImage: UIImage?
        ) {
-           guard !petName.isEmpty, !petWeight.isEmpty, !petType.isEmpty else {
+           guard !petName.isEmpty, !petType.isEmpty else {
                errorMessage = "Please fill in all required fields."
                return
            }

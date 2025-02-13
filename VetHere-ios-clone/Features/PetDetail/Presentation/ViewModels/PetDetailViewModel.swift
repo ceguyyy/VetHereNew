@@ -85,11 +85,11 @@ class PetDetailViewModel: ObservableObject {
 
         return pet(
             pet_id: UUID(uuidString: dto.pet_id) ?? UUID(),
-            pet_type: dto.pet_type ?? "Unknown",
-            pet_breed: dto.pet_breed ?? "Unknown",
+            pet_type: dto.pet_type ?? "Tidak Tersedia",
+            pet_breed: dto.pet_breed ?? "Tidak Tersedia",
             pet_image: dto.pet_image,
             pet_name: dto.pet_name,
-            pet_color: dto.pet_color ?? "Unknown",
+            pet_color: dto.pet_color ?? "Tidak Tersedia",
             pet_dob: dto.pet_dob,
             pet_weight: dto.pet_weight ?? 0 ,
             medical_record: medicalRecords,

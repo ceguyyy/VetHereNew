@@ -40,6 +40,7 @@ struct VetDetailsView: View {
                                     .fontWeight(.bold)
                                     .padding(.horizontal)
                                 
+                                
                                 Text("\(vetDistance, specifier: "%.1f") Km")
                                     .font(.subheadline)
                                     .foregroundColor(.gray)
@@ -74,7 +75,7 @@ struct VetDetailsView: View {
                 }
             }
         }
-        .navigationBarTitle(viewmodel.vetDetail?.vet_name ?? "Unknown")
+        .navigationBarTitle(viewmodel.vetDetail?.vet_name ?? "Tidak Tersedia")
         .onAppear {
             viewmodel.onInput(.didFetchDetailVet(vetid: vetId), vetId: vetId)
             
