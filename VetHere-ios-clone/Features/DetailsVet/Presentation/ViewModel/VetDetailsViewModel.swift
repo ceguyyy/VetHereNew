@@ -117,7 +117,7 @@ class VetDetailsViewModel: ObservableObject {
                                 updatedAt: Date(),
                                 createdAt: Date()
                             )
-                        } ?? [facilities(facilities_id: UUID(), name: "NoFacilities",updatedAt: Date(),
+                        } ?? [facilities(facilities_id: UUID(), name: "Tidak Ada Fasilitas",updatedAt: Date(),
                                          createdAt: Date())]
                     )
                     loadingState = .loaded
