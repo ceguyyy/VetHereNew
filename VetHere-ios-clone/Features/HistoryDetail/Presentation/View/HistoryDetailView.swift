@@ -10,7 +10,7 @@ import SwiftUI
 
 struct HistoryDetailView: View {
     
-    let date: Date
+    let date: String
     let time: String
     let vetName: String
     let doctorName: String
@@ -23,7 +23,7 @@ struct HistoryDetailView: View {
     
     init(
         _ coordinator: any AppCoordinatorProtocol,
-        date: Date,
+        date: String,
         time: String,
         vetName: String,
         doctorName: String,
@@ -48,9 +48,10 @@ struct HistoryDetailView: View {
                     Spacer()
                     
                     VStack(alignment: .leading, spacing: 8) {
-                        
-                        BookSummaryInfoRowComponent(label: "Tanggal", value: (formattedDateYYYYMMDD(date))).padding(.horizontal,20)
-                        BookSummaryInfoRowComponent(label: "Waktu", value: extractTime(from: time) ?? time).padding(.horizontal,20)
+                        let splitDate = date.split(separator: "T")[0]
+                        BookSummaryInfoRowComponent(label: "Tanggal", value: String(splitDate)).padding(.horizontal,20)
+                        let splitTime = time.split(separator: "T")[1].prefix(5)
+                        BookSummaryInfoRowComponent(label: "Waktu", value: String(splitTime)).padding(.horizontal,20)
                         BookSummaryInfoRowComponent(label: "Status", value: status).padding(.horizontal,20)
                         
                     }
@@ -94,7 +95,7 @@ struct HistoryDetailView_Previews: PreviewProvider {
     static var previews: some View {
         HistoryDetailView(
             AppCoordinator(),
-            date: Date(),
+            date: "",
             time: "8:00 AM",
             vetName: "Klinik Lorem",
             doctorName: "Dokter Lorem",
