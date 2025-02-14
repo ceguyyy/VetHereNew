@@ -17,7 +17,7 @@ class HistoryViewModel: ObservableObject {
     
     
     enum goAction {
-        case goToHistoryDetails(date: Date, time: String, vetName: String, doctorName: String, petName:String, notes:String, status:String)
+        case goToHistoryDetails(date: String, time: String, vetName: String, doctorName: String, petName:String, notes:String, status:String)
         case goToProfile
     }
     
@@ -56,7 +56,7 @@ class HistoryViewModel: ObservableObject {
                             doctor_name: dto.doctor_name,
                             pet_name: dto.pet_name,
                             appointment_notes: dto.appointment_notes,
-                            appointment_date: formattedDateToStringDDMMYYYY(dto.appointment_date) ?? Date(),
+                            appointment_date: dto.appointment_date,
                             appointment_time: dto.appointment_time,
                             appointment_status: dto.appointment_status
                              )

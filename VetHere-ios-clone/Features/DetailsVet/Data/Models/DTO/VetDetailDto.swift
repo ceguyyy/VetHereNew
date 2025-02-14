@@ -36,6 +36,7 @@ struct DoctorDTO: Decodable {
     let doctor_name: String
     let doctor_rating: Int
     let specialization: SpecializationDTO
+    let doctor_image: String
 }
 
 struct SpecializationDTO: Decodable {
